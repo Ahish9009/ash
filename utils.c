@@ -14,7 +14,6 @@ char *user;
 char *home_path;
 char *path;
 
-
 char * strip(char *x) {
 
 	while (*x == ' ') x++;
@@ -37,12 +36,36 @@ bool is_empty(char *x) {
 	return 1;
 }
 
+bool open_quotes(char *inp) {
+
+	bool esc=0, in_sq=0, in_dq=0;
+	for (int i=0; inp[i] != 0; i++) {
+		if (!esc && inp[i] == '\'') in_sq=!in_sq;
+		if (!esc && inp[i] == '\"') in_dq=!in_dq;
+		if (esc || inp[i] == '\\') esc=!esc;
+	}
+	if (in_sq | in_dq) return 1;
+	return 0;
+}
+
+void get_input(char *inp) {
+	fgets(inp, MAX_INPUT_SIZE, stdin);
+	while (open_quotes(inp)) {
+		fprintf(stdout, "quote> ");
+		char *temp = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
+		fgets(temp, MAX_INPUT_SIZE-strlen(inp), stdin);
+		inp[strlen(inp)-1] = 0;
+		strcat(inp, temp);
+		free(temp);
+	}
+}
+
 void init() {
 
 	home_path = getenv("PWD");
 	user = getenv("USER");
-	shell_pid = getpid();
 	path = "~";
+	shell_pid = getpid();
 	
 }
 
@@ -53,7 +76,7 @@ void repl() {
 		fprintf(stdout, "%s", prompt);
 
 		char *inp = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
-		fgets(inp, MAX_INPUT_SIZE, stdin);
+		get_input(inp);
 
 		parse(inp);
 	}
