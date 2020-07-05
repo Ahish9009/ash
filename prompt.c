@@ -6,7 +6,7 @@ char * get_prompt() {
 	char * prompt = (char *) malloc (MAX_PROMPT_LEN*sizeof(char));
 
 	char *prefix = "[ash]";
-	sprintf(prompt, "%s %s@%s:%s $ ", prefix, user, user, path);
+		sprintf(prompt, YELLOW "%s" CLR_RST " %s@%s" BLUE ":%s" RED " $ " CLR_RST, prefix, user, user, path);
 
 	return prompt;
 }
