@@ -47,16 +47,3 @@ Commands_s * parse(char *inp) {
 
 	return commands;
 }
-
-/*int main() {*/
-	
-	/*char inp[] = "echo \"hello world\" ; ls  ; ls -l; ls -aR ";*/
-	/*char inp2[strlen(inp)+2];*/
-	/*strcpy(inp2, inp);*/
-	/*inp2[strlen(inp)] = ';';*/
-	/*inp2[strlen(inp)+1] = 0;*/
-	/*parse(inp2);*/
-
-	/*return 0;*/
-
-/*}*/
