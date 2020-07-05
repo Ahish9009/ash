@@ -8,13 +8,13 @@
 Commands_s * get_commands(Commands_s *commands, char *inp) {
 
 	bool in_sq=0, in_dq=0, esc=0;
-	int s=0; 
+	int s=0, len = strlen(inp); 
 	commands->cnt=0;
 
 	for (int i = 0; inp[i] != 0; i++) {
 		if (inp[i] == '\'') in_sq = !in_sq;
 		if (inp[i] == '\"') in_dq = !in_dq;
-		if (inp[i] == ';' && !(esc | in_dq | in_sq)) {
+		if (i == len-1 || (inp[i] == ';' && !(esc | in_dq | in_sq))) {
 
 			Cmd_s *new_cmd = (Cmd_s*) malloc (sizeof(Cmd_s));
 			new_cmd->full_cmd = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
@@ -25,7 +25,6 @@ Commands_s * get_commands(Commands_s *commands, char *inp) {
 
 			if (!is_empty(new_cmd->full_cmd)) {
 				commands->cmd_lst[commands->cnt++] = new_cmd;
-				fprintf(stderr, "here\n");
 			}
 
 			s=i+1;
@@ -42,15 +41,9 @@ Commands_s * get_commands(Commands_s *commands, char *inp) {
 
 Commands_s * parse(char *inp) {
 	
-	char inp2[strlen(inp)+2];
-	strcpy(inp2, inp);
-	inp2[strlen(inp)] = ';';
-	inp2[strlen(inp)+1] = 0;
-	
-
 	Commands_s *commands = (Commands_s*) malloc(sizeof(Commands_s));
 	commands->cmd_lst = (Cmd_s**) malloc (MAX_BUFFER_CMDS*sizeof(Cmd_s*));
-	commands = get_commands(commands, inp2);
+	commands = get_commands(commands, inp);
 
 	return commands;
 }
