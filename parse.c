@@ -5,6 +5,25 @@
 
 #include "utils.h"
 
+
+
+void tokenize(char *inp, int *n, char **argv, char *delim) {
+	
+	char *temp = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+	strcpy(temp, inp);
+	char *token = strtok(temp, delim);
+	*n = 0;
+	while (token != NULL) {
+		argv[(*n)++] = token;
+		token = strtok(NULL, delim);
+	}
+	fprintf(stderr, "%d\n", *n);
+	for (int i = 0; i < *n; i++) {
+		fprintf(stderr, "%s\n", argv[i]);
+	}
+	free(temp);
+}
+
 Commands_s * get_commands(Commands_s *commands, char *inp) {
 
 	bool in_sq=0, in_dq=0, esc=0;
@@ -13,17 +32,20 @@ Commands_s * get_commands(Commands_s *commands, char *inp) {
 
 	for (int i = 0; inp[i] != 0; i++) {
 		if (inp[i] == '\'') in_sq = !in_sq;
-		if (inp[i] == '\"') in_dq = !in_dq;
+		if (!in_sq && inp[i] == '\"') in_dq = !in_dq;
 		if (i == len-1 || (inp[i] == ';' && !(esc | in_dq | in_sq))) {
 
 			Cmd_s *new_cmd = (Cmd_s*) malloc (sizeof(Cmd_s));
+			new_cmd->argc = (int *) malloc (sizeof(int));
 			new_cmd->full_cmd = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+			new_cmd->argv = (char **) malloc (MAX_TOKENS*sizeof(char *));
 
 			strcpy(new_cmd->full_cmd, inp);
 			new_cmd->full_cmd[i]=0; new_cmd->full_cmd+=s;
 			new_cmd->full_cmd = strip(new_cmd->full_cmd);
 
 			if (!is_empty(new_cmd->full_cmd)) {
+				tokenize(new_cmd->full_cmd, new_cmd->argc, new_cmd->argv, " ");
 				commands->cmd_lst[commands->cnt++] = new_cmd;
 			}
 
@@ -31,11 +53,6 @@ Commands_s * get_commands(Commands_s *commands, char *inp) {
 		}
 		if (inp[i] == '\\') esc = !esc;
 	}
-	/*if (DEBUG) {*/
-		for (int i = 0; i < commands->cnt; i++) 
-			fprintf(stdout, "%s\n", commands->cmd_lst[i]->full_cmd);
-	/*}*/
-
 	return commands;
 }
 
@@ -44,6 +61,5 @@ Commands_s * parse(char *inp) {
 	Commands_s *commands = (Commands_s*) malloc(sizeof(Commands_s));
 	commands->cmd_lst = (Cmd_s**) malloc (MAX_BUFFER_CMDS*sizeof(Cmd_s*));
 	commands = get_commands(commands, inp);
-
 	return commands;
 }

@@ -41,7 +41,7 @@ bool open_quotes(char *inp) {
 	bool esc=0, in_sq=0, in_dq=0;
 	for (int i=0; inp[i] != 0; i++) {
 		if (!esc && inp[i] == '\'') in_sq=!in_sq;
-		if (!esc && inp[i] == '\"') in_dq=!in_dq;
+		if (!(esc | in_sq) && inp[i] == '\"') in_dq=!in_dq;
 		if (esc || inp[i] == '\\') esc=!esc;
 	}
 	if (in_sq | in_dq) return 1;
@@ -50,7 +50,7 @@ bool open_quotes(char *inp) {
 
 void get_input(char *inp) {
 	fgets(inp, MAX_INPUT_SIZE, stdin);
-	while (open_quotes(inp)) {
+	while (open_quotes(inp) && strlen(inp) < MAX_INPUT_SIZE) {
 		fprintf(stdout, "quote> ");
 		char *temp = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
 		fgets(temp, MAX_INPUT_SIZE-strlen(inp), stdin);
@@ -58,6 +58,7 @@ void get_input(char *inp) {
 		strcat(inp, temp);
 		free(temp);
 	}
+	fpurge(stdin);
 }
 
 void init() {
@@ -78,7 +79,14 @@ void repl() {
 		char *inp = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
 		get_input(inp);
 
-		parse(inp);
-	}
+		Commands_s * commands = parse(inp);
 
+		if (DEBUG) {
+			for (int i = 0; i < commands->cnt; i++) 
+				fprintf(stdout, "%s\n", commands->cmd_lst[i]->full_cmd);
+		}
+
+		free(commands);
+		free(inp);
+	}
 }

@@ -20,13 +20,12 @@
 
 typedef struct {
 	char *full_cmd;
-	int argc;
+	int *argc;
 	char **argv;
 } Cmd_s;
 typedef struct {
 	int cnt;
 	Cmd_s **cmd_lst;
-		
 } Commands_s;
 
 char *user;
