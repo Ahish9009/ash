@@ -1,4 +1,4 @@
-# ash
+# as̶h
 Custom shell in low level C
 
 ## Features
