@@ -34,7 +34,7 @@ int launch_process(Cmd_s cmd) {
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
-	restore_redirect(cmd);
+	unset_redirect(cmd);
 	return 1;
 }
 
@@ -85,5 +85,4 @@ void exec_piped(Commands_s *commands) {
 			launch_piped(*curr);
 		}
 	}
-
 }

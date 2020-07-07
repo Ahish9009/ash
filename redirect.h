@@ -5,6 +5,6 @@
 #define __REDIRECT_1
 
 void set_redirect(Cmd_s cmd);
-void restore_redirect(Cmd_s cmd);
+void unset_redirect(Cmd_s cmd);
 
 #endif
