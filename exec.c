@@ -30,6 +30,41 @@ int launch_process(char **args) {
 	return 1;
 }
 
+void launch_piped(Piped_s *curr) {
+
+	int _STDIN, _STDOUT;
+	_STDIN = dup(STDIN_FILENO);
+	_STDOUT = dup(STDOUT_FILENO);
+
+	int n = *curr->cnt;
+	int pipes[n-1][2];
+	for (int i = 0; i < n-1; i++) {
+		if (pipe(pipes[i])) { 
+			perror("ash");
+			return;
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		if (!i) {
+			dup2(pipes[i][1], STDOUT_FILENO);
+		}
+		else if (i == n-1) {
+			dup2(pipes[i-1][0], STDIN_FILENO);
+			dup2(_STDOUT, STDOUT_FILENO);
+		}
+		else {
+			dup2(pipes[i-1][0], STDIN_FILENO);
+			dup2(pipes[i][1], STDOUT_FILENO);
+		}
+
+		launch_process(curr->cmd_lst[i]->argv);
+		if (i != n-1) close(pipes[i][1]);
+		if (!i) close(pipes[i-1][0]);
+	}
+	
+	dup2(_STDIN, STDIN_FILENO);
+}
+
 void exec_piped(Commands_s *commands) {
 
 	for (int i = 0; i < *commands->cnt; i++) {
@@ -38,6 +73,9 @@ void exec_piped(Commands_s *commands) {
 		if (!*curr->cnt) return;
 		if (*curr->cnt == 1) {
 			launch_process(curr->cmd_lst[0]->argv);
+		}
+		else {
+			launch_piped(curr);
 		}
 	}
 

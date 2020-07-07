@@ -80,7 +80,6 @@ void repl() {
 
 		Commands_s * commands = parse(inp);
 
-
 		if (DEBUG) {
 			for (int i = 0; i < *commands->cnt; i++) {
 				fprintf(stderr, "full cmd: %s\n", commands->cmd_lst[i]->full_cmd);
