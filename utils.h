@@ -5,7 +5,7 @@
 #ifndef __UTILS_1
 #define __UTILS_1
 
-#define DEBUG 1
+#define DEBUG 0
 
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"

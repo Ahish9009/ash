@@ -8,6 +8,7 @@
 #include"prompt.h"
 #include"utils.h"
 #include"parse.h"
+#include"exec.h"
 
 pid_t shell_pid;
 char *user;
@@ -82,8 +83,16 @@ void repl() {
 		Commands_s * commands = parse(inp);
 
 		if (DEBUG) {
-			for (int i = 0; i < commands->cnt; i++) 
-				fprintf(stdout, "%s\n", commands->cmd_lst[i]->full_cmd);
+			for (int i = 0; i < commands->cnt; i++) {
+				fprintf(stderr, "full cmd: %s\n", commands->cmd_lst[i]->full_cmd);
+				for (int j = 0; j < *(commands->cmd_lst[i]->argc); j++) {
+					fprintf(stderr, "%s|\n",commands->cmd_lst[i]->argv[j]);
+				}
+			}
+		}
+
+		for (int i = 0; i < commands->cnt; i++) {
+			launch_process(commands->cmd_lst[i]->argv);
 		}
 
 		free(commands);
