@@ -3,6 +3,8 @@
 #include<stdio.h>
 #include<unistd.h>
 
+#include"utils.h"
+
 int launch_process(char **args) {
 	
 	pid_t pid, wpid;
@@ -28,3 +30,15 @@ int launch_process(char **args) {
 	return 1;
 }
 
+void exec_piped(Commands_s *commands) {
+
+	for (int i = 0; i < *commands->cnt; i++) {
+		
+		Piped_s *curr = commands->cmd_lst[i];
+		if (!*curr->cnt) return;
+		if (*curr->cnt == 1) {
+			launch_process(curr->cmd_lst[0]->argv);
+		}
+	}
+
+}
