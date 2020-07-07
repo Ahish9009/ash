@@ -5,14 +5,37 @@
 
 #include "utils.h"
 
-void tokenize(char *inp, int *n, char **argv, char *delim) {
+void tokenize(Cmd_s *new_cmd, char *delim) {
+
+	char *inp = new_cmd->full_cmd;
+	int *n = new_cmd->argc;
+	char **argv = new_cmd->argv;
 	
 	char *temp = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 	strcpy(temp, inp);
 	char *token = strtok(temp, delim);
 	*n = 0;
-	while (token != NULL) {
-		argv[(*n)++] = token;
+	int flag_out=0, flag_in=0;
+	while (token != 0) {
+		token = strip(token);
+
+		if (flag_out != 0) {
+			new_cmd->f_out = token;
+			if (flag_out == 2) new_cmd->a = 1;
+			flag_out = -1;
+		}
+		if (flag_in) {
+			new_cmd->f_in = token;
+			flag_in = -1;
+		}
+
+		if (!strcmp(token, ">")) flag_out = 1;
+		if (!strcmp(token, ">>")) flag_out = 2;
+		if (!strcmp(token, "<")) flag_in = 1;
+		
+		if (!flag_out && !flag_in) argv[(*n)++] = token;
+		if (flag_in == -1) flag_in = 0;
+		if (flag_out == -1) flag_out = 0;
 		token = strtok(NULL, delim);
 	}
 	argv[*n]=0;
@@ -44,6 +67,8 @@ Piped_s * get_piped_commands(Piped_s *piped_commands, char *inp) {
 			new_cmd->argc = (int *) malloc (sizeof(int));
 			new_cmd->full_cmd = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 			new_cmd->argv = (char **) malloc (MAX_TOKENS*sizeof(char *));
+			new_cmd->f_out = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+			new_cmd->f_in = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 
 			strcpy(new_cmd->full_cmd, inp);
 			if (i == len-1 && inp[i] != '|') {
@@ -54,7 +79,7 @@ Piped_s * get_piped_commands(Piped_s *piped_commands, char *inp) {
 			}
 			new_cmd->full_cmd = strip(new_cmd->full_cmd);
 
-			tokenize(new_cmd->full_cmd, new_cmd->argc, new_cmd->argv, " ");
+			tokenize(new_cmd, " ");
 			if (!is_empty(new_cmd->full_cmd)) {
 				piped_commands->cmd_lst[(*piped_commands->cnt)++] = new_cmd;
 			}

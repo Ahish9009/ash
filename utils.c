@@ -66,6 +66,8 @@ void init() {
 	user = getenv("USER");
 	path = "~";
 	shell_pid = getpid();
+	_STDIN = STDIN_FILENO;
+	_STDOUT = STDOUT_FILENO;
 	
 }
 

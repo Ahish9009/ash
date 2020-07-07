@@ -5,7 +5,7 @@
 #ifndef __UTILS_1
 #define __UTILS_1
 
-#define DEBUG 1
+#define DEBUG 0
 
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
@@ -19,6 +19,9 @@
 #define MAX_PROMPT_LEN  150
 
 typedef struct {
+	char *f_in;
+	char *f_out;
+	int a;
 	char *full_cmd;
 	int *argc;
 	char **argv;
@@ -36,6 +39,7 @@ typedef struct {
 char *user;
 char *home_path;
 char *path;
+int _STDIN, _STDOUT;
 
 void init();
 void repl();

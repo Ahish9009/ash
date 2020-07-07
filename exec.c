@@ -4,11 +4,18 @@
 #include<unistd.h>
 
 #include"utils.h"
+#include"redirect.h"
 
-int launch_process(char **args) {
+int launch_process(Cmd_s cmd) {
+
+	//set redirects
+	
+	set_redirect(cmd);
 	
 	pid_t pid, wpid;
 	int status;
+
+	char **args = cmd.argv;
 
 	pid = fork();
 	//child process
@@ -27,16 +34,16 @@ int launch_process(char **args) {
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
+	restore_redirect(cmd);
 	return 1;
 }
 
-void launch_piped(Piped_s *curr) {
+void launch_piped(Piped_s curr) {
 
-	int _STDIN, _STDOUT;
 	_STDIN = dup(STDIN_FILENO);
 	_STDOUT = dup(STDOUT_FILENO);
 
-	int n = *curr->cnt;
+	int n = *curr.cnt;
 	int pipes[n-1][2];
 	for (int i = 0; i < n-1; i++) {
 		if (pipe(pipes[i])) { 
@@ -57,7 +64,7 @@ void launch_piped(Piped_s *curr) {
 			dup2(pipes[i][1], STDOUT_FILENO);
 		}
 
-		launch_process(curr->cmd_lst[i]->argv);
+		launch_process(*curr.cmd_lst[i]);
 		if (i != n-1) close(pipes[i][1]);
 		if (!i) close(pipes[i-1][0]);
 	}
@@ -72,10 +79,10 @@ void exec_piped(Commands_s *commands) {
 		Piped_s *curr = commands->cmd_lst[i];
 		if (!*curr->cnt) return;
 		if (*curr->cnt == 1) {
-			launch_process(curr->cmd_lst[0]->argv);
+			launch_process(*curr->cmd_lst[0]);
 		}
 		else {
-			launch_piped(curr);
+			launch_piped(*curr);
 		}
 	}
 
