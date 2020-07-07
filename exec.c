@@ -11,8 +11,6 @@ int launch_process(char **args) {
 	pid = fork();
 	//child process
 	if (pid == 0) {
-
-		fprintf(stderr, "%s\n", args[0]);
 		if (execvp(args[0], args) == -1) {
 			perror("ash");
 		}

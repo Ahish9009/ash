@@ -12,8 +12,6 @@ void tokenize(char *inp, int *n, char **argv, char *delim) {
 	char *token = strtok(temp, delim);
 	*n = 0;
 	while (token != NULL) {
-		fprintf(stderr, "token: %s\n", token);
-		
 		argv[(*n)++] = token;
 		token = strtok(NULL, delim);
 	}
@@ -54,7 +52,6 @@ Commands_s * get_commands(Commands_s *commands, char *inp) {
 			if (!is_empty(new_cmd->full_cmd)) {
 				commands->cmd_lst[commands->cnt++] = new_cmd;
 			}
-
 			s=i+1;
 		}
 		if (inp[i] == '\\') esc = !esc;

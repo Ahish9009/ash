@@ -28,10 +28,8 @@ char * strip(char *x) {
 
 bool is_empty(char *x) {
 	if (!x) return 1;
-	/*fprintf(stderr, "%lu\n", strlen(x));*/
 	if (!strlen(x)) return 1;
 	for (int i = 0; i < strlen(x); i++) {
-		/*fprintf(stderr, "%c\n", x[i]);*/
 		if (x[i] != ' ') return 0;
 	}
 	return 1;
@@ -95,7 +93,7 @@ void repl() {
 			launch_process(commands->cmd_lst[i]->argv);
 		}
 
-		free(commands);
+		free(commands); //leaking memory, fix
 		free(inp);
 	}
 }
