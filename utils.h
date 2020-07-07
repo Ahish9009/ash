@@ -5,7 +5,7 @@
 #ifndef __UTILS_1
 #define __UTILS_1
 
-#define DEBUG 0
+#define DEBUG 1
 
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
@@ -24,8 +24,13 @@ typedef struct {
 	char **argv;
 } Cmd_s;
 typedef struct {
-	int cnt;
+	char *full_cmd;
+	int *cnt;
 	Cmd_s **cmd_lst;
+} Piped_s;
+typedef struct {
+	int *cnt;
+	Piped_s **cmd_lst;
 } Commands_s;
 
 char *user;

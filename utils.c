@@ -80,20 +80,19 @@ void repl() {
 
 		Commands_s * commands = parse(inp);
 
+
 		if (DEBUG) {
-			for (int i = 0; i < commands->cnt; i++) {
+			for (int i = 0; i < *commands->cnt; i++) {
 				fprintf(stderr, "full cmd: %s\n", commands->cmd_lst[i]->full_cmd);
-				for (int j = 0; j < *(commands->cmd_lst[i]->argc); j++) {
-					fprintf(stderr, "%s|\n",commands->cmd_lst[i]->argv[j]);
+				for (int j = 0; j < *(commands->cmd_lst[i]->cnt); j++) {
+					fprintf(stderr, "Px: %s\n",commands->cmd_lst[i]->cmd_lst[j]->full_cmd);
 				}
 			}
 		}
 
-		for (int i = 0; i < commands->cnt; i++) {
-			launch_process(commands->cmd_lst[i]->argv);
-		}
+		exec_piped(commands);
 
-		free(commands); //leaking memory, fix
-		free(inp);
+		/*free(commands); //leaking memory, fix*/
+		/*free(inp);*/
 	}
 }
