@@ -5,8 +5,6 @@
 
 #include "utils.h"
 
-
-
 void tokenize(char *inp, int *n, char **argv, char *delim) {
 	
 	char *temp = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
@@ -14,14 +12,22 @@ void tokenize(char *inp, int *n, char **argv, char *delim) {
 	char *token = strtok(temp, delim);
 	*n = 0;
 	while (token != NULL) {
+		fprintf(stderr, "token: %s\n", token);
+		
 		argv[(*n)++] = token;
 		token = strtok(NULL, delim);
 	}
-	fprintf(stderr, "%d\n", *n);
-	for (int i = 0; i < *n; i++) {
-		fprintf(stderr, "%s\n", argv[i]);
+	argv[*n]=0;
+
+	if (DEBUG) {
+		fprintf(stderr, "___________\n");
+		fprintf(stderr, "argc:\n%d\nargv:\n", *n);
+		for (int i = 0; i < *n; i++) {
+			fprintf(stderr, "%s\n", argv[i]);
+		}
+		fprintf(stderr, "___________\n");
 	}
-	free(temp);
+
 }
 
 Commands_s * get_commands(Commands_s *commands, char *inp) {
@@ -44,8 +50,8 @@ Commands_s * get_commands(Commands_s *commands, char *inp) {
 			new_cmd->full_cmd[i]=0; new_cmd->full_cmd+=s;
 			new_cmd->full_cmd = strip(new_cmd->full_cmd);
 
+			tokenize(new_cmd->full_cmd, new_cmd->argc, new_cmd->argv, " ");
 			if (!is_empty(new_cmd->full_cmd)) {
-				tokenize(new_cmd->full_cmd, new_cmd->argc, new_cmd->argv, " ");
 				commands->cmd_lst[commands->cnt++] = new_cmd;
 			}
 
