@@ -9,6 +9,8 @@
 #include"utils.h"
 #include"parse.h"
 #include"exec.h"
+#include"signals.h"
+#include"processes.h"
 
 pid_t shell_pid;
 char *user;
@@ -68,6 +70,13 @@ void init() {
 	shell_pid = getpid();
 	_STDIN = STDIN_FILENO;
 	_STDOUT = STDOUT_FILENO;
+
+	bg_procs = (Process_node *) malloc (sizeof(Process_node));
+	bg_procs->root = 1;
+	bg_procs->next = 0;
+
+	// signals
+	signal(SIGCHLD, bg_exit);
 	
 }
 

@@ -18,28 +18,37 @@
 #define MAX_TOKENS      100
 #define MAX_PROMPT_LEN  150
 
-typedef struct {
+typedef struct Command_info {
 	char *f_in;
 	char *f_out;
 	int a;
+	bool in_bg;
 	char *full_cmd;
 	int *argc;
 	char **argv;
 } Cmd_s;
-typedef struct {
+typedef struct Piped_commands {
 	char *full_cmd;
 	int *cnt;
 	Cmd_s **cmd_lst;
 } Piped_s;
-typedef struct {
+typedef struct Commands_s {
 	int *cnt;
 	Piped_s **cmd_lst;
 } Commands_s;
+
+typedef struct Process_node {
+	pid_t pid;
+	char *name;
+	bool root;
+	struct Process_node *next;
+} Process_node;
 
 char *user;
 char *home_path;
 char *path;
 int _STDIN, _STDOUT;
+Process_node *bg_procs;
 
 void init();
 void repl();

@@ -5,19 +5,23 @@
 
 #include"utils.h"
 #include"redirect.h"
+#include"processes.h"
 
 int launch_process(Cmd_s cmd) {
 
 	//set redirects
-	
 	set_redirect(cmd);
 	
-	pid_t pid, wpid;
+	pid_t pid;
 	int status;
 
 	char **args = cmd.argv;
 
 	pid = fork();
+	if (pid < 0) {
+		perror("ash");
+		return 1;
+	}
 	//child process
 	if (pid == 0) {
 		if (execvp(args[0], args) == -1) {
@@ -25,13 +29,19 @@ int launch_process(Cmd_s cmd) {
 		}
 		exit(EXIT_FAILURE);
 	}
-	else if (pid < 0) {
-		perror("ash");
-	}
 	else {
-		do {
-		wpid = waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		if (!cmd.in_bg) {
+			waitpid(pid, &status, WUNTRACED);	
+		}
+		else {
+			Process_node *node = (Process_node *) malloc(sizeof(Process_node));
+			node->pid = pid;
+			node->name = cmd.full_cmd;
+			node->root = 0;
+			node->next = 0;
+			insert(node);
+		}
+
 	}
 
 	unset_redirect(cmd);
