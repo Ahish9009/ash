@@ -8,13 +8,12 @@
 void tokenize(Cmd_s *new_cmd, char *delim) {
 
 	char *inp = new_cmd->full_cmd;
-	int *n = new_cmd->argc;
+	int n = 0;
 	char **argv = new_cmd->argv;
 	
 	char *temp = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 	strcpy(temp, inp);
 	char *token = strtok(temp, delim);
-	*n = 0;
 	int flag_out=0, flag_in=0;
 	while (token != 0) {
 		token = strip(token);
@@ -38,12 +37,13 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 			continue;
 		}
 		
-		if (!flag_out && !flag_in) argv[(*n)++] = token;
+		if (!flag_out && !flag_in) argv[n++] = token;
 		if (flag_in == -1) flag_in = 0;
 		if (flag_out == -1) flag_out = 0;
 		token = strtok(NULL, delim);
 	}
-	argv[*n]=0;
+	argv[n]=0;
+	new_cmd->argc = n;
 
 	/*if (DEBUG) {*/
 		/*fprintf(stderr, "___________\n");*/
@@ -69,7 +69,6 @@ Piped_s * get_piped_commands(Piped_s *piped_commands, char *inp) {
 		if (i == len-1 || (inp[i] == '|' && !(esc | in_dq | in_sq))) {
 
 			Cmd_s *new_cmd = (Cmd_s*) malloc (sizeof(Cmd_s));
-			new_cmd->argc = (int *) malloc (sizeof(int));
 			new_cmd->full_cmd = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 			new_cmd->argv = (char **) malloc (MAX_TOKENS*sizeof(char *));
 			new_cmd->f_out = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));

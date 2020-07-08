@@ -107,6 +107,7 @@ void repl() {
 		inp[strlen(inp)-1] = 0;
 		if (!strcmp(inp, "exit")) return;
 
+
 		Commands_s * commands = parse(inp);
 
 		if (DEBUG) {

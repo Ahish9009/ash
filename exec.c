@@ -8,10 +8,11 @@
 #include"redirect.h"
 #include"processes.h"
 
+#include"jobs.h"
+
 int launch_process(Cmd_s cmd) {
 
 	//set redirects
-	set_redirect(cmd);
 	
 	pid_t pid;
 	int status;
@@ -38,27 +39,41 @@ int launch_process(Cmd_s cmd) {
 		exit(EXIT_FAILURE);
 	}
 	else {
+		Process_node *node = (Process_node *) malloc(sizeof(Process_node));
+		node->pid = pid;
+		node->name = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+		strcpy(node->name, cmd.argv[0]);
+		node->root = 0;
+		node->next = 0;
+
 		if (!cmd.in_bg) {
+			node->bg = 0;
+			insert(node);
+
 			tcsetpgrp(shell_term, pid);
 			waitpid(pid, &status, WUNTRACED);	
 			tcsetpgrp(shell_term, shell_pid);
 		}
 		else {
 			setpgid(pid, pid);
-			Process_node *node = (Process_node *) malloc(sizeof(Process_node));
-			node->pid = pid;
-			node->name = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
-			strcpy(node->name, cmd.argv[0]);
-			node->root = 0;
-			node->next = 0;
+			node->bg = 1;
 			insert(node);
 		}
-
 	}
 
-	unset_redirect(cmd);
 	return 1;
 }
+
+void handle_cmd(Cmd_s cmd) {
+
+	set_redirect(cmd);
+	if (!strcmp(cmd.argv[0], "jobs")) {
+		jobs(cmd);
+	}
+	else launch_process(cmd);
+	unset_redirect(cmd);
+	
+};
 
 void launch_piped(Piped_s curr) {
 
@@ -86,7 +101,7 @@ void launch_piped(Piped_s curr) {
 			dup2(pipes[i][1], STDOUT_FILENO);
 		}
 
-		launch_process(*curr.cmd_lst[i]);
+		handle_cmd(*curr.cmd_lst[i]);
 		if (i != n-1) close(pipes[i][1]);
 		if (!i) close(pipes[i-1][0]);
 	}
@@ -101,7 +116,7 @@ void exec_piped(Commands_s *commands) {
 		Piped_s *curr = commands->cmd_lst[i];
 		if (!*curr->cnt) return;
 		if (*curr->cnt == 1) {
-			launch_process(*curr->cmd_lst[0]);
+			handle_cmd(*curr->cmd_lst[0]);
 		}
 		else {
 			launch_piped(*curr);

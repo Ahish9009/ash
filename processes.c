@@ -1,3 +1,4 @@
+#include<libproc.h>
 #include<stdio.h>
 #include"utils.h"
 
@@ -42,8 +43,25 @@ void delete_proc(pid_t pid) {
 
 void display() {
 	Process_node *last = bg_procs;
+	int i = 1;
 	while (last->next) {
 		last = last->next;
-		printf("P: %d\n", last->pid);
+
+		struct proc_taskallinfo info;
+
+		int ret = proc_pidinfo(last->pid, PROC_PIDTASKALLINFO, 0, &info, sizeof(struct proc_taskallinfo));
+		if (ret > 0) { 
+
+			int s_no = info.pbsd.pbi_status;
+			char *stat;
+			if (s_no == 1) stat = "idle"; 	
+			else if (s_no == 2) stat = "running"; 	
+			else if (s_no == 3) stat = "sleeping"; 	
+			else if (s_no == 4) stat = "suspended";
+			else if (s_no == 5) stat = "zombie";
+			else stat = "unknown";
+		fprintf(stdout, "[%d] %d %s %s\n", i++, last->pid, stat,last->name);
+		   }	
 	}
+	fflush(stdout);
 }

@@ -24,7 +24,7 @@ typedef struct Command_info {
 	int a;
 	bool in_bg;
 	char *full_cmd;
-	int *argc;
+	int argc;
 	char **argv;
 } Cmd_s;
 typedef struct Piped_commands {
