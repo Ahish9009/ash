@@ -2,6 +2,7 @@
 #include<ctype.h>
 #include<stdio.h>
 #include<unistd.h>
+#include<string.h>
 
 #include"utils.h"
 #include"redirect.h"
@@ -36,7 +37,8 @@ int launch_process(Cmd_s cmd) {
 		else {
 			Process_node *node = (Process_node *) malloc(sizeof(Process_node));
 			node->pid = pid;
-			node->name = cmd.full_cmd;
+			node->name = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+			strcpy(node->name, cmd.argv[0]);
 			node->root = 0;
 			node->next = 0;
 			insert(node);

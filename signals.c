@@ -11,12 +11,16 @@ void bg_exit() {
 
 	if (pid > 0 && find(pid)) {
 
+		Process_node *proc = get(pid);
+		char *name = (proc) ? proc->name : "Process";
+
 		if (WIFEXITED(status)) {
 			if (WEXITSTATUS(status) == 0) {
-				fprintf(stderr,  GREEN "Process with pid %d exited succesfully\n" CLR_RST, pid);
+				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited normally\n" CLR_RST, name, pid);
 			}
 		}
 		fprintf(stderr, "%s", get_prompt());
+		delete_proc(pid);
 	}
 
 

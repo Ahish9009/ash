@@ -89,6 +89,8 @@ void repl() {
 		char *inp = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
 		get_input(inp);
 
+		/*display();*/
+
 		Commands_s * commands = parse(inp);
 
 		if (DEBUG) {
