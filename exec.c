@@ -25,14 +25,20 @@ int launch_process(Cmd_s cmd) {
 	}
 	//child process
 	if (pid == 0) {
+
+		signal (SIGINT, SIG_DFL);
+		signal (SIGQUIT, SIG_DFL);
+		signal (SIGTSTP, SIG_DFL);
+		signal (SIGTTIN, SIG_DFL);
+		signal (SIGTTOU, SIG_DFL);
+		signal (SIGCHLD, SIG_DFL);
 		if (execvp(args[0], args) == -1) {
-			perror("ash");
+			fprintf(stderr, "ash: '%s' is not a command\n", args[0]);
 		}
 		exit(EXIT_FAILURE);
 	}
 	else {
 		if (!cmd.in_bg) {
-
 			tcsetpgrp(shell_term, pid);
 			waitpid(pid, &status, WUNTRACED);	
 			tcsetpgrp(shell_term, shell_pid);

@@ -7,21 +7,21 @@ void insert(Process_node *node) {
 	last->next = node;
 }
 
-bool find(pid_t pid) {
+bool find_bg(pid_t pid) {
 	Process_node *last = bg_procs;
 	while (last->next) {
 		last = last->next; //first node is always root
-		if (last->pid == pid) return 1;
+		if (last->pid == pid && last->bg) return 1;
 	}
 	return 0;
 }
 
-Process_node *get(pid_t pid) {
-	if (!find(pid)) return 0;
+Process_node *get_bg(pid_t pid) {
+	if (!find_bg(pid)) return 0;
 	Process_node *last = bg_procs;
 	while (last->next) {
 		last = last->next; //first node is always root
-		if (last->pid == pid) return last;
+		if (last->pid == pid && last->bg) return last;
 	}
 	return 0;
 

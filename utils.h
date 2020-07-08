@@ -41,6 +41,7 @@ typedef struct Process_node {
 	pid_t pid;
 	char *name;
 	bool root;
+	bool bg;
 	struct Process_node *next;
 } Process_node;
 
@@ -50,6 +51,8 @@ char *user;
 char *home_path;
 char *path;
 int _STDIN, _STDOUT;
+
+Process_node *all_procs;
 Process_node *bg_procs;
 
 void init();
