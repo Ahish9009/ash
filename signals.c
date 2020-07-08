@@ -15,9 +15,10 @@ void bg_exit() {
 		char *name = (proc) ? proc->name : "Process";
 
 		if (WIFEXITED(status)) {
-			if (WEXITSTATUS(status) == 0) {
-				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited normally\n" CLR_RST, name, pid);
-			}
+			if (WEXITSTATUS(status) == 0) 
+				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited normally with status %d\n" CLR_RST, name, pid, status);
+			else 
+				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited with status %d\n" CLR_RST, name, pid, status);
 		}
 		fprintf(stderr, "%s", get_prompt());
 		delete_proc(pid);

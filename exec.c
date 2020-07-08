@@ -32,9 +32,13 @@ int launch_process(Cmd_s cmd) {
 	}
 	else {
 		if (!cmd.in_bg) {
+
+			tcsetpgrp(shell_term, pid);
 			waitpid(pid, &status, WUNTRACED);	
+			tcsetpgrp(shell_term, shell_pid);
 		}
 		else {
+			setpgid(pid, pid);
 			Process_node *node = (Process_node *) malloc(sizeof(Process_node));
 			node->pid = pid;
 			node->name = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));

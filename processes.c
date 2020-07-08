@@ -31,7 +31,9 @@ void delete_proc(pid_t pid) {
 	Process_node *last = bg_procs;
 	while (last->next) {
 		if (last->next->pid == pid) {
+			Process_node *temp = last->next;
 			last->next = last->next->next;
+			free(temp);
 			return;
 		}
 		last = last->next;

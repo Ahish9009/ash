@@ -115,7 +115,12 @@ Commands_s * get_commands(Commands_s *commands, char *inp) {
 			piped_commands->cmd_lst = (Cmd_s **) malloc (MAX_TOKENS*sizeof(Cmd_s *));
 
 			strcpy(piped_commands->full_cmd, inp);
+			if (i == len-1 && inp[i] != ';') {
+				piped_commands->full_cmd[i+1]=0; piped_commands->full_cmd+=s;
+			}
+			else {
 			piped_commands->full_cmd[i]=0; piped_commands->full_cmd+=s;
+			}
 			piped_commands->full_cmd = strip(piped_commands->full_cmd);
 
 			piped_commands = get_piped_commands(piped_commands, piped_commands->full_cmd);

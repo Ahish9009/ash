@@ -44,6 +44,8 @@ typedef struct Process_node {
 	struct Process_node *next;
 } Process_node;
 
+int shell_term;
+pid_t shell_pid;
 char *user;
 char *home_path;
 char *path;

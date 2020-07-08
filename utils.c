@@ -67,7 +67,6 @@ void init() {
 	home_path = getenv("PWD");
 	user = getenv("USER");
 	path = "~";
-	shell_pid = getpid();
 	_STDIN = STDIN_FILENO;
 	_STDOUT = STDOUT_FILENO;
 
@@ -75,9 +74,25 @@ void init() {
 	bg_procs->root = 1;
 	bg_procs->next = 0;
 
+	signal (SIGINT, SIG_IGN);
+	signal (SIGQUIT, SIG_IGN);
+	signal (SIGTSTP, SIG_IGN);
+	signal (SIGTTIN, SIG_IGN);
+	signal (SIGTTOU, SIG_IGN);
+	signal (SIGCHLD, SIG_IGN);
+
+	shell_pid = getpid();
+	int shell_term = STDIN_FILENO;
+
+	if (setpgid (shell_pid, shell_pid) < 0) {
+		perror ("ash: Couldn't put the shell in its own process group");
+		exit (1);
+        }
+	tcsetpgrp (shell_term, shell_pid);
+
 	// signals
 	signal(SIGCHLD, bg_exit);
-	
+
 }
 
 void repl() {
@@ -89,7 +104,8 @@ void repl() {
 		char *inp = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
 		get_input(inp);
 
-		/*display();*/
+		inp[strlen(inp)-1] = 0;
+		if (!strcmp(inp, "exit")) return;
 
 		Commands_s * commands = parse(inp);
 
