@@ -28,6 +28,17 @@ Process_node *get_bg(pid_t pid) {
 
 }
 
+Process_node *get_proc_ind(int n) {
+	int i = 0;
+	Process_node *last = bg_procs;
+	while (last->next && i != n) {
+		last = last->next;
+		i++;
+	}
+	if (i != n) return 0;
+	else return last;
+}
+
 void delete_proc(pid_t pid) {
 	Process_node *last = bg_procs;
 	while (last->next) {
