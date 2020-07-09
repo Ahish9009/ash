@@ -5,6 +5,7 @@
 #include<string.h>
 #include<sys/types.h>
 #include<signal.h>
+#include<sys/wait.h>
 
 #include"utils.h"
 #include"redirect.h"
@@ -35,7 +36,6 @@ int launch_process(Cmd_s cmd) {
 		signal (SIGTTIN, SIG_DFL);
 		signal (SIGTTOU, SIG_DFL);
 		signal (SIGINT, SIG_DFL);
-		signal (SIGQUIT, SIG_DFL);
 		signal (SIGTSTP, SIG_DFL);
 		signal (SIGSTOP, SIG_DFL);
 		signal (SIGCHLD, SIG_DFL);
