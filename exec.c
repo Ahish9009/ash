@@ -3,10 +3,14 @@
 #include<stdio.h>
 #include<unistd.h>
 #include<string.h>
+#include<sys/types.h>
+#include<signal.h>
 
 #include"utils.h"
 #include"redirect.h"
 #include"processes.h"
+#include"signals.h"
+#include"prompt.h"
 
 #include"jobs.h"
 #include"fg.h"
@@ -28,12 +32,9 @@ int launch_process(Cmd_s cmd) {
 	//child process
 	if (pid == 0) {
 
-		signal (SIGINT, SIG_DFL);
-		signal (SIGQUIT, SIG_DFL);
-		signal (SIGTSTP, SIG_DFL);
-		signal (SIGTTIN, SIG_DFL);
-		signal (SIGTTOU, SIG_DFL);
-		signal (SIGCHLD, SIG_DFL);
+		signal(SIGINT, ctrl_c);
+		signal(SIGTSTP, ctrl_z);
+
 		if (execvp(args[0], args) == -1) {
 			fprintf(stderr, "ash: '%s' is not a command\n", args[0]);
 		}
@@ -54,6 +55,14 @@ int launch_process(Cmd_s cmd) {
 			tcsetpgrp(shell_term, pid);
 			waitpid(pid, &status, WUNTRACED);	
 			tcsetpgrp(shell_term, shell_pid);
+
+			if (WIFSTOPPED(status)) {
+				/*tcsetpgrp(shell_term, shell_pid);*/
+				node->bg = 1;
+				/*fprintf(stdout, "\n%s", get_prompt());*/
+				/*kill(node->pid, SIGTSTP);*/
+			}
+
 		}
 		else {
 			setpgid(pid, pid);
@@ -72,6 +81,8 @@ void handle_cmd(Cmd_s *cmd) {
 	else if (!strcmp(cmd->argv[0], "fg")) fg(cmd);
 	else launch_process(*cmd);
 	unset_redirect(*cmd);
+
+	fprintf(stderr, "%s\n", cmd->full_cmd);
 	
 };
 

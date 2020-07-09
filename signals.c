@@ -1,5 +1,6 @@
 #include<sys/wait.h>
 #include<stdio.h>
+#include<unistd.h>
 
 #include"processes.h"
 #include"prompt.h"
@@ -26,6 +27,14 @@ void bg_exit() {
 	else if (pid > 0) {
 		delete_proc(pid);
 	}
+}
+void ctrl_c() {
+	fprintf(stderr, "Exited\n");
+	/*fprintf(stdout, "%s", get_prompt());*/
+	/*fflush(stdout);*/
+}
+void ctrl_z() {
 
+	
 
 }
