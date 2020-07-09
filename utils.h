@@ -48,6 +48,7 @@ typedef struct Process_node {
 int shell_term;
 pid_t shell_pid;
 char *user;
+char *hostname;
 char *home_path;
 char *path;
 int _STDIN, _STDOUT;

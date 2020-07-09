@@ -4,6 +4,7 @@
 #include<stdbool.h>
 #include<unistd.h>
 #include<stdio.h>
+#include<signal.h>
 
 #include"prompt.h"
 #include"utils.h"
@@ -14,6 +15,7 @@
 
 pid_t shell_pid;
 char *user;
+char *hostname;
 char *home_path;
 char *path;
 
@@ -59,13 +61,18 @@ void get_input(char *inp) {
 		strcat(inp, temp);
 		free(temp);
 	}
-	fpurge(stdin);
+	// fpurge only works on MacOS
+	/*fpurge(stdin);*/
+	fflush(stdin);
 }
 
 void init() {
 
 	home_path = getenv("PWD");
 	user = getenv("USER");
+	hostname = (char *) malloc (20*sizeof(char));
+	if (gethostname(hostname, 20)) hostname = user;
+	
 	path = "~";
 	_STDIN = STDIN_FILENO;
 	_STDOUT = STDOUT_FILENO;
@@ -120,6 +127,6 @@ void repl() {
 		exec_piped(commands);
 
 		/*free(commands); //leaking memory, fix*/
-		/*free(inp);*/
+		free(inp);
 	}
 }
