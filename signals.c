@@ -21,8 +21,8 @@ void bg_exit() {
 			else 
 				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited with status %d\n" CLR_RST, name, pid, status);
 		}
-		fprintf(stderr, "%s", get_prompt());
 		delete_proc(pid);
+		fprintf(stderr, "%s", get_prompt());
 	}
 	else if (pid > 0) {
 		delete_proc(pid);
