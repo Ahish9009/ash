@@ -25,12 +25,20 @@ void fg(Cmd_s *cmd) {
 	int status;
 	cmd->in_bg = 0;
 	proc->bg = 0;
-	tcsetpgrp(shell_term, proc->pid);
+
 	if (kill(proc->pid, SIGCONT)) {
 		perror("ash: fg");
 		return;
 	}
+
+	tcsetpgrp(shell_term, proc->pid);
+	tcsetpgrp(STDIN_FILENO, proc->pid);
+	tcsetpgrp(STDOUT_FILENO, proc->pid);
+
 	waitpid(proc->pid, &status, WUNTRACED);	
+
 	tcsetpgrp(shell_term, shell_pid);
+	tcsetpgrp(STDIN_FILENO, shell_pid);
+	tcsetpgrp(STDOUT_FILENO, shell_pid);
 
 }

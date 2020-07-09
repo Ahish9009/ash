@@ -29,7 +29,6 @@ void bg_exit() {
 	}
 }
 void ctrl_c() {
-	/*fprintf(stderr, "Exited\n");*/
 	fprintf(stdout, "\n%s", get_prompt());
 	fflush(stdout);
 }
