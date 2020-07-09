@@ -9,5 +9,6 @@ Process_node * get_bg(pid_t pid);
 Process_node * get_proc_ind(int n);
 void delete_proc(pid_t pid);
 void display();
+bool any_bg_process();
 
 #endif

@@ -28,6 +28,16 @@ Process_node *get_bg(pid_t pid) {
 
 }
 
+bool any_bg_process() {
+	
+	Process_node *last = bg_procs;
+	while (last->next) {
+		last = last->next;
+		if (last->bg) return 1;
+	}
+	return 0;
+}
+
 Process_node *get_proc_ind(int n) {
 	int i = 0;
 	Process_node *last = bg_procs;
