@@ -9,6 +9,7 @@
 #include"processes.h"
 
 #include"jobs.h"
+#include"fg.h"
 
 int launch_process(Cmd_s cmd) {
 
@@ -64,14 +65,13 @@ int launch_process(Cmd_s cmd) {
 	return 1;
 }
 
-void handle_cmd(Cmd_s cmd) {
+void handle_cmd(Cmd_s *cmd) {
 
-	set_redirect(cmd);
-	if (!strcmp(cmd.argv[0], "jobs")) {
-		jobs(cmd);
-	}
-	else launch_process(cmd);
-	unset_redirect(cmd);
+	set_redirect(*cmd);
+	if (!strcmp(cmd->argv[0], "jobs")) jobs(*cmd);
+	else if (!strcmp(cmd->argv[0], "fg")) fg(cmd);
+	else launch_process(*cmd);
+	unset_redirect(*cmd);
 	
 };
 
@@ -101,7 +101,7 @@ void launch_piped(Piped_s curr) {
 			dup2(pipes[i][1], STDOUT_FILENO);
 		}
 
-		handle_cmd(*curr.cmd_lst[i]);
+		handle_cmd(curr.cmd_lst[i]);
 		if (i != n-1) close(pipes[i][1]);
 		if (!i) close(pipes[i-1][0]);
 	}
@@ -116,7 +116,7 @@ void exec_piped(Commands_s *commands) {
 		Piped_s *curr = commands->cmd_lst[i];
 		if (!*curr->cnt) return;
 		if (*curr->cnt == 1) {
-			handle_cmd(*curr->cmd_lst[0]);
+			handle_cmd(curr->cmd_lst[0]);
 		}
 		else {
 			launch_piped(*curr);
