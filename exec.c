@@ -32,8 +32,13 @@ int launch_process(Cmd_s cmd) {
 	//child process
 	if (pid == 0) {
 
-		signal(SIGINT, ctrl_c);
-		signal(SIGTSTP, ctrl_z);
+		signal (SIGTTIN, SIG_DFL);
+		signal (SIGTTOU, SIG_DFL);
+		signal (SIGINT, SIG_DFL);
+		signal (SIGQUIT, SIG_DFL);
+		signal (SIGTSTP, SIG_DFL);
+		signal (SIGSTOP, SIG_DFL);
+		signal (SIGCHLD, SIG_DFL);
 
 		if (execvp(args[0], args) == -1) {
 			fprintf(stderr, "ash: '%s' is not a command\n", args[0]);
@@ -52,17 +57,22 @@ int launch_process(Cmd_s cmd) {
 			node->bg = 0;
 			insert(node);
 
+			setpgid(pid, pid);
 			tcsetpgrp(shell_term, pid);
+			tcsetpgrp(STDIN_FILENO, pid);
+			tcsetpgrp(STDOUT_FILENO, pid);
+
 			waitpid(pid, &status, WUNTRACED);	
+
 			tcsetpgrp(shell_term, shell_pid);
+			tcsetpgrp(STDIN_FILENO, shell_pid);
+			tcsetpgrp(STDOUT_FILENO, shell_pid);
 
 			if (WIFSTOPPED(status)) {
-				/*tcsetpgrp(shell_term, shell_pid);*/
+				setpgid(pid, pid);
 				node->bg = 1;
-				/*fprintf(stdout, "\n%s", get_prompt());*/
-				/*kill(node->pid, SIGTSTP);*/
+				fprintf(stderr, "\nstopped  %s [%d]\n", node->name, node->pid);
 			}
-
 		}
 		else {
 			setpgid(pid, pid);
@@ -82,8 +92,6 @@ void handle_cmd(Cmd_s *cmd) {
 	else launch_process(*cmd);
 	unset_redirect(*cmd);
 
-	fprintf(stderr, "%s\n", cmd->full_cmd);
-	
 };
 
 void launch_piped(Piped_s curr) {

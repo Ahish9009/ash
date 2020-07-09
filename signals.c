@@ -29,12 +29,11 @@ void bg_exit() {
 	}
 }
 void ctrl_c() {
-	fprintf(stderr, "Exited\n");
-	/*fprintf(stdout, "%s", get_prompt());*/
-	/*fflush(stdout);*/
+	/*fprintf(stderr, "Exited\n");*/
+	fprintf(stdout, "\n%s", get_prompt());
+	fflush(stdout);
 }
 void ctrl_z() {
-
-	
-
+	fprintf(stdout, "\n%s", get_prompt());
+	fflush(stdout);
 }

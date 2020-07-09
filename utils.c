@@ -74,11 +74,11 @@ void init() {
 	bg_procs->root = 1;
 	bg_procs->next = 0;
 
-	signal (SIGINT, SIG_IGN);
+	/*signal (SIGINT, SIG_IGN);*/
 	/*signal (SIGQUIT, SIG_IGN);*/
-	signal (SIGTSTP, SIG_IGN);
-	/*signal (SIGTTIN, SIG_IGN);*/
-	/*signal (SIGTTOU, SIG_IGN);*/
+	/*signal (SIGTSTP, SIG_IGN);*/
+	signal (SIGTTIN, SIG_IGN);
+	signal (SIGTTOU, SIG_IGN);
 	/*signal (SIGCHLD, SIG_IGN);*/
 
 	shell_pid = getpid();
@@ -92,10 +92,8 @@ void init() {
 
 	// signals
 	signal(SIGCHLD, bg_exit);
-	/*signal(SIGINT, SIG_IGN);*/
-	/*signal(SIGTSTP, SIG_IGN);*/
-	/*signal(SIGINT, ctrl_c);*/
-	/*signal(SIGTSTP, ctrl_z);*/
+	signal(SIGINT, ctrl_c);
+	signal(SIGTSTP, ctrl_z);
 
 }
 
