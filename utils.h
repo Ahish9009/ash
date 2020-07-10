@@ -17,6 +17,7 @@
 #define MAX_BUFFER_CMDS 20
 #define MAX_TOKENS      100
 #define MAX_PROMPT_LEN  150
+#define MAX_HIST_SIZE   10
 
 typedef struct Command_info {
 	char *f_in;
@@ -45,6 +46,11 @@ typedef struct Process_node {
 	struct Process_node *next;
 } Process_node;
 
+typedef struct History_s {
+	int n;
+	char hist_arr[MAX_HIST_SIZE][MAX_INPUT_SIZE];
+} History_s;
+
 int shell_term;
 pid_t shell_pid;
 char *user;
@@ -52,12 +58,14 @@ char *hostname;
 char *home_path;
 char *path;
 int _STDIN, _STDOUT;
+History_s hist;
 
 Process_node *all_procs;
 Process_node *bg_procs;
 
 void init();
 void repl();
+void exit_shell();
 char * strip(char *x);
 bool is_empty(char *x);
 

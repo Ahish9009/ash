@@ -12,6 +12,7 @@
 #include"exec.h"
 #include"signals.h"
 #include"processes.h"
+#include"history.h"
 
 pid_t shell_pid;
 char *user;
@@ -93,6 +94,13 @@ void init() {
         }
 	tcsetpgrp (shell_term, shell_pid);
 
+	FILE * hist_file = fopen(".ash_history", "rb");
+	if (hist_file) {
+		fread(&hist, sizeof(hist), 1, hist_file);	
+		fclose(hist_file);
+	}
+	else hist.n = 0;
+
 	// signals
 	signal(SIGCHLD, bg_exit);
 	signal(SIGINT, ctrl_c);
@@ -125,8 +133,23 @@ void repl() {
 		}
 
 		exec_piped(commands);
+		display_hist();
 
 		/*free(commands); //leaking memory, fix*/
 		free(inp);
 	}
+}
+
+void exit_shell() {
+
+	FILE * hist_file = fopen(".ash_history", "wb");
+	if (hist_file) {
+		if (fwrite(&hist, sizeof(hist), 1, hist_file) != 1) {
+			fprintf(stderr, "\nash: Failed to save history\n");
+		}
+		fclose(hist_file);
+	}
+	else fprintf(stderr, "\nash: Failed to save history\n");
+
+
 }
