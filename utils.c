@@ -25,7 +25,6 @@ bool handle_up_arrow(char *inp) {
 	for (int i = 0; inp[i]; i++) {
 		if ((int)(inp[i]) == 27) n_up++;
 	}
-	fprintf(stderr, "%d\n", n_up);
 
 	if (n_up) {
 		inp[0] = 0;
