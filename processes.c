@@ -1,6 +1,8 @@
 #include<libproc.h>
 #include<stdio.h>
+
 #include"utils.h"
+#include"processes.h"
 
 void insert(Process_node *node) {
 	Process_node *last = bg_procs;
@@ -17,12 +19,23 @@ bool find_bg(pid_t pid) {
 	return 0;
 }
 
-Process_node *get_bg(pid_t pid) {
+Process_node *get_bg_proc(pid_t pid) {
 	if (!find_bg(pid)) return 0;
 	Process_node *last = bg_procs;
 	while (last->next) {
 		last = last->next; //first node is always root
 		if (last->pid == pid && last->bg) return last;
+
+	}
+	return 0;
+
+}
+
+Process_node *get_by_pid(pid_t pid) {
+	Process_node *last = bg_procs;
+	while (last->next) {
+		last = last->next; //first node is always root
+		if (last->pid == pid) return last;
 	}
 	return 0;
 
@@ -31,14 +44,24 @@ Process_node *get_bg(pid_t pid) {
 bool any_bg_process() {
 	
 	Process_node *last = bg_procs;
+	Process_node *past = last;
 	while (last->next) {
+		past = last;
 		last = last->next;
-		if (last->bg) return 1;
+
+		struct proc_taskallinfo info;
+		int ret = proc_pidinfo(last->pid, PROC_PIDTASKALLINFO, 0, &info, sizeof(struct proc_taskallinfo));
+		if (ret <= 0) {
+			pid_t del_pid = last->pid;
+			last = past;
+			delete_proc(del_pid);
+		}
+		if (last->bg && ret > 0) return 1;
 	}
 	return 0;
 }
 
-Process_node *get_proc_ind(int n) {
+Process_node *get_by_ind(int n) {
 	int i = 0;
 	Process_node *last = bg_procs;
 	while (last->next && i != n) {
