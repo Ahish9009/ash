@@ -20,6 +20,6 @@ void insert_hist(char *inp) {
 void display_hist() {
 
 	for (int i = 0; i < hist.n; i++) {
-		fprintf(stdout, "%s\n", hist.hist_arr[i]);
+		fprintf(stdout, "%d %s\n", i, hist.hist_arr[i]);
 	}
 }

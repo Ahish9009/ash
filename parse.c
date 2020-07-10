@@ -142,6 +142,5 @@ Commands_s * parse(char *inp) {
 	commands->cnt = (int *) malloc (sizeof(int));
 	commands = get_commands(commands, inp);
 
-	insert_hist(inp);
 	return commands;
 }
