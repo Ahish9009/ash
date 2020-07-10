@@ -14,7 +14,7 @@ void bg(Cmd_s *cmd) {
 	}
 
 	int n = atoi(cmd->argv[1]);
-	Process_node *proc = get_proc_ind(n);
+	Process_node *proc = get_by_ind(n);
 
 	if (!proc) {
 		fprintf(stderr, "Process %s couldn't be found\n", cmd->argv[1]);
