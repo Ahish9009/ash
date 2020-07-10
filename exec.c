@@ -12,14 +12,36 @@
 #include"processes.h"
 #include"signals.h"
 #include"prompt.h"
+#include"exec.h"
 
 #include"jobs.h"
 #include"fg.h"
 #include"history.h"
+#include"echo.h"
+#include"kjob.h"
+#include"overkill.h"
+
+const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
+	"fg",
+	"jobs",
+	"history",
+	"echo",
+	"kjob",
+	"overkill",
+};
+
+typedef void (*functions)(Cmd_s *cmd);
+functions BUILT_IN_FUNCTIONS[N_BUILTIN_COMMANDS] = {
+	&fg,
+	&jobs,
+	&display_hist,
+	&echo,
+	&kjob,
+	&overkill,
+};
 
 int launch_process(Cmd_s cmd) {
 
-	
 	pid_t pid;
 	int status;
 
@@ -89,10 +111,15 @@ void handle_cmd(Cmd_s *cmd) {
 	//set redirects
 	
 	set_redirect(*cmd);
-	if (!strcmp(cmd->argv[0], "jobs")) jobs(*cmd);
-	else if (!strcmp(cmd->argv[0], "fg")) fg(cmd);
-	else if (!strcmp(cmd->argv[0], "history")) display_hist();
-	else launch_process(*cmd);
+	bool built_in = 0;
+	
+	for (int i = 0; i < N_BUILTIN_COMMANDS; i++) {
+		if (!strcmp(cmd->argv[0],BUILT_IN_COMMANDS[i])) { 
+			BUILT_IN_FUNCTIONS[i](cmd);
+			built_in = 1;
+		}
+	}
+	if (!built_in) launch_process(*cmd);
 
 	unset_redirect(*cmd);
 

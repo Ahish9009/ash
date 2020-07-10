@@ -6,7 +6,9 @@
 #ifndef __EXEC_1
 #define __EXEC_1
 
-int launch_process(char **args);
+#define N_BUILTIN_COMMANDS 6
+
+int launch_process(Cmd_s cmd);
 void exec_piped(Commands_s *commands);
 
 
