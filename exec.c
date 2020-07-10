@@ -21,6 +21,7 @@
 #include"kjob.h"
 #include"overkill.h"
 #include"ls.h"
+#include"pwd.h"
 
 const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"fg",
@@ -30,6 +31,7 @@ const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"kjob",
 	"overkill",
 	"ls",
+	"pwd",
 };
 
 typedef void (*functions)(Cmd_s *cmd);
@@ -41,6 +43,7 @@ functions BUILT_IN_FUNCTIONS[N_BUILTIN_COMMANDS] = {
 	&kjob,
 	&overkill,
 	&ls,
+	&pwd,
 };
 
 int launch_process(Cmd_s cmd) {
