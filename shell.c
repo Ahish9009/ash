@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 	repl();
 
 	//exit commands
-	/*exit_shell();*/
+	exit_shell();
 
 	return EXIT_SUCCESS;
 }
