@@ -4,6 +4,7 @@
 
 #include"processes.h"
 #include"prompt.h"
+#include"utils.h"
 
 void bg_exit() {
 
@@ -12,7 +13,7 @@ void bg_exit() {
 
 	if (pid > 0 && find_bg(pid)) {
 
-		Process_node *proc = get_bg(pid);
+		Process_node *proc = get_bg_proc(pid);
 		char *name = (proc) ? proc->name : "Process";
 
 		if (WIFEXITED(status)) {
