@@ -20,6 +20,7 @@
 #include"echo.h"
 #include"kjob.h"
 #include"overkill.h"
+#include"ls.h"
 
 const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"fg",
@@ -28,6 +29,7 @@ const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"echo",
 	"kjob",
 	"overkill",
+	"ls",
 };
 
 typedef void (*functions)(Cmd_s *cmd);
@@ -38,6 +40,7 @@ functions BUILT_IN_FUNCTIONS[N_BUILTIN_COMMANDS] = {
 	&echo,
 	&kjob,
 	&overkill,
+	&ls,
 };
 
 int launch_process(Cmd_s cmd) {
