@@ -4,6 +4,7 @@
 #include<stdio.h>
 
 #include "utils.h"
+#include"history.h"
 
 void tokenize(Cmd_s *new_cmd, char *delim) {
 
@@ -140,5 +141,7 @@ Commands_s * parse(char *inp) {
 	commands->cmd_lst = (Piped_s**) malloc (MAX_BUFFER_CMDS*sizeof(Piped_s*));
 	commands->cnt = (int *) malloc (sizeof(int));
 	commands = get_commands(commands, inp);
+
+	insert_hist(inp);
 	return commands;
 }
