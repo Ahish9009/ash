@@ -15,10 +15,10 @@
 
 #include"jobs.h"
 #include"fg.h"
+#include"history.h"
 
 int launch_process(Cmd_s cmd) {
 
-	//set redirects
 	
 	pid_t pid;
 	int status;
@@ -86,10 +86,14 @@ int launch_process(Cmd_s cmd) {
 
 void handle_cmd(Cmd_s *cmd) {
 
+	//set redirects
+	
 	set_redirect(*cmd);
 	if (!strcmp(cmd->argv[0], "jobs")) jobs(*cmd);
 	else if (!strcmp(cmd->argv[0], "fg")) fg(cmd);
+	else if (!strcmp(cmd->argv[0], "history")) display_hist();
 	else launch_process(*cmd);
+
 	unset_redirect(*cmd);
 
 };
