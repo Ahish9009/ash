@@ -16,7 +16,7 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 	strcpy(temp, inp);
 	char *token = strtok(temp, delim);
 	int flag_out=0, flag_in=0;
-	while (token != 0) {
+	while (token) {
 		token = strip(token);
 
 		if (flag_out != 0) {
@@ -36,6 +36,10 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 			new_cmd->in_bg = 1;
 			token = strtok(NULL, delim);
 			continue;
+		}
+		if (token[strlen(token)-1] == '&') {
+			new_cmd->in_bg = 1;
+			token[strlen(token)-1] = 0;
 		}
 		
 		if (!flag_out && !flag_in) argv[n++] = token;
