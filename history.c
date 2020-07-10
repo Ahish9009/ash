@@ -17,8 +17,7 @@ void insert_hist(char *inp) {
 	}
 	strcpy(hist.hist_arr[hist.n - 1], inp);
 }
-void display_hist() {
-
+void display_hist(Cmd_s *cmd) {
 	for (int i = 0; i < hist.n; i++) {
 		fprintf(stdout, "%d %s\n", i, hist.hist_arr[i]);
 	}
