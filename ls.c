@@ -80,7 +80,7 @@ void print_l(struct dirent *curr_file, char *dir_path) {
 	}
 
 
-	fprintf(stdout, RED "%s " CLR_RST "%2ld %s %s %6lldB %s " CLR_RST "%s%s" CLR_RST"%c\n", 
+	fprintf(stdout, YELLOW "%s " CLR_RST "%2ld %s %s %6lldB %s " CLR_RST "%s%s" CLR_RST"%c\n", 
 			mode, 
 			(long) f_dets.st_nlink, 
 			getpwuid(f_dets.st_uid)->pw_name,
@@ -133,7 +133,7 @@ void ls(Cmd_s *cmd) {
 	if (flag_l) {
 		long long int total = 0;
 		for (int i = 0; i < n; i++) total += get_block_size(curr_file[i], dir_path);
-		fprintf(stdout, "total %lld", total);
+		fprintf(stdout, "total %lld\n", total);
 	}
 
 	for (int i = 0; i < n; i++) {
