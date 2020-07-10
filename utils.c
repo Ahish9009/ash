@@ -20,6 +20,23 @@ char *hostname;
 char *home_path;
 char *path;
 
+bool handle_up_arrow(char *inp) {
+	int n_up = 0;
+	for (int i = 0; inp[i]; i++) {
+		if ((int)(inp[i]) == 27) n_up++;
+	}
+	fprintf(stderr, "%d\n", n_up);
+
+	if (n_up) {
+		inp[0] = 0;
+		strcpy(inp,hist.hist_arr[(hist.n - n_up) % MAX_HIST_SIZE]);
+		fprintf(stdout, "%s%s", get_prompt(), inp);
+		fflush(stdout);
+		return 1;
+	}
+	return 0;
+}
+
 char * strip(char *x) {
 
 	while (*x == ' ') x++;
@@ -52,14 +69,14 @@ bool open_quotes(char *inp) {
 	return 0;
 }
 
-void get_input(char *inp) {
-	fgets(inp, MAX_INPUT_SIZE, stdin);
-	while (open_quotes(inp) && strlen(inp) < MAX_INPUT_SIZE) {
+void get_input(char *ptr) {
+	fgets(ptr, MAX_INPUT_SIZE, stdin);
+	while (open_quotes(ptr) && strlen(ptr) < MAX_INPUT_SIZE) {
 		fprintf(stdout, "quote> ");
 		char *temp = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
-		fgets(temp, MAX_INPUT_SIZE-strlen(inp), stdin);
-		inp[strlen(inp)-1] = 0;
-		strcat(inp, temp);
+		fgets(temp, MAX_INPUT_SIZE-strlen(ptr), stdin);
+		ptr[strlen(ptr)-1] = 0;
+		strcat(ptr, temp);
 		free(temp);
 	}
 	// fpurge only works on MacOS
@@ -119,6 +136,13 @@ void repl() {
 
 		inp[strlen(inp)-1] = 0;
 		if (!strcmp(inp, "exit")) return;
+
+		if (handle_up_arrow(inp)) {
+			char *temp = (char *) malloc((MAX_INPUT_SIZE - strlen(inp)+1)*sizeof(char));
+			get_input(temp);
+			inp = strncat(inp, temp, MAX_INPUT_SIZE);
+			inp[strlen(inp)-1] = 0;
+		}
 
 		Commands_s * commands = parse(inp);
 
