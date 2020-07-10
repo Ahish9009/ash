@@ -1,4 +1,3 @@
-
 #include"utils.h"
 
 #ifndef __LS_1

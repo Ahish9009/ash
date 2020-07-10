@@ -3,6 +3,11 @@
 #include<string.h>
 #include<dirent.h>
 #include<sys/stat.h>
+#include <sys/types.h>
+#include <pwd.h>
+#include <uuid/uuid.h>
+#include <grp.h>
+#include <time.h>
 
 #include"utils.h"
 #include"sort.h"
@@ -10,7 +15,6 @@
 char * ls_parse(Cmd_s *cmd, bool *flag_l, bool *flag_a) {
 
 	char **argv = cmd->argv;
-
 	*flag_l = 0; *flag_a = 0;
 	char *dir_path = (char *) malloc (sizeof(char) * MAX_INPUT_SIZE); 
 	for (int i = 1; i < cmd->argc; i++) {
@@ -31,28 +35,83 @@ char * ls_parse(Cmd_s *cmd, bool *flag_l, bool *flag_a) {
 	return dir_path;
 }
 
-char * get_details(struct dirent *curr_file, char *dir_path) {
+void print_l(struct dirent *curr_file, char *dir_path) {
 
 	char *temp = (char *) malloc(sizeof(char) * MAX_INPUT_SIZE);
 	temp[0] = 0;
 	strcpy(temp, dir_path);
-	struct stat file_details;
-	stat(strcat(temp, curr_file->d_name), &file_details);
+	struct stat f_dets;
+	if (lstat(strcat(temp, curr_file->d_name), &f_dets) == -1) {
+		perror("ash: ls:");
+		return;
+	}
 
-	/*generate details*/
-	char *perms = (char *) malloc(sizeof(char) * 15);
-	perms[0] = '-'; perms[11] = 0;
-	if (S_ISDIR(file_details.st_mode)) perms[0] = 'd'; if (S_ISSOCK(file_details.st_mode)) perms[0] = 's';
-	if (S_ISCHR(file_details.st_mode)) perms[0] = 'c'; if (S_ISLNK(file_details.st_mode)) perms[0] = 'l';
+	char *mode = (char *) malloc (11*sizeof(char));
+	mode[10] = 0;
+	switch (f_dets.st_mode & S_IFMT) {
+		case S_IFBLK:  mode[0] = 'b'; break;
+		case S_IFCHR:  mode[0] = 'c'; break;
+		case S_IFDIR:  mode[0] = 'd'; break;
+		case S_IFIFO:  mode[0] = 'p'; break;
+		case S_IFLNK:  mode[0] = 'l'; break;
+		case S_IFREG:  mode[0] = '-'; break;
+		case S_IFSOCK: mode[0] = 's'; break;
+		default:       mode[0] = '?'; break;
+	}
+	int perms[9] = {
+		S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH 
+	};
+	for (int i = 1; i < 10; i++) mode[i] = perms[i-1] & f_dets.st_mode;
+	for (int i = 1; i < 10; i+=3) mode[i] = (mode[i]) ? 'r' : '-';
+	for (int i = 2; i < 10; i+=3) mode[i] = (mode[i]) ? 'w' : '-';
+	for (int i = 3; i < 10; i+=3) mode[i] = (mode[i]) ? 'x' : '-';
 
-	int perm_vals[] = {
-		S_IRUSR, S_IWUSR, S_IXUSR, 
-		S_IRGRP, S_IWGRP, S_IXGRP, 
-		S_IROTH, S_IWOTH, S_IXOTH
-	}; 
+	char *time = ctime(&f_dets.st_mtime)+4;
+	time[12] = 0;
+	char *name_color = CLR_RST;
+	char name_ext = ' ';
+	if (mode[0] == 'd') {
+		name_color = BLUE;
+		name_ext = '/';
+	}
+	else if (mode[3] == 'x') {
+		name_color = RED;
+		name_ext = '*';
+	}
 
-	for (int i = 0; i < 9; i++) perms[i+1] = (file_details.st_mode & perm_vals[i]) ? "rwx"[i%3] : '-';  
-	return perms;
+
+	fprintf(stdout, RED "%s " CLR_RST "%2ld %s %s %6lldB %s " CLR_RST "%s%s" CLR_RST"%c\n", 
+			mode, 
+			(long) f_dets.st_nlink, 
+			getpwuid(f_dets.st_uid)->pw_name,
+                	getgrgid(f_dets.st_gid)->gr_name,
+			f_dets.st_size,
+			time,
+			name_color,
+			curr_file->d_name,
+			name_ext
+	);
+	free(temp);
+	free(mode);
+}
+
+int no_hidden (const struct dirent *dir) {
+	return (dir->d_name[0] == '.') ? 0 : 1;
+}
+
+long long get_block_size(struct dirent *curr_file, char *dir_path) {
+
+	char *temp = (char *) malloc(sizeof(char) * MAX_INPUT_SIZE);
+	temp[0] = 0;
+	strcpy(temp, dir_path);
+	struct stat f_dets;
+	if (lstat(strcat(temp, curr_file->d_name), &f_dets) == -1) {
+		perror("ash: ls:");
+		return 0;
+	}
+
+	free(temp);
+	return f_dets.st_blocks;
 }
 
 void ls(Cmd_s *cmd) {
@@ -60,59 +119,27 @@ void ls(Cmd_s *cmd) {
 	bool flag_l, flag_a;
 	char *dir_path = ls_parse(cmd, &flag_l, &flag_a);
 
-	DIR *currDir = opendir(dir_path);
-	struct dirent *curr_file = readdir(currDir);
+	struct dirent **curr_file;
+	int n;
 
-	int n_items = 0;
-	while (curr_file) {
-		n_items++;
-		curr_file = readdir(currDir);
-	}
-	closedir(currDir);
+	if (flag_a) n = scandir(dir_path, &curr_file, NULL, alphasort);
+	else n = scandir(dir_path, &curr_file, no_hidden, alphasort);
 
-	currDir = opendir(dir_path);
-	curr_file = readdir(currDir);
-
-	char **dets = (char **) malloc ((n_items+2) * sizeof(char *));
-	char **file_names = (char **) malloc ((n_items+2) * sizeof(char *));
-
-	int i = 0;
-	while (curr_file) {
-
-		if (curr_file->d_name[0] == '.' && !flag_a) {
-			curr_file = readdir(currDir);
-			continue;
-		}	
-		if (flag_l) {
-			char *perms = get_details(curr_file, dir_path);
-			char *new = (char *) malloc (sizeof(char) * (strlen(perms) + strlen(curr_file->d_name) + 5));
-
-			char *ext = "\n";
-			if (perms[0] == 'd') ext = "/\n";
-			else if (perms[3] == 'x') ext = "*\n";
-
-			sprintf(new, "%s %s%s", perms, curr_file->d_name, ext);
-			dets[i] = new;
-			free(perms);
-		}
-		else {
-			char *new = (char *) malloc (sizeof(char) * (strlen(curr_file->d_name)));
-			sprintf(new, "%s\n", curr_file->d_name);
-			dets[i] = new;
-		}
-		char *name = (char *) malloc (sizeof(char) * (strlen(curr_file->d_name)));
-		name = curr_file->d_name;
-		file_names[i++] = name;
-		curr_file = readdir(currDir);
+	if (n == -1) {
+		perror("ash: ls");
+		return;
 	}
 
-	sort(dets, file_names);
-
-	for (int i = 0; i < n_items; i++) {
-		if (dets[i]) fprintf(stdout, "%s", dets[i]);
+	if (flag_l) {
+		long long int total = 0;
+		for (int i = 0; i < n; i++) total += get_block_size(curr_file[i], dir_path);
+		fprintf(stdout, "total %lld", total);
 	}
 
-	// freeing
-	free(dets);
-	free(file_names);
+	for (int i = 0; i < n; i++) {
+		if (flag_l) print_l(curr_file[i], dir_path);
+		else fprintf(stdout, "%s\n", curr_file[i]->d_name);
+		free(curr_file[i]);
+	}
+	free(curr_file);
 }
