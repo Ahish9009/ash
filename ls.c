@@ -73,8 +73,8 @@ void ls(Cmd_s *cmd) {
 	currDir = opendir(dir_path);
 	curr_file = readdir(currDir);
 
-	char **dets = (char **) malloc (n_items * sizeof(char *));
-	char **file_names = (char **) malloc (n_items * sizeof(char *));
+	char **dets = (char **) malloc ((n_items+2) * sizeof(char *));
+	char **file_names = (char **) malloc ((n_items+2) * sizeof(char *));
 
 	int i = 0;
 	while (curr_file) {
@@ -93,16 +93,16 @@ void ls(Cmd_s *cmd) {
 
 			sprintf(new, "%s %s%s", perms, curr_file->d_name, ext);
 			dets[i] = new;
-			/*else fprintf(stdout, "\n");*/
+			free(perms);
 		}
 		else {
 			char *new = (char *) malloc (sizeof(char) * (strlen(curr_file->d_name)));
 			sprintf(new, "%s\n", curr_file->d_name);
 			dets[i] = new;
 		}
-			char *name = (char *) malloc (sizeof(char) * (strlen(curr_file->d_name)));
-			name = curr_file->d_name;
-			file_names[i++] = name;
+		char *name = (char *) malloc (sizeof(char) * (strlen(curr_file->d_name)));
+		name = curr_file->d_name;
+		file_names[i++] = name;
 		curr_file = readdir(currDir);
 	}
 
@@ -111,4 +111,8 @@ void ls(Cmd_s *cmd) {
 	for (int i = 0; i < n_items; i++) {
 		if (dets[i]) fprintf(stdout, "%s", dets[i]);
 	}
+
+	// freeing
+	free(dets);
+	free(file_names);
 }
