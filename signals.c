@@ -18,12 +18,14 @@ void bg_exit() {
 
 		if (WIFEXITED(status)) {
 			if (WEXITSTATUS(status) == 0) 
-				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited normally with status %d\n" CLR_RST, name, pid, status);
+				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited normally with status " YELLOW "%d\n" CLR_RST, name, pid, status);
 			else 
-				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited with status %d\n" CLR_RST, name, pid, status);
+				fprintf(stderr,  YELLOW "%s " RED "with pid" YELLOW " %d " RED "exited with status" YELLOW " %d\n" CLR_RST, name, pid, status);
+			delete_proc(pid);
+			fprintf(stderr, "%s", get_prompt());
 		}
-		delete_proc(pid);
-		fprintf(stderr, "%s", get_prompt());
+		else delete_proc(pid);
+
 	}
 	else if (pid > 0) {
 		delete_proc(pid);
