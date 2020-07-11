@@ -56,7 +56,7 @@ pid_t shell_pid;
 char *user;
 char *hostname;
 char *home_path;
-char *path;
+char *old_path;
 int _STDIN, _STDOUT;
 History_s hist;
 

@@ -85,6 +85,8 @@ void get_input(char *ptr) {
 void init() {
 
 	home_path = getenv("PWD");
+	old_path = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+	strcpy(old_path, home_path);
 	user = getenv("USER");
 	hostname = (char *) malloc (20*sizeof(char));
 	if (gethostname(hostname, 20)) hostname = user;
