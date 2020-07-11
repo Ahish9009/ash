@@ -23,6 +23,7 @@
 #include"ls.h"
 #include"pwd.h"
 #include"cd.h"
+#include"pinfo.h"
 
 const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"fg",
@@ -34,6 +35,7 @@ const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"ls",
 	"pwd",
 	"cd",
+	"pinfo", 
 };
 
 typedef void (*functions)(Cmd_s *cmd);
@@ -47,6 +49,7 @@ functions BUILT_IN_FUNCTIONS[N_BUILTIN_COMMANDS] = {
 	&ls,
 	&pwd,
 	&cd,
+	&pinfo,
 };
 
 int launch_process(Cmd_s cmd) {
