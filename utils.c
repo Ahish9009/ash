@@ -18,8 +18,6 @@ pid_t shell_pid;
 char *user;
 char *hostname;
 char *home_path;
-char *path;
-
 bool handle_up_arrow(char *inp) {
 	int n_up = 0;
 	for (int i = 0; inp[i]; i++) {
@@ -90,7 +88,6 @@ void init() {
 	hostname = (char *) malloc (20*sizeof(char));
 	if (gethostname(hostname, 20)) hostname = user;
 	
-	path = "~";
 	_STDIN = STDIN_FILENO;
 	_STDOUT = STDOUT_FILENO;
 
