@@ -15,9 +15,10 @@ void overkill(Cmd_s *cmd) {
 	Process_node *last = bg_procs;
 	while (last->next) {
 		last = last->next;
-		if (kill(last->pid, SIGKILL)) {
+		if (kill(last->pid, SIGKILL))
 			fprintf(stderr, "Process with pid %d couldn't be killed\n", last->pid);
-		}
+		else 
+			fprintf(stdout, GREEN "Successfully killed process with pid %d\n" CLR_RST, last->pid);
 	}
 
 }

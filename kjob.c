@@ -8,7 +8,6 @@
 bool validate_kjob(Cmd_s *cmd) {
 
 	if (cmd->argc < 3) return 1;
-
 	return 0;
 
 }
