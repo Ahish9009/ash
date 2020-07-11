@@ -7,6 +7,8 @@
 
 
 char * get_tilda(char *path) {
+
+	if (!strcmp(home_path, "/")) return path;
 	
 	char * temp = (char *) malloc(strlen(path)*sizeof(char));
 	strcpy(temp, path);
