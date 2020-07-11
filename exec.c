@@ -178,4 +178,5 @@ void exec_piped(Commands_s *commands) {
 			launch_piped(*curr);
 		}
 	}
+
 }
