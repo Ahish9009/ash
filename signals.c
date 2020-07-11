@@ -22,7 +22,7 @@ void bg_exit() {
 			else 
 				fprintf(stderr,  YELLOW "%s " RED "with pid" YELLOW " %d " RED "exited with status" YELLOW " %d\n" CLR_RST, name, pid, status);
 			delete_proc(pid);
-			fprintf(stderr, "%s", get_prompt());
+			show_prompt();
 		}
 		else delete_proc(pid);
 
@@ -32,10 +32,10 @@ void bg_exit() {
 	}
 }
 void ctrl_c() {
-	fprintf(stdout, "\n%s", get_prompt());
+	show_prompt();
 	fflush(stdout);
 }
 void ctrl_z() {
-	fprintf(stdout, "\n%s", get_prompt());
+	show_prompt();
 	fflush(stdout);
 }

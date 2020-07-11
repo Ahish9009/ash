@@ -27,7 +27,8 @@ bool handle_up_arrow(char *inp) {
 	if (n_up) {
 		inp[0] = 0;
 		strcpy(inp,hist.hist_arr[(hist.n - n_up) % MAX_HIST_SIZE]);
-		fprintf(stdout, "%s%s", get_prompt(), inp);
+		show_prompt();
+		fprintf(stdout, "%s", inp);
 		fflush(stdout);
 		return 1;
 	}
@@ -124,8 +125,8 @@ void init() {
 void repl() {
 
 	while(1) {
-		char *prompt = get_prompt();
-		fprintf(stdout, "%s", prompt);
+
+		show_prompt();
 
 		char *inp = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
 		get_input(inp);
