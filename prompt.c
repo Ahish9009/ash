@@ -14,7 +14,6 @@ char * get_tilda(char *path) {
 	int len = strlen(home_path);
 	if (strlen(path) >= len) {
 		temp[strlen(home_path)] = 0;
-		fprintf(stderr, "%s\n", temp);
 		if (!strcmp(temp, home_path)) {
 			path += strlen(home_path)-1;
 			path[0] = '~';
@@ -28,7 +27,7 @@ char * get_tilda(char *path) {
 
 }
 
-char * get_prompt() {
+void show_prompt() {
 	
 	char * prompt = (char *) malloc (MAX_PROMPT_LEN*sizeof(char));
 	char *bg_proc_symb = (any_bg_process()) ? "*" : "";
@@ -40,5 +39,7 @@ char * get_prompt() {
 	char *prefix = "[as̶h]";
 	sprintf(prompt, YELLOW "%s%s" CLR_RST " %s@%s" GREEN ":%s" YELLOW " $ " CLR_RST, prefix, bg_proc_symb, user, hostname, path);
 
-	return prompt;
+	fprintf(stdout, "%s", prompt);
+	free(prompt);
+
 }
