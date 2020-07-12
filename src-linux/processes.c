@@ -100,25 +100,36 @@ Process_node *get_by_ind(int n) {
 
 void display() {
 	Process_node *last = bg_procs;
-	int i = 1;
+	int ind = 1;
 	while (last->next) {
 		last = last->next;
 
-		char *buf = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+		char *proc_fpath = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 
-
-		sprintf(buf, "/proc/%d/stat", last->pid);
-		int fd = open(buf, O_RDONLY);
+		sprintf(proc_fpath, "/proc/%d/stat", last->pid);
+		FILE *fd = fopen(proc_fpath, "r");
 
 		if(fd < 0) continue;
+		int *i = (int *) malloc (sizeof(int));	
+		char *ign = (char *) malloc(MAX_INPUT_SIZE*sizeof(char));
+		char status;
 
-		read(fd, buf, MAX_INPUT_SIZE);
-		close(fd);
-		char *status = "temp";
+		fscanf(fd, "%d %s %c", i, ign, &status);
 
+		fclose(fd);
+		free(i);
+		free(ign);
 
-		printf("[%d] %s %s [%d]\n", i, status, last->name, last->pid);
-		i++;
+		char *status_desc;
+		if (status == 'R') status_desc = "running";
+		else if (status == 'T' || status == 't') status_desc = "stopped";
+		else if (status == 'S') status_desc = "sleeping";
+		else if (status == 'D') status_desc = "waiting";
+		else if (status == 'Z') status_desc = "zombie";
+		else status_desc = "other";
+
+		printf("[%d] %d %s %s\n", ind, last->pid, status_desc, last->name);
+		ind++;
 	}
 	fflush(stdout);
 }
