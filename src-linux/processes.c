@@ -7,6 +7,7 @@
 #include"processes.h"
 
 void insert(Process_node *node) {
+
 	Process_node *last = bg_procs;
 	while (last->next) last = last->next;
 	last->next = node;
@@ -43,10 +44,26 @@ Process_node *get_by_pid(pid_t pid) {
 
 }
 
+void delete_proc(pid_t pid) {
+
+	Process_node *last = bg_procs;
+	while (last->next) {
+
+		if (last->next->pid == pid) {
+			Process_node *temp = last->next;
+			last->next = last->next->next;
+			free(temp);
+			return;
+		}
+		last = last->next;
+	}
+}
+
 bool any_bg_process() {
 	
 	Process_node *last = bg_procs;
 	Process_node *past = last;
+	int flag = 0;
 	while (last->next) {
 		past = last;
 		last = last->next;
@@ -54,13 +71,18 @@ bool any_bg_process() {
 		char *proc_file = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 		sprintf(proc_file, "/proc/%d/stat", last->pid);
 		int ret = open(proc_file, O_RDONLY);
-		if (ret <= 0) {
+
+
+		if (ret < 0) {
+
 			pid_t del_pid = last->pid;
 			last = past;
 			delete_proc(del_pid);
 		}
-		if (last->bg && ret > 0) return 1;
+		else close(ret);
+		if (last->bg && ret > 0) flag = 1;
 	}
+	if (flag) return 1;
 	return 0;
 }
 
@@ -75,18 +97,6 @@ Process_node *get_by_ind(int n) {
 	else return last;
 }
 
-void delete_proc(pid_t pid) {
-	Process_node *last = bg_procs;
-	while (last->next) {
-		if (last->next->pid == pid) {
-			Process_node *temp = last->next;
-			last->next = last->next->next;
-			free(temp);
-			return;
-		}
-		last = last->next;
-	}
-}
 
 void display() {
 	Process_node *last = bg_procs;
@@ -96,14 +106,11 @@ void display() {
 
 		char *buf = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 
+
 		sprintf(buf, "/proc/%d/stat", last->pid);
 		int fd = open(buf, O_RDONLY);
 
-		if(fd < 0) {
-			fprintf(stderr, "Couldn't find relevant files for pid %d\n", last->pid);
-			perror("jobs");
-			continue;
-		}
+		if(fd < 0) continue;
 
 		read(fd, buf, MAX_INPUT_SIZE);
 		close(fd);
