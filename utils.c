@@ -125,15 +125,21 @@ void init() {
 	/*char *init_msg = "\e[1;1H\e[2J\n  /$$$$$$   /$$$$$$  /$$   /$$      \n /$$__  $$ /$$__  $$| $$  | $$      \n| $$  \\ $$| $$  \\__/| $$  | $$      \n| $$$$$$$$|  $$$$$$ | $$$$$$$$      \n| $$__  $$ \\____  $$| $$__  $$      \n| $$  | $$ /$$  \\ $$| $$  | $$      \n| $$  | $$|  $$$$$$/| $$  | $$      \n|__/  |__/ \\______/ |__/  |__/    ";*/
 
 	char *init_msg = "\
-  /$$$$$$    /$$$$$$   /$$   /$$      \n\
- /$$__  $$  /$$__  $$ | $$  | $$      \n\
-| $$  \\ $$ | $$  \\__/ | $$  | $$      \n\
-| $$$$$$$$ |  $$$$$$  | $$$$$$$$      \n\
-| $$__  $$  \\____  $$ | $$__  $$      \n\
-| $$  | $$  /$$  \\ $$ | $$  | $$      \n\
-| $$  | $$ |  $$$$$$/ | $$  | $$      \n\
-|__/  |__/  \\______/  |__/  |__/      \n\
-		";
+ .S_SSSs                   .S    S.         \n\
+.SS~SSSSS       d%%SSP    .SS    SS.        \n\
+S%S   SSSS     d%S'       S%S    S%S        \n\
+S%S    S%S     S%|        S%S    S%S        \n\
+S%S SSSS%S     S&S        S%S SSSS%S        \n\
+S&S  SSS%S  :::::::::::   S&S  SSS&S        \n\
+S&S    S&S  :::::::::::   S&S    S&S        \n\
+S&S    S&S       `S*S     S&S    S&S        \n\
+S*S    S&S        l*S     S*S    S*S        \n\
+S*S    S*S       .S*P     S*S    S*S        \n\
+S*S    S*S    sSSS*S      S*S    S*S        \n\
+SSS    S*S                SSS    S*S        \n\
+       SP                        SP         \n\
+       Y                         Y          \n\
+			  ";
 	fprintf(stdout, "\e[1;1H\e[2J" YELLOW "%s" CLR_RST "\nWelcome to Ahish's shell!\n\n", init_msg);
 
 }
