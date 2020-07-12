@@ -81,7 +81,7 @@ void print_l(struct dirent *curr_file, char *dir_path) {
 	}
 
 
-	fprintf(stdout, YELLOW "%s " CLR_RST "%2ld %s %s %6lldB %s " CLR_RST "%s%s" CLR_RST"%c\n", 
+	fprintf(stdout, YELLOW "%s " CLR_RST "%2ld %s %s %6ldB %s " CLR_RST "%s%s" CLR_RST"%c\n", 
 			mode, 
 			(long) f_dets.st_nlink, 
 			getpwuid(f_dets.st_uid)->pw_name,
