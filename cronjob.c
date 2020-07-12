@@ -10,6 +10,16 @@
 #include"exec.h"
 #include"prompt.h"
 
+bool validate_cronjob(Cmd_s *cmd) {
+
+	if (cmd->argc != 6) {
+		fprintf(stderr, "Usage: cronjob -c <cmd> -t <interval> -p <period>\n");
+		return 1;
+	}
+	
+	return 0;
+}
+
 void exec_cronjob(char *cmd_inp, int interval, int t) {
 	
 	Commands_s * commands = parse(cmd_inp);
@@ -21,7 +31,6 @@ void exec_cronjob(char *cmd_inp, int interval, int t) {
 		while (time(0) < start_time + interval) {
 			continue;
 		}
-
 		start_time = time(0);
 		exec_piped(commands);
 		show_prompt();
@@ -31,6 +40,8 @@ void exec_cronjob(char *cmd_inp, int interval, int t) {
 }
 
 void cronjob(Cmd_s *cmd) {
+
+	if (validate_cronjob(cmd)) return;
 	
 	char *cmd_inp = (char *) malloc (MAX_INPUT_SIZE*sizeof(cmd));
 	int interval, t;
@@ -46,6 +57,8 @@ void cronjob(Cmd_s *cmd) {
 			t = atoi(cmd->argv[i+1]);
 		}			
 	}
+
+	if (t < 0 || interval < 0 || !cmd_inp) return; 
 	
 	pid_t pid = fork();
 	if (pid == 0) {
