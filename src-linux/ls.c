@@ -11,11 +11,13 @@
 #include"utils.h"
 #include"sort.h"
 
-char * ls_parse(Cmd_s *cmd, bool *flag_l, bool *flag_a) {
+char * ls_parse(Cmd_s *cmd, char *dir_path, bool *flag_l, bool *flag_a) {
+
+
+	dir_path[0] = 0;
 
 	char **argv = cmd->argv;
 	*flag_l = 0; *flag_a = 0;
-	char *dir_path = (char *) malloc (sizeof(char) * MAX_INPUT_SIZE); 
 	for (int i = 1; i < cmd->argc; i++) {
 
 		if (argv[i][0] == '-') {
@@ -116,13 +118,8 @@ long long get_block_size(struct dirent *curr_file, char *dir_path) {
 void ls(Cmd_s *cmd) {
 
 	bool flag_l, flag_a;
-	char *dir_path = ls_parse(cmd, &flag_l, &flag_a);
-
-	for (int i = 0; i < cmd->argc; i++) {
-		fprintf(stderr, "%s\n", cmd->argv[i]);
-	}	
-
-	return;
+	char *dir_path = (char *) malloc (sizeof(char) * MAX_INPUT_SIZE); 
+	dir_path = ls_parse(cmd, dir_path, &flag_l, &flag_a);
 
 	struct dirent **curr_file;
 	int n;
@@ -134,6 +131,7 @@ void ls(Cmd_s *cmd) {
 		perror("ash: ls");
 		return;
 	}
+
 
 	if (flag_l) {
 		long long int total = 0;
