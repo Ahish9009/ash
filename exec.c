@@ -24,6 +24,7 @@
 #include"pcwd.h"
 #include"cd.h"
 #include"pinfo.h"
+#include"cronjob.h"
 
 const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"fg",
@@ -36,6 +37,7 @@ const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"pwd",
 	"cd",
 	"pinfo", 
+	"cronjob", 
 };
 
 typedef void (*functions)(Cmd_s *cmd);
@@ -50,6 +52,7 @@ functions BUILT_IN_FUNCTIONS[N_BUILTIN_COMMANDS] = {
 	&pwd,
 	&cd,
 	&pinfo,
+	&cronjob,
 };
 
 int launch_process(Cmd_s cmd) {
