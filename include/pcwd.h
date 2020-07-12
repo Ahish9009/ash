@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __PWD_1
-#define __PWD_1
+#ifndef __PCWD_1
+#define __PCWD_1
 
 void pwd(Cmd_s *cmd);
 

@@ -3,6 +3,7 @@
 
 CC = gcc
 FLAGS = -Wall
+INC = -I include
 
 SRCS := $(wildcard *.c)
 BINS := $(SRCS:%.c=%)
@@ -10,7 +11,7 @@ BINS := $(SRCS:%.c=%)
 all: ash
 
 ash: 
-	$(CC) $(FLAGS) -o $@ $(SRCS)
+	$(CC) $(FLAGS) $(INC) -o $@ $(SRCS)
 
 clean:
 	rm ash;

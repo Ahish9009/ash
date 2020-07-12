@@ -21,7 +21,7 @@
 #include"kjob.h"
 #include"overkill.h"
 #include"ls.h"
-#include"pwd.h"
+#include"pcwd.h"
 #include"cd.h"
 #include"pinfo.h"
 
