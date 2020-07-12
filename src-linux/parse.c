@@ -19,12 +19,12 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 	while (token) {
 		token = strip(token);
 
-		if (flag_out != 0) {
+		if (flag_out == 1 || flag_out == 2) {
 			new_cmd->f_out = token;
 			if (flag_out == 2) new_cmd->a = 1;
 			flag_out = -1;
 		}
-		if (flag_in) {
+		if (flag_in == 1) {
 			new_cmd->f_in = token;
 			flag_in = -1;
 		}
@@ -79,6 +79,8 @@ Piped_s * get_piped_commands(Piped_s *piped_commands, char *inp) {
 			new_cmd->f_out = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 			new_cmd->f_in = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 			new_cmd->in_bg = 0;
+			new_cmd->f_in = "";
+			new_cmd->f_out = "";
 
 			strcpy(new_cmd->full_cmd, inp);
 			if (i == len-1 && inp[i] != '|') {
