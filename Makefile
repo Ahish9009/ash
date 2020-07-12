@@ -3,15 +3,17 @@
 
 CC = gcc
 FLAGS = -Wall
-INC = -I include
+INC-MAC = -I include-mac
 
 SRCS := $(wildcard *.c)
 BINS := $(SRCS:%.c=%)
 
 all: ash
 
-ash: 
-	$(CC) $(FLAGS) $(INC) -o $@ $(SRCS)
+mac: ash-mac
+
+ash-mac: 
+	$(CC) $(FLAGS) $(INC-MAC) -o ash $(SRCS)
 
 clean:
 	rm ash;
