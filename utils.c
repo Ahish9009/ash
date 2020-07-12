@@ -122,23 +122,27 @@ void init() {
 	signal(SIGINT, ctrl_c);
 	signal(SIGTSTP, ctrl_z);
 
-	/*char *init_msg = "\e[1;1H\e[2J\n  /$$$$$$   /$$$$$$  /$$   /$$      \n /$$__  $$ /$$__  $$| $$  | $$      \n| $$  \\ $$| $$  \\__/| $$  | $$      \n| $$$$$$$$|  $$$$$$ | $$$$$$$$      \n| $$__  $$ \\____  $$| $$__  $$      \n| $$  | $$ /$$  \\ $$| $$  | $$      \n| $$  | $$|  $$$$$$/| $$  | $$      \n|__/  |__/ \\______/ |__/  |__/    ";*/
+	/*char *init_msg = "\e[1;1H\e[2J\n  /######   /######  /##   /##      \n /##__  ## /##__  ##| ##  | ##      \n| ##  \\ ##| ##  \\__/| ##  | ##      \n| ########|  ###### | ########      \n| ##__  ## \\____  ##| ##__  ##      \n| ##  | ## /##  \\ ##| ##  | ##      \n| ##  | ##|  ######/| ##  | ##      \n|__/  |__/ \\______/ |__/  |__/    ";*/
 
 	char *init_msg = "\
- .S_SSSs                   .S    S.         \n\
-.SS~SSSSS       d%%SSP    .SS    SS.        \n\
-S%S   SSSS     d%S'       S%S    S%S        \n\
-S%S    S%S     S%|        S%S    S%S        \n\
-S%S SSSS%S     S&S        S%S SSSS%S        \n\
-S&S  SSS%S  :::::::::::   S&S  SSS&S        \n\
-S&S    S&S  :::::::::::   S&S    S&S        \n\
-S&S    S&S       `S*S     S&S    S&S        \n\
-S*S    S&S        l*S     S*S    S*S        \n\
-S*S    S*S       .S*P     S*S    S*S        \n\
-S*S    S*S    sSSS*S      S*S    S*S        \n\
-SSS    S*S                SSS    S*S        \n\
-       SP                        SP         \n\
-       Y                         Y          \n\
+                                                                                  \n\
+               AAA                    SSSSSSSSSSSSSSS    HHHHHHHHH     HHHHHHHHH     \n\
+              A:::A                 SS:::::::::::::::S   H:::::::H     H:::::::H     \n\
+             A:::::A               S:::::SSSSSS::::::S   H:::::::H     H:::::::H     \n\
+            A:::::::A              S:::::S     SSSSSSS   HH::::::H     H::::::HH     \n\
+           A:::::::::A             S:::::S                 H:::::H     H:::::H       \n\
+          A:::::A:::::A            S:::::S                 H:::::H     H:::::H       \n\
+         A:::::A A:::::A            S::::SSSS              H::::::HHHHH::::::H       \n\
+        A:::::A   A:::::A        -----------------------   H:::::::::::::::::H       \n\
+       A:::::A     A:::::A             SSS::::::::SS       H:::::::::::::::::H       \n\
+      A:::::AAAAAAAAA:::::A               SSSSSS::::S      H::::::HHHHH::::::H       \n\
+     A:::::::::::::::::::::A                   S:::::S     H:::::H     H:::::H       \n\
+    A:::::AAAAAAAAAAAAA:::::A                  S:::::S     H:::::H     H:::::H       \n\
+   A:::::A             A:::::A     SSSSSSS     S:::::S   HH::::::H     H::::::HH     \n\
+  A:::::A               A:::::A    S::::::SSSSSS:::::S   H:::::::H     H:::::::H     \n\
+ A:::::A                 A:::::A   S:::::::::::::::SS    H:::::::H     H:::::::H     \n\
+AAAAAAA                   AAAAAAA   SSSSSSSSSSSSSSS      HHHHHHHHH     HHHHHHHHH     \n\
+                                                                                  \n\
 			  ";
 	fprintf(stdout, "\e[1;1H\e[2J" YELLOW "%s" CLR_RST "\nWelcome to Ahish's shell!\n\n", init_msg);
 
