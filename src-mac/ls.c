@@ -5,6 +5,7 @@
 #include<sys/stat.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <uuid/uuid.h>
 #include <grp.h>
 #include <time.h>
 
@@ -117,12 +118,6 @@ void ls(Cmd_s *cmd) {
 
 	bool flag_l, flag_a;
 	char *dir_path = ls_parse(cmd, &flag_l, &flag_a);
-
-	for (int i = 0; i < cmd->argc; i++) {
-		fprintf(stderr, "%s\n", cmd->argv[i]);
-	}	
-
-	return;
 
 	struct dirent **curr_file;
 	int n;
