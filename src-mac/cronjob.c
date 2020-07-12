@@ -67,8 +67,4 @@ void cronjob(Cmd_s *cmd) {
 		show_prompt();
 		exit(EXIT_SUCCESS);
 	}
-	else {
-		return;
-	}
-
 }

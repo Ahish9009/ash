@@ -132,7 +132,7 @@ void init() {
           A:::::A:::::A            S:::::S                 H:::::H     H:::::H       \n\
          A:::::A A:::::A            S::::SSSS              H::::::HHHHH::::::H       \n\
         A:::::A   A:::::A        =======================   H:::::::::::::::::H       \n\
-       A:::::A     A:::::A             SSS::::::::SS       H:::::::::::::::::H       \n\
+       A:::::A     A:::::A       =======================   H:::::::::::::::::H       \n\
       A:::::AAAAAAAAA:::::A               SSSSSS::::S      H::::::HHHHH::::::H       \n\
      A:::::::::::::::::::::A                   S:::::S     H:::::H     H:::::H       \n\
     A:::::AAAAAAAAAAAAA:::::A                  S:::::S     H:::::H     H:::::H       \n\
@@ -179,7 +179,7 @@ void repl() {
 		exec_piped(commands);
 		if (strlen(inp)) insert_hist(inp);
 
-		/*free(commands); //leaking memory, fix*/
+		free(commands); //leaking memory, fix
 		free(inp);
 	}
 }
