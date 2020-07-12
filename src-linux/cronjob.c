@@ -12,7 +12,7 @@
 
 bool validate_cronjob(Cmd_s *cmd) {
 
-	if (cmd->argc != 6) {
+	if (cmd->argc != 7) {
 		fprintf(stderr, "Usage: cronjob -c <cmd> -t <interval> -p <period>\n");
 		return 1;
 	}

@@ -1,5 +1,7 @@
-#include<libproc.h>
 #include<stdio.h>
+#include<unistd.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include"utils.h"
 #include"processes.h"
@@ -49,8 +51,9 @@ bool any_bg_process() {
 		past = last;
 		last = last->next;
 
-		struct proc_taskallinfo info;
-		int ret = proc_pidinfo(last->pid, PROC_PIDTASKALLINFO, 0, &info, sizeof(struct proc_taskallinfo));
+		char *proc_file = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+		sprintf(proc_file, "/proc/%d/stat", last->pid);
+		int ret = open(proc_file, O_RDONLY);
 		if (ret <= 0) {
 			pid_t del_pid = last->pid;
 			last = past;
@@ -91,21 +94,24 @@ void display() {
 	while (last->next) {
 		last = last->next;
 
-		struct proc_taskallinfo info;
+		char *buf = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 
-		int ret = proc_pidinfo(last->pid, PROC_PIDTASKALLINFO, 0, &info, sizeof(struct proc_taskallinfo));
-		if (ret > 0) { 
+		sprintf(buf, "/proc/%d/stat", last->pid);
+		int fd = open(buf, O_RDONLY);
 
-			int s_no = info.pbsd.pbi_status;
-			char *stat;
-			if (s_no == 1) stat = "idle"; 	
-			else if (s_no == 2) stat = "running"; 	
-			else if (s_no == 3) stat = "sleeping"; 	
-			else if (s_no == 4) stat = "suspended";
-			else if (s_no == 5) stat = "zombie";
-			else stat = "unknown";
-		fprintf(stdout, "[%d] %d %s %s\n", i++, last->pid, stat,last->name);
-		   }	
+		if(fd < 0) {
+			fprintf(stderr, "Couldn't find relevant files for pid %d\n", last->pid);
+			perror("jobs");
+			continue;
+		}
+
+		read(fd, buf, MAX_INPUT_SIZE);
+		close(fd);
+		char *status = "temp";
+
+
+		printf("[%d] %s %s [%d]\n", i, status, last->name, last->pid);
+		i++;
 	}
 	fflush(stdout);
 }
