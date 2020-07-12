@@ -140,9 +140,8 @@ void init() {
   A:::::A               A:::::A    S::::::SSSSSS:::::S   H:::::::H     H:::::::H     \n\
  A:::::A                 A:::::A   S:::::::::::::::SS    H:::::::H     H:::::::H     \n\
 AAAAAAA                   AAAAAAA   SSSSSSSSSSSSSSS      HHHHHHHHH     HHHHHHHHH     \n\
-                                                                                  \n\
 			  ";
-	fprintf(stdout, "\e[1;1H\e[2J" YELLOW "%s" CLR_RST "\nWelcome to Ahish's shell!\n\n", init_msg);
+	fprintf(stdout, "\e[1;1H\e[2J" YELLOW "%s" CLR_RST "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n", init_msg);
 
 }
 

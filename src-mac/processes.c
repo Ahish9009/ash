@@ -45,6 +45,7 @@ bool any_bg_process() {
 	
 	Process_node *last = bg_procs;
 	Process_node *past = last;
+	int flag = 0;
 	while (last->next) {
 		past = last;
 		last = last->next;
@@ -56,8 +57,9 @@ bool any_bg_process() {
 			last = past;
 			delete_proc(del_pid);
 		}
-		if (last->bg && ret > 0) return 1;
+		if (last->bg && ret > 0) flag = 1;
 	}
+	if (flag) return 1;
 	return 0;
 }
 
