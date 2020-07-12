@@ -179,7 +179,7 @@ void repl() {
 		}
 
 		exec_piped(commands);
-		insert_hist(inp);
+		if (strlen(inp)) insert_hist(inp);
 
 		/*free(commands); //leaking memory, fix*/
 		free(inp);
