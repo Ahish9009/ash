@@ -15,9 +15,14 @@ void help(Cmd_s *cmd) {
 			\n2. echo -[n] [string...] \
 			\n3. pwd \
 			\n4. fg [<pid>] \
-			\n5. history \
-			\n6. jobs \
-			\n7. kjob \
+			\n5. bg [<pid>] \
+			\n6. history \
+			\n7. jobs \
+			\n8. kjob \
+			\n9. overkill \
+			\n10. cd [dir] \
+			\n11. pinfo [<pid>]\
+			\n12. cronjob -c [cmd] -t [time] -p [period]\
 			\n" \
 			CLR_RST);
 }
