@@ -23,6 +23,8 @@ void help(Cmd_s *cmd) {
 			\n10. cd [dir] \
 			\n11. pinfo [<pid>]\
 			\n12. cronjob -c [cmd] -t [time] -p [period]\
+			\n13. set_env <name> <value>\
+			\n14. unset_env <name>\
 			\n" \
 			CLR_RST);
 }
