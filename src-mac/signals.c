@@ -21,8 +21,10 @@ void bg_exit() {
 				fprintf(stderr,  YELLOW "%s " GREEN "with pid" YELLOW " %d " GREEN "exited normally with status " YELLOW "%d\n" CLR_RST, name, pid, status);
 			else 
 				fprintf(stderr,  YELLOW "%s " RED "with pid" YELLOW " %d " RED "exited with status" YELLOW " %d\n" CLR_RST, name, pid, status);
+
 			delete_proc(pid);
 			show_prompt();
+			fflush(stdout);
 		}
 		else delete_proc(pid);
 
