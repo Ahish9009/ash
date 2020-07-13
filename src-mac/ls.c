@@ -3,11 +3,11 @@
 #include<string.h>
 #include<dirent.h>
 #include<sys/stat.h>
-#include <sys/types.h>
-#include <pwd.h>
-#include <uuid/uuid.h>
-#include <grp.h>
-#include <time.h>
+#include<sys/types.h>
+#include<pwd.h>
+#include<uuid/uuid.h>
+#include<grp.h>
+#include<time.h>
 
 #include"utils.h"
 #include"sort.h"
@@ -59,7 +59,8 @@ void print_l(struct dirent *curr_file, char *dir_path) {
 		default:       mode[0] = '?'; break;
 	}
 	int perms[9] = {
-		S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH 
+		S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, 
+		S_IROTH, S_IWOTH, S_IXOTH 
 	};
 	for (int i = 1; i < 10; i++) mode[i] = perms[i-1] & f_dets.st_mode;
 	for (int i = 1; i < 10; i+=3) mode[i] = (mode[i]) ? 'r' : '-';
@@ -78,7 +79,6 @@ void print_l(struct dirent *curr_file, char *dir_path) {
 		name_color = RED;
 		name_ext = '*';
 	}
-
 
 	fprintf(stdout, YELLOW "%s " CLR_RST "%2ld %s %s %6lldB %s " CLR_RST "%s%s" CLR_RST"%c\n", 
 			mode, 
@@ -106,7 +106,7 @@ long long get_block_size(struct dirent *curr_file, char *dir_path) {
 	strcpy(temp, dir_path);
 	struct stat f_dets;
 	if (lstat(strcat(temp, curr_file->d_name), &f_dets) == -1) {
-		perror("ash: ls:");
+		perror("ash: ls");
 		return 0;
 	}
 
