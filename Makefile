@@ -1,7 +1,6 @@
 null :=
 space := ${null} ${null}
-${space} := ${space}# ${ } is a space. Neat huh?
-
+${space} := ${space}
 define \n
 
 
@@ -26,16 +25,18 @@ linux: ash-linux
 
 ash-mac: 
 	$(info FOR MAC:)
-	$(info SOURCES:)
+	$(info ${\n}Sources:${\n})
 	$(info $(subst ${ },${\n},${SRCS-MAC}))
-	$(info COMPILING...)
+	$(info ${\n}Compiling...${\n})
+
 	$(CC) $(FLAGS) $(INC) -o ash $(SRCS-MAC)
 
 ash-linux: 
 	$(info FOR LINUX:)
-	$(info SOURCES:)
+	$(info ${\n}Sources:${\n})
 	$(info $(subst ${ },${\n},${SRCS-LINUX}))
-	$(info COMPILING...)
+	$(info ${\n}Compiling...${\n})
+
 	$(CC) $(FLAGS) $(INC) -o ash $(SRCS-LINUX)
 
 clean:
