@@ -6,10 +6,8 @@
 #include"processes.h"
 
 bool validate_kjob(Cmd_s *cmd) {
-
 	if (cmd->argc < 3) return 1;
 	return 0;
-
 }
 
 void kjob(Cmd_s *cmd) {
@@ -26,15 +24,16 @@ void kjob(Cmd_s *cmd) {
 		Process_node *curr = get_by_pid(atoi(cmd->argv[i]));
 
 		if (!curr) {
-			fprintf(stderr, "Process with pid %s doesn't exist\n", cmd->argv[i]);
+			fprintf(stderr, "Process with pid %s doesn't exist\n", 
+					cmd->argv[i]);
 			continue;
 		}
 		if (kill(atoi(cmd->argv[i]), signal)) {
 			fprintf(stderr, GREEN "Error sending signal to the process\n" CLR_RST);
 		}
 		else {
-			fprintf(stdout, GREEN "Successfully sent signal to process with pid %s\n" CLR_RST, cmd->argv[i]);
-			
+			fprintf(stdout, GREEN "Successfully sent signal to process with pid %s\n" CLR_RST, 
+					cmd->argv[i]);
 		}
 	}
 }
