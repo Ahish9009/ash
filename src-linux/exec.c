@@ -25,6 +25,8 @@
 #include"cd.h"
 #include"pinfo.h"
 #include"cronjob.h"
+#include"help.h"
+#include"env.h"
 
 const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"fg",
@@ -38,6 +40,9 @@ const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"cd",
 	"pinfo", 
 	"cronjob", 
+	"help",
+	"set_env",
+	"unset_env",
 };
 
 typedef void (*functions)(Cmd_s *cmd);
@@ -53,6 +58,9 @@ functions BUILT_IN_FUNCTIONS[N_BUILTIN_COMMANDS] = {
 	&cd,
 	&pinfo,
 	&cronjob,
+	&help,
+	&set_env,
+	&unset_env,
 };
 
 int launch_process(Cmd_s cmd) {
