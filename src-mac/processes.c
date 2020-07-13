@@ -80,6 +80,7 @@ void delete_proc(pid_t pid) {
 		if (last->next->pid == pid) {
 			Process_node *temp = last->next;
 			last->next = last->next->next;
+			free(temp->name);
 			free(temp);
 			return;
 		}
