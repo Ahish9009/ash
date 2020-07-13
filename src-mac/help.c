@@ -16,9 +16,9 @@ void help(Cmd_s *cmd) {
 			\n 3. pwd \
 			\n 4. fg [<job id>] \
 			\n 5. bg [<job id>] \
-			\n 6. history \
+			\n 6. history [<no. of entries>]\
 			\n 7. jobs \
-			\n 8. kjob \
+			\n 8. kjob <sig no> [pid ...]\
 			\n 9. overkill \
 			\n10. cd [dir] \
 			\n11. pinfo [<pid>]\
