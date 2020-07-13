@@ -25,17 +25,25 @@ linux: ash-linux
 
 ash-mac: 
 	$(info MAC:)
-	$(info ${\n}> Sources:)
+	$(info ================)
+	$(info > Sources)
+	$(info ================)
 	$(info $(subst ${ },${\n},${SRCS-MAC}))
-	$(info ${\n}> Compiling...)
+	$(info ================)
+	$(info > Compiling...)
+	$(info ================)
 
 	$(CC) $(FLAGS) $(INC) -o ash $(SRCS-MAC)
 
 ash-linux: 
 	$(info LINUX:)
-	$(info ${\n}> Sources:)
+	$(info ================)
+	$(info > Sources)
+	$(info ================)
 	$(info $(subst ${ },${\n},${SRCS-LINUX}))
-	$(info ${\n}> Compiling...)
+	$(info ================)
+	$(info > Compiling...)
+	$(info ================)
 
 	$(CC) $(FLAGS) $(INC) -o ash $(SRCS-LINUX)
 
