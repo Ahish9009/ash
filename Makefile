@@ -24,20 +24,20 @@ mac: ash-mac
 linux: ash-linux
 
 ash-mac: 
-	$(info FOR MAC:)
-	$(info ${\n}Sources:${\n})
+	$(info MAC:)
+	$(info ${\n}> Sources:)
 	$(info $(subst ${ },${\n},${SRCS-MAC}))
-	$(info ${\n}Compiling...${\n})
+	$(info ${\n}> Compiling...)
 
 	$(CC) $(FLAGS) $(INC) -o ash $(SRCS-MAC)
 
 ash-linux: 
-	$(info FOR LINUX:)
-	$(info ${\n}Sources:${\n})
+	$(info LINUX:)
+	$(info ${\n}> Sources:)
 	$(info $(subst ${ },${\n},${SRCS-LINUX}))
-	$(info ${\n}Compiling...${\n})
+	$(info ${\n}> Compiling...)
 
 	$(CC) $(FLAGS) $(INC) -o ash $(SRCS-LINUX)
 
 clean:
-	rm ash;
+	rm ash
