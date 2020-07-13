@@ -16,7 +16,10 @@ void echo(Cmd_s *cmd) {
 	
 	bool no_nl = 0;
 	for (int i = 1; i < cmd->argc; i++) {
-		if (!strcmp(cmd->argv[i], "-n")) no_nl = 1;
+		if (!strcmp(cmd->argv[i], "-n")) {
+			no_nl = 1;
+			continue;
+		}
 		fprintf(stdout, "%s ", cmd->argv[i]);
 	}
 	if (!no_nl) fprintf(stdout, "\n");
