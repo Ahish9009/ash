@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __PINFO_1
-#define __PINFO_1
+#ifndef __PINFO_H_
+#define __PINFO_H_
 
 void pinfo(Cmd_s *cmd);
 

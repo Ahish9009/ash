@@ -2,8 +2,8 @@
 #include<stdbool.h>
 #include<ctype.h>
 
-#ifndef __UTILS_1
-#define __UTILS_1
+#ifndef __UTILS_H_
+#define __UTILS_H_
 
 #define DEBUG 0
 
@@ -17,7 +17,7 @@
 #define MAX_BUFFER_CMDS 20
 #define MAX_TOKENS      100
 #define MAX_PROMPT_LEN  150
-#define MAX_HIST_SIZE   10
+#define MAX_HIST_SIZE   25
 
 typedef struct Command_info {
 	char *f_in;

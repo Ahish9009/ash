@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __CD_1
-#define __CD_1
+#ifndef __CD_H_
+#define __CD_H_
 
 void cd(Cmd_s *cmd);
 

@@ -1,6 +1,6 @@
 
-#ifndef __JOBS_1
-#define __JOBS_1
+#ifndef __JOBS_H_
+#define __JOBS_H_
 
 void jobs();
 

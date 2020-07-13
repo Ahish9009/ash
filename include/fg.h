@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __FG_1
-#define __FG_1
+#ifndef __FG_H_
+#define __FG_H_
 
 void fg(Cmd_s *cmd);
 

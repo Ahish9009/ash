@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __BG_1
-#define __BG_1
+#ifndef __BG_H_
+#define __BG_H_
 
 void bg(Cmd_s *cmd);
 

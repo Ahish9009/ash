@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __PROCESSES_1
-#define __PROCESSES_1
+#ifndef __PROCESSES_H_
+#define __PROCESSES_H_
 
 void insert(Process_node *node);
 bool find_bg(pid_t pid);

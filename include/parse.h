@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef _PARSE__1
-#define _PARSE__1
+#ifndef _PARSE__H_
+#define _PARSE__H_
 
 Commands_s * parse(char *inp);
 

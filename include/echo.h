@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __ECHO_1
-#define __ECHO_1
+#ifndef __ECHO_H_
+#define __ECHO_H_
 
 void echo(Cmd_s *cmd);
 

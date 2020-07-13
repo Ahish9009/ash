@@ -1,6 +1,6 @@
 
-#ifndef __HISTORY_1
-#define __HISTORY_1
+#ifndef __HISTORY_H_
+#define __HISTORY_H_
 
 void insert_hist(char *inp);
 void display_hist();

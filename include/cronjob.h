@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __CRONJOB_1
-#define __CRONJOB_1
+#ifndef __CRONJOB_H_
+#define __CRONJOB_H_
 
 void cronjob(Cmd_s *cmd);
 

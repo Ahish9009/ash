@@ -1,7 +1,7 @@
 #include"utils.h"
 
-#ifndef __HELP_1
-#define __HELP_1
+#ifndef __HELP_H_
+#define __HELP_H_
 
 void help(Cmd_s *cmd);
 

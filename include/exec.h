@@ -3,8 +3,8 @@
 
 #include"utils.h"
 
-#ifndef __EXEC_1
-#define __EXEC_1
+#ifndef __EXEC_H_
+#define __EXEC_H_
 
 #define N_BUILTIN_COMMANDS 14
 
