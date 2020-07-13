@@ -124,25 +124,24 @@ void init() {
 
 	char *init_msg = "\
                                                                                   \n\
-               AAA                    SSSSSSSSSSSSSSS    HHHHHHHHH     HHHHHHHHH     \n\
-              A:::A                 SS:::::::::::::::S   H:::::::H     H:::::::H     \n\
-             A:::::A               S:::::SSSSSS::::::S   H:::::::H     H:::::::H     \n\
-            A:::::::A              S:::::S     SSSSSSS   HH::::::H     H::::::HH     \n\
-           A:::::::::A             S:::::S                 H:::::H     H:::::H       \n\
-          A:::::A:::::A            S:::::S                 H:::::H     H:::::H       \n\
-         A:::::A A:::::A            S::::SSSS              H::::::HHHHH::::::H       \n\
-        A:::::A   A:::::A        =======================   H:::::::::::::::::H       \n\
-       A:::::A     A:::::A             SSS::::::::SS       H:::::::::::::::::H       \n\
-      A:::::AAAAAAAAA:::::A               SSSSSS::::S      H::::::HHHHH::::::H       \n\
-     A:::::::::::::::::::::A                   S:::::S     H:::::H     H:::::H       \n\
-    A:::::AAAAAAAAAAAAA:::::A                  S:::::S     H:::::H     H:::::H       \n\
-   A:::::A             A:::::A     SSSSSSS     S:::::S   HH::::::H     H::::::HH     \n\
-  A:::::A               A:::::A    S::::::SSSSSS:::::S   H:::::::H     H:::::::H     \n\
- A:::::A                 A:::::A   S:::::::::::::::SS    H:::::::H     H:::::::H     \n\
-AAAAAAA                   AAAAAAA   SSSSSSSSSSSSSSS      HHHHHHHHH     HHHHHHHHH     \n\
-                                                                                  \n\
+"YELLOW"               AAA                                       HHHHHHHHH     HHHHHHHHH     \n\
+"YELLOW"              A:::A           "RED"        SSSSSSSSSSSSSSS   "YELLOW" H:::::::H     H:::::::H     \n\
+"YELLOW"             A:::::A          "RED"      SS:::::::::::::::S  "YELLOW" H:::::::H     H:::::::H     \n\
+"YELLOW"            A:::::::A         "RED"     S:::::SSSSSS::::::S  "YELLOW" HH::::::H     H::::::HH     \n\
+"YELLOW"           A:::::::::A        "RED"     S:::::S     SSSSSSS  "YELLOW"   H:::::H     H:::::H       \n\
+"YELLOW"          A:::::A:::::A       "RED"     S:::::S              "YELLOW"   H:::::H     H:::::H       \n\
+"YELLOW"         A:::::A A:::::A      "RED"      S::::SSSS           "YELLOW"   H::::::HHHHH::::::H       \n\
+"YELLOW"        A:::::A   A:::::A     "RED"   ======================= " YELLOW "  H:::::::::::::::::H       \n\
+"YELLOW"       A:::::A     A:::::A    "RED"   ======================= " YELLOW "  H:::::::::::::::::H       \n\
+"YELLOW"      A:::::AAAAAAAAA:::::A   "RED"            SSSSSS::::S   "YELLOW"   H::::::HHHHH::::::H       \n\
+"YELLOW"     A:::::::::::::::::::::A  "RED"                 S:::::S  "YELLOW"   H:::::H     H:::::H       \n\
+"YELLOW"    A:::::AAAAAAAAAAAAA:::::A "RED"     SSSSSSS     S:::::S  "YELLOW"   H:::::H     H:::::H       \n\
+"YELLOW"   A:::::A             A:::::A "RED"    s::::::ssssss:::::s  "YELLOW" HH::::::H     H::::::HH     \n\
+"YELLOW"  A:::::A               A:::::A "RED"   S:::::::::::::::SS  "YELLOW"  h:::::::h     h:::::::h     \n\
+"YELLOW" A:::::A                 A:::::A "RED"   SSSSSSSSSSSSSSS   "YELLOW"   H:::::::H     H:::::::H     \n\
+"YELLOW"AAAAAAA                   AAAAAAA                        HHHHHHHHH     HHHHHHHHH     \n\
 			  ";
-	fprintf(stdout, "\e[1;1H\e[2J" YELLOW "%s" CLR_RST "\nWelcome to Ahish's shell!\n\n", init_msg);
+	fprintf(stdout, "\e[1;1H\e[2J" RED "%s" CLR_RST "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n", init_msg); 
 
 }
 
