@@ -20,5 +20,4 @@ void overkill(Cmd_s *cmd) {
 		else 
 			fprintf(stdout, GREEN "Successfully killed process with pid %d\n" CLR_RST, last->pid);
 	}
-
 }
