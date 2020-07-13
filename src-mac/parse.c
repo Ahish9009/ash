@@ -50,6 +50,8 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 	argv[n]=0;
 	new_cmd->argc = n;
 
+	free(token);
+
 	/*if (DEBUG) {*/
 		/*fprintf(stderr, "___________\n");*/
 		/*fprintf(stderr, "argc:\n%d\nargv:\n", *n);*/
