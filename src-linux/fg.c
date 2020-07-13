@@ -41,4 +41,9 @@ void fg(Cmd_s *cmd) {
 	tcsetpgrp(STDIN_FILENO, shell_pid);
 	tcsetpgrp(STDOUT_FILENO, shell_pid);
 
+	if (WIFSTOPPED(status)) {
+		setpgid(proc->pid, proc->pid);
+		proc->bg = 1;
+		fprintf(stderr, "\nstopped  %s [%d]\n", proc->name, proc->pid);
+	}
 }
