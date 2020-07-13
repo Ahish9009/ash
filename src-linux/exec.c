@@ -16,6 +16,7 @@
 
 #include"jobs.h"
 #include"fg.h"
+#include"bg.h"
 #include"history.h"
 #include"echo.h"
 #include"kjob.h"
@@ -30,6 +31,7 @@
 
 const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"fg",
+	"bg",
 	"jobs",
 	"history",
 	"echo",
@@ -48,6 +50,7 @@ const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 typedef void (*functions)(Cmd_s *cmd);
 functions BUILT_IN_FUNCTIONS[N_BUILTIN_COMMANDS] = {
 	&fg,
+	&bg,
 	&jobs,
 	&display_hist,
 	&echo,
