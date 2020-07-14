@@ -14,24 +14,24 @@ Custom shell in low level C for linux & Mac.
 
 # Usage
 
-##### Clone the repo
+- ##### Clone the repo
 `
 git clone https://github.com/Ahish9009/ash/
 `
-##### Navigate into it 
+- ##### Navigate into it 
 `
 cd ash
 `
-##### Generate the binary executable
-###### *on Linux*:
+- ##### Generate the binary executable
+> ###### *on Linux*:
 `
 make linux
 `
-###### *on MacOS*:
+> ###### *on MacOS*:
 `
 make mac
 `
-##### Execute 
+- ##### Execute 
 `
 ./ash
 `
@@ -208,7 +208,6 @@ cronjob -c [command] -t [time] -p [period]
 
 The shell is named as "**\<initial\>SH**" \
 The ~~s~~ in a~~s~~h is to emphasize the absence of an '*s*' before the first '*h*' in **Ahish** :D
-#
 
 
 # To-Do
