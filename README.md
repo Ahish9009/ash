@@ -33,6 +33,7 @@ make mac
 ls -[al] [path/to/dir]
 ```
 - Lists files in the specified directory *(lists files of the current directory if no path is specified)*
+___
 
 ### cd
 ###### Usage:
@@ -45,6 +46,7 @@ cd [path/to/dir]
 ###### Options
 - `cd -` : switches to the *previous* working directory
 - `cd` : switches to the *root* directory
+___
 
 ### pwd
 ###### Usage:
@@ -53,6 +55,7 @@ pwd
 ```
 ###### Description
 - returns the name of the current working directory 
+___
 
 ### echo
 ###### Usage:
@@ -63,7 +66,26 @@ echo -[n] [string ...]
 - write arguments to the standard output
 ###### Options
 - `-n` : does not print the trailing newline character
+___
 
+### jobs
+###### Usage:
+```bash
+jobs
+```
+###### Description
+- display status of jobs in the current session
+___
+
+### kjob
+###### Usage:
+```bash
+kjob <signal number> [pid ...]
+```
+###### Description
+- send the specified signal to the specified processes
+- Multiple pids can be passed
+___
 
 
 
