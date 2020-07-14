@@ -7,8 +7,8 @@ Custom shell in low level C for linux & Mac.
 |:---:|:----:|
 |1    | [Usage](#usage) |
 |2    | [Features](#features) |
-|3    | [Built In Commands](#built-in-commands) |
-|4    | [Naming](#naming) |
+|3    | [Built-In Commands](#built-in-commands) |
+|4    | [Naming of the Shell](#naming) |
 |5    | [To-Do](#to-do) |
 |6    | [Author(s)](#authors) |
 
@@ -37,7 +37,9 @@ make mac
 `
 # Features
 
-- Set of custom written in Built-In commands
+- Set of self-written custom built-in commands
+  - Self written and customized
+  - Run within the shell's process itself
   - The list of built-in commands can be found [here](#Built-In-Commands)
 - Supports semi-colon separated commands
   - Eg. `ls ; cd ..; echo`
