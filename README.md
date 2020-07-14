@@ -9,7 +9,8 @@ Custom shell in low level C for linux & Mac.
 |2    | [Features](#features) |
 |3    | [Built In Commands](#built-in-commands) |
 |4    | [Naming](#naming) |
-|5    | [Author(s)](#author(s)) |
+|5    | [To-Do](#to-do) |
+|6    | [Author(s)](#authors) |
 
 # Usage
 
@@ -220,7 +221,7 @@ The ~~s~~ in a~~s~~h is to emphasize the absence of an '*s*' before the first '*
   - [x] cd
   - [x] pwd
   
-  # Author(s)
+# Author(s)
   
- [Ahish Deshpande](https://ahish9009.github.io)
+[Ahish Deshpande](https://ahish9009.github.io)
   
