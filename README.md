@@ -29,19 +29,13 @@ make mac
 
 ###### 1
 ### ls
-###### Usage:
-`
-ls -[al] [path/to/dir]
-`
+###### Usage: `ls -[al] [path/to/dir]`
 - Lists files in the specified directory *(lists files of the current directory if no path is specified)*
 ___
 
 ###### 2
 ### cd
-###### Usage:
-`
-cd [path/to/dir]
-`
+###### Usage: `cd [path/to/dir]`
 ###### Description
 - Changes working directory to the path specified
 - Accepts both *absolute* and *relative* paths
