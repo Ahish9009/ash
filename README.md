@@ -25,17 +25,16 @@ make mac
 ./ash
 `
 # Features
-- `Supports semi-colon separated commands`
-- `Supports multiple piping`
-- `Supports input & output redirection`
-- `Allows job control/process management`
+- Supports semi-colon separated commands
+- Supports multiple piping
+- Supports input & output redirection
+- Allows job control/process management
   - Jobs can be run in the foreground or background
-- `Stores command history`
-- `Handles/traps signals`
+- Stores command history
+- Handles/traps signals
 
 # Built-in Commands
 
-###### 1
 ### ls
 ###### Usage: 
 `
@@ -45,7 +44,6 @@ ls -[al] [path/to/dir]
 - Lists files in the specified directory *(lists files of the current directory if no path is specified)*
 #
 
-###### 2
 ### cd
 ###### Usage: 
 `
@@ -59,7 +57,6 @@ cd [path/to/dir]
 - `cd` : switches to the *root* directory
 #
 
-###### 3
 ### pwd
 ###### Usage:
 `
@@ -69,7 +66,6 @@ pwd
 - returns the name of the current working directory 
 #
 
-###### 4
 ### echo
 ###### Usage:
 `
@@ -81,7 +77,6 @@ echo -[n] [string ...]
 - `-n` : does not print the trailing newline character
 #
 
-###### 5
 ### jobs
 ###### Usage:
 `
@@ -91,7 +86,6 @@ jobs
 - display status of jobs in the current session
 #
 
-###### 6
 ### kjob
 ###### Usage:
 `
@@ -102,7 +96,6 @@ kjob <signal number> [pid ...]
 - Multiple pids can be passed
 #
 
-###### 7
 ### history
 ###### Usage:
 `
@@ -113,7 +106,6 @@ history [n]
 - passing a number *n* as argument displays the last *n* entries
 #
 
-###### 8
 ### fg
 ###### Usage:
 `
@@ -124,7 +116,6 @@ fg [job id]
 - <*job id*> can be found using `jobs`
 #
 
-###### 9
 ### bg
 ###### Usage:
 `
@@ -135,7 +126,6 @@ bg [job id]
 - <*job id*> can be found using `jobs`
 #
 
-###### 10
 ### overkill
 ###### Usage:
 `
@@ -145,7 +135,6 @@ overkill
 - kill all background processes
 #
 
-###### 11
 ### pinfo
 ###### Usage:
 `
@@ -156,7 +145,6 @@ pinfo [pid]
 - shows shell process information if no argument is passed
 #
 
-###### 12 
 ### set_env
 ###### Usage:
 `
@@ -165,8 +153,7 @@ set_env [name] [value]
 ###### Description
 - sets the environment variable ***name*** to have the specified ***value***
 #
-
-###### 13 
+ 
 ### unset_env
 ###### Usage:
 `
@@ -176,7 +163,6 @@ unset_env [name]
 - unsets the environment variable ***name*** 
 #
 
-###### 14
 ### cronjob
 ###### Usage:
 `
