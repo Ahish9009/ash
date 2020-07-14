@@ -8,9 +8,10 @@ Custom shell in low level C for linux & Mac.
 |1    | [Usage](#usage) |
 |2    | [Features](#features) |
 |3    | [Built-In Commands](#built-in-commands) |
-|4    | [Naming of the Shell](#naming) |
-|5    | [To-Do](#to-do) |
-|6    | [Author(s)](#authors) |
+|4    | [File Structure](#file-structure) |
+|5    | [Naming of the Shell](#naming) |
+|6    | [To-Do](#to-do) |
+|7    | [Author(s)](#authors) |
 
 # Usage
 
@@ -194,6 +195,60 @@ cronjob -c [command] -t [time] -p [period]
 ###### Description
 - executes ***command*** every ***time*** seconds for ***period*** duration
 #
+
+# File Structure
+
+```bash
+.
+├── HEADERS
+│   ├── bg.h
+│   ├── cd.h
+│   ├── cronjob.h
+│   ├── echo.h
+│   ├── env.h
+│   ├── exec.h
+│   ├── fg.h
+│   ├── help.h
+│   ├── history.h
+│   ├── jobs.h
+│   ├── kjob.h
+│   ├── ls.h
+│   ├── overkill.h
+│   ├── parse.h
+│   ├── pcwd.h
+│   ├── pinfo.h
+│   ├── processes.h
+│   ├── prompt.h
+│   ├── redirect.h
+│   ├── signals.h
+│   ├── sort.h
+│   └── utils.h
+│
+└── SOURCE FILES
+    ├── bg.c
+    ├── cd.c
+    ├── cronjob.c
+    ├── echo.c
+    ├── env.c
+    ├── exec.c
+    ├── fg.c
+    ├── help.c
+    ├── history.c
+    ├── jobs.c
+    ├── kjob.c
+    ├── ls.c
+    ├── overkill.c
+    ├── parse.c
+    ├── pcwd.c
+    ├── pinfo.c
+    ├── processes.c
+    ├── prompt.c
+    ├── redirect.c
+    ├── shell.c
+    ├── signals.c
+    ├── sort.c
+    └── utils.c
+```
 
 # Naming
 
