@@ -1,6 +1,16 @@
 # as̶h
 Custom shell in low level C for linux & Mac.
 
+# Contents
+
+|S. No| Topic|
+|:---:|:----:|
+|1    | [Usage](#usage) |
+|2    | [Features](#features) |
+|3    | [Built In Commands](#built-in-commands) |
+|4    | [Naming](#naming) |
+|5    | [Author(s)](#author(s)) |
+
 # Usage
 
 ##### Clone the repo
