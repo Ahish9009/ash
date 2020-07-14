@@ -25,7 +25,9 @@ void set_env(Cmd_s *cmd) {
 		perror("ash: set_env");
 	}
 	else {
-		fprintf(stdout, GREEN "Successfully set %s=%s\n" CLR_RST, cmd->argv[1], cmd->argv[2]);
+		fprintf(stdout, GREEN "Successfully set %s=%s\n" CLR_RST, 
+				cmd->argv[1], 
+				cmd->argv[2]);
 	}
 }
 
@@ -36,6 +38,7 @@ void unset_env(Cmd_s *cmd) {
 		perror("ash: unset_env");
 	}
 	else {
-		fprintf(stdout, GREEN "Successfully unset %s\n" CLR_RST, cmd->argv[1]);
+		fprintf(stdout, GREEN "Successfully unset %s\n" CLR_RST, 
+				cmd->argv[1]);
 	}
 }

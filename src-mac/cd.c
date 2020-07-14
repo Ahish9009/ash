@@ -29,6 +29,8 @@ void cd(Cmd_s *cmd) {
 
 	if (chdir(path)) {
 		perror("ash: cd");
+		free(temp);
+		return;
 	}
 
 	strcpy(old_path, temp);
