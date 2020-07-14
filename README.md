@@ -27,6 +27,7 @@ make mac
 
 # Built-in Commands
 
+###### 1
 ### ls
 ###### Usage:
 ```bash
@@ -35,6 +36,7 @@ ls -[al] [path/to/dir]
 - Lists files in the specified directory *(lists files of the current directory if no path is specified)*
 ___
 
+###### 2
 ### cd
 ###### Usage:
 ```bash
@@ -48,6 +50,7 @@ cd [path/to/dir]
 - `cd` : switches to the *root* directory
 ___
 
+###### 3
 ### pwd
 ###### Usage:
 ```bash
@@ -57,6 +60,7 @@ pwd
 - returns the name of the current working directory 
 ___
 
+###### 4
 ### echo
 ###### Usage:
 ```bash
@@ -68,6 +72,7 @@ echo -[n] [string ...]
 - `-n` : does not print the trailing newline character
 ___
 
+###### 5
 ### jobs
 ###### Usage:
 ```bash
@@ -77,6 +82,7 @@ jobs
 - display status of jobs in the current session
 ___
 
+###### 6
 ### kjob
 ###### Usage:
 ```bash
@@ -87,6 +93,7 @@ kjob <signal number> [pid ...]
 - Multiple pids can be passed
 ---
 
+###### 7
 ### history
 ###### Usage:
 ```bash
@@ -97,25 +104,29 @@ history [n]
 - passing a number *n* as argument displays the last *n* entries
 ___
 
+###### 8
 ### fg
 ###### Usage:
 ```bash
 fg [job id]
 ```
 ###### Description
-- runs the job specified by *<job id>* in the background 
-- *job id* can be found using `jobs`
+- runs the job specified by <*job id*> in the foreground 
+- <*job id*> can be found using `jobs`
 ___
 
+###### 9
 ### bg
 ###### Usage:
 ```bash
-fg [job id]
+bg [job id]
 ```
 ###### Description
-- run the job specified by *<job id>* in the background
-- *<job id>* can be found using `jobs`
+- run the job specified by <*job id*> in the background
+- <*job id*> can be found using `jobs`
 ___
+
+
 
 
 
