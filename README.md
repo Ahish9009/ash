@@ -15,16 +15,16 @@ Custom shell in low level C for linux & Mac.
 # Usage
 
 - ##### Clone the repo
-  - `git clone https://github.com/Ahish9009/ash/`
+  `git clone https://github.com/Ahish9009/ash/`
 - ##### Navigate into it 
-  - `cd ash`
+  `cd ash`
 - ##### Generate the binary executable
   - ###### *on Linux*:
-    - `make linux`
+    `make linux`
   - ###### *on MacOS*:
-    - `make mac`
+    `make mac`
 - ##### Execute 
-  - `./ash`
+  `./ash`
 
 # Features
 
