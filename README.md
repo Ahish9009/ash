@@ -23,28 +23,30 @@ Custom shell in low level C for linux & Mac.
   **on `MacOS`**: `make mac`
 - ##### Execute 
   `./ash`
+- ##### Clean 
+  `make clean`
 
 # Features
 
-- Set of self-written custom built-in commands
+- Set of **self-written custom built-in commands**
   - Self written and customized
   - Run within the shell's process itself
   - The list of built-in commands can be found [here](#Built-In-Commands)
-- Supports semi-colon separated commands
+- Supports **semi-colon separated** commands
   - Eg. `ls ; cd ..; echo`
-- Supports multiple piping
+- Supports **multiple piping**
   - Eg. `ls | cat | tail -3`
-- Supports input & output redirection
+- Supports **input & output redirection**
   - Eg. `cat < inp > out`
-- Allows job control/process management
+- Allows **job control/process management**
   - Jobs can be run in the foreground or background
   - Background jobs can be brought to the foreground and vice versa
   - Process exit status is displayed on termination of a background job
-- Stores command history
-- Handles/traps signals
+- Stores command **history**
+- **Handles/traps signals**
   - `CTRL-Z` sends the job(s) in the foreground to the background
   - `CTRL-C` terminates the current foreground job
-- Previous commands can be recalled using the `up arrow key`
+- Previous commands can be **recalled using the `up arrow key`**
   - The *n<sup>th</sup>* command can be recalled by pressing the `up arrow key` *n* times and hitting `enter`
 
 
