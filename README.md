@@ -25,6 +25,9 @@ make mac
 ./ash
 `
 # Features
+
+- Set of custom written in Built-In commands
+  - The list of built-in commands can be found [here](#Built-In-Commands)
 - Supports semi-colon separated commands
   - Eg. `ls ; cd ..; echo`
 - Supports multiple piping
@@ -42,7 +45,8 @@ make mac
 - Previous commands can be recalled using the `up arrow key`
   - The *n<sup>th</sup>* command can be recalled by pressing the `up arrow key` *n* times and hitting `enter`
 
-# Built-in Commands
+
+# Built In Commands
 
 The following commands are built into the shell:
 
