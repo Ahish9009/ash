@@ -28,7 +28,6 @@ Process_node *get_bg_proc(pid_t pid) {
 
 	}
 	return 0;
-
 }
 
 Process_node *get_by_pid(pid_t pid) {
@@ -42,7 +41,7 @@ Process_node *get_by_pid(pid_t pid) {
 }
 
 bool any_bg_process() {
-	
+
 	Process_node *last = bg_procs;
 	Process_node *past = last;
 	int flag = 0;
@@ -107,8 +106,8 @@ void display() {
 			else if (s_no == 4) stat = "suspended";
 			else if (s_no == 5) stat = "zombie";
 			else stat = "unknown";
-		fprintf(stdout, "[%d] %d %s %s\n", i++, last->pid, stat,last->name);
-		   }	
+			fprintf(stdout, "[%d] %d %s %s\n", i++, last->pid, stat,last->name);
+		}	
 	}
 	fflush(stdout);
 }
