@@ -33,8 +33,9 @@ make mac
 `
 ls -[al] [path/to/dir]
 `
+###### Description
 - Lists files in the specified directory *(lists files of the current directory if no path is specified)*
-___
+#
 
 ###### 2
 ### cd
@@ -48,7 +49,7 @@ cd [path/to/dir]
 ###### Options
 - `cd -` : switches to the *previous* working directory
 - `cd` : switches to the *root* directory
-___
+#
 
 ###### 3
 ### pwd
@@ -58,7 +59,7 @@ pwd
 `
 ###### Description
 - returns the name of the current working directory 
-___
+#
 
 ###### 4
 ### echo
@@ -70,7 +71,7 @@ echo -[n] [string ...]
 - write arguments to the standard output
 ###### Options
 - `-n` : does not print the trailing newline character
-___
+#
 
 ###### 5
 ### jobs
@@ -80,7 +81,7 @@ jobs
 `
 ###### Description
 - display status of jobs in the current session
-___
+#
 
 ###### 6
 ### kjob
@@ -91,7 +92,7 @@ kjob <signal number> [pid ...]
 ###### Description
 - send the specified signal to the specified processes
 - Multiple pids can be passed
----
+#
 
 ###### 7
 ### history
@@ -102,7 +103,7 @@ history [n]
 ###### Description
 - displays the history of commands
 - passing a number *n* as argument displays the last *n* entries
-___
+#
 
 ###### 8
 ### fg
@@ -113,7 +114,7 @@ fg [job id]
 ###### Description
 - runs the job specified by <*job id*> in the foreground 
 - <*job id*> can be found using `jobs`
-___
+#
 
 ###### 9
 ### bg
@@ -124,7 +125,7 @@ bg [job id]
 ###### Description
 - run the job specified by <*job id*> in the background
 - <*job id*> can be found using `jobs`
-___
+#
 
 ###### 10
 ### overkill
@@ -134,7 +135,7 @@ overkill
 `
 ###### Description
 - kill all background processes
-___
+#
 
 ###### 11
 ### pinfo
@@ -145,7 +146,7 @@ pinfo [pid]
 ###### Description
 - shows information on the process specified by the pid
 - shows shell process information if no argument is passed
-___
+#
 
 ###### 12 
 ### set_env
@@ -155,7 +156,7 @@ set_env [name] [value]
 `
 ###### Description
 - sets the environment variable ***name*** to have the specified ***value***
-___
+#
 
 ###### 13 
 ### unset_env
@@ -165,7 +166,7 @@ unset_env [name]
 `
 ###### Description
 - unsets the environment variable ***name*** 
-___
+#
 
 ###### 14
 ### cronjob
@@ -175,7 +176,7 @@ cronjob -c [command] -t [time] -p [period]
 `
 ###### Description
 - executes ***command*** every ***time*** seconds for ***period*** duration
-___
+#
 
 
 
