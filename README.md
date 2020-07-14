@@ -29,13 +29,19 @@ make mac
 
 ###### 1
 ### ls
-###### Usage: `ls -[al] [path/to/dir]`
+###### Usage: 
+`
+ls -[al] [path/to/dir]
+`
 - Lists files in the specified directory *(lists files of the current directory if no path is specified)*
 ___
 
 ###### 2
 ### cd
-###### Usage: `cd [path/to/dir]`
+###### Usage: 
+`
+cd [path/to/dir]
+`
 ###### Description
 - Changes working directory to the path specified
 - Accepts both *absolute* and *relative* paths
@@ -119,6 +125,60 @@ bg [job id]
 - run the job specified by <*job id*> in the background
 - <*job id*> can be found using `jobs`
 ___
+
+###### 10
+### overkill
+###### Usage:
+`
+overkill
+`
+###### Description
+- kill all background processes
+___
+
+###### 11
+### pinfo
+###### Usage:
+`
+pinfo [pid]
+`
+###### Description
+- shows information on the process specified by the pid
+- shows shell process information if no argument is passed
+___
+
+###### 12 
+### set_env
+###### Usage:
+`
+set_env [name] [value]
+`
+###### Description
+- sets the environment variable ***name*** to have the specified ***value***
+___
+
+###### 13 
+### unset_env
+###### Usage:
+`
+unset_env [name] 
+`
+###### Description
+- unsets the environment variable ***name*** 
+___
+
+###### 14
+### cronjob
+###### Usage:
+`
+cronjob -c [command] -t [time] -p [period] 
+`
+###### Description
+- executes ***command*** every ***time*** seconds for ***period*** duration
+___
+
+
+
 
 
 
