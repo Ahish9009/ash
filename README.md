@@ -195,8 +195,8 @@ cronjob -c [command] -t [time] -p [period]
 
 # Naming
 
-The shell is named as "**\<initial\>SH**" \
-The ~~s~~ in a~~s~~h is to emphasize the absence of an '*s*' before the first '*h*' in **Ahish** :D
+The shell is named using the "**\<initial\>SH**" convention \
+The **~~s~~** in a~~s~~h is to emphasize the absence of an ***'s'*** before the first ***'h'*** in **Ahish** :P
 
 
 # To-Do
