@@ -85,6 +85,36 @@ kjob <signal number> [pid ...]
 ###### Description
 - send the specified signal to the specified processes
 - Multiple pids can be passed
+---
+
+### history
+###### Usage:
+```bash
+history [n]
+```
+###### Description
+- displays the history of commands
+- passing a number *n* as argument displays the last *n* entries
+___
+
+### fg
+###### Usage:
+```bash
+fg [job id]
+```
+###### Description
+- runs the job specified by *job id* in the background 
+- *job id* can be found using `jobs`
+___
+
+### bg
+###### Usage:
+```bash
+fg [job id]
+```
+###### Description
+- run the job specified by *job id* in the background
+- *job id* can be found using `jobs`
 ___
 
 
