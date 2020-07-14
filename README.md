@@ -1,5 +1,5 @@
 # as̶h
-Custom shell in low level C
+Custom shell in low level C for linux & Mac.
 
 # Usage
 
@@ -26,14 +26,25 @@ make mac
 `
 # Features
 - Supports semi-colon separated commands
+  - Eg. `ls ; cd ..; echo`
 - Supports multiple piping
+  - Eg. `ls | cat | tail -3`
 - Supports input & output redirection
+  - Eg. `cat < inp > out`
 - Allows job control/process management
   - Jobs can be run in the foreground or background
+  - Background jobs can be brought to the foreground and vice versa
+  - Process exit status is displayed on termination of a background job
 - Stores command history
 - Handles/traps signals
+  - `CTRL-Z` sends the job(s) in the foreground to the background
+  - `CTRL-C` terminates the current foreground job
+- Previous commands can be recalled using the `up arrow key`
+  - The *n<sup>th</sup>* command can be recalled by pressing the `up arrow key` *n* times and hitting `enter`
 
 # Built-in Commands
+
+The following commands are built into the shell:
 
 ### ls
 ###### Usage: 
@@ -41,7 +52,11 @@ make mac
 ls -[al] [path/to/dir]
 `
 ###### Description
-- Lists files in the specified directory *(lists files of the current directory if no path is specified)*
+- Lists files in the specified directory 
+- Lists files of the current directory if no path is specified
+###### Options
+- `-l` : list in long format with more details
+- `-a` : display hidden files *(those starting with '.')*
 #
 
 ### cd
@@ -172,14 +187,14 @@ cronjob -c [command] -t [time] -p [period]
 - executes ***command*** every ***time*** seconds for ***period*** duration
 #
 
+# Naming
+
+The shell is named as "**\<initial\>SH**" \
+The ~~s~~ in a~~s~~h is to emphasize the absence of an '*s*' before the first '*h*' in **Ahish** :D
+#
 
 
-
-
-
-
-
-## Features
+# To-Do
 
 - [x] ';' separated commands
 - [x] Piping (multiple)
@@ -190,4 +205,8 @@ cronjob -c [command] -t [time] -p [period]
   - [x] ls
   - [x] cd
   - [x] pwd
+  
+  # Author(s)
+  
+ [Ahish Deshpande](https://ahish9009.github.io)
   
