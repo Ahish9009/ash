@@ -103,7 +103,7 @@ ___
 fg [job id]
 ```
 ###### Description
-- runs the job specified by *job id* in the background 
+- runs the job specified by *<job id>* in the background 
 - *job id* can be found using `jobs`
 ___
 
@@ -113,8 +113,8 @@ ___
 fg [job id]
 ```
 ###### Description
-- run the job specified by *job id* in the background
-- *job id* can be found using `jobs`
+- run the job specified by *<job id>* in the background
+- *<job id>* can be found using `jobs`
 ___
 
 
