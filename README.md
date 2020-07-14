@@ -9,7 +9,7 @@ Custom shell in low level C for linux & Mac.
 |2    | [Features](#features) |
 |3    | [Built-In Commands](#built-in-commands) |
 |4    | [File Structure](#file-structure) |
-|5    | [Naming of the Shell](#naming) |
+|5    | [Naming of the Shell](#naming-of-the-shellx) |
 |6    | [To-Do](#to-do) |
 |7    | [Author(s)](#authors) |
 
@@ -250,7 +250,7 @@ cronjob -c [command] -t [time] -p [period]
     └── utils.c
 ```
 
-# Naming
+# Naming of the Shell
 
 The shell is named using the "**\<initial\>SH**" convention \
 The **~~s~~** in a~~s~~h is to emphasize the absence of an ***'s'*** before the first ***'h'*** in **Ahish** :P
