@@ -19,10 +19,8 @@ Custom shell in low level C for linux & Mac.
 - ##### Navigate into it 
   `cd ash`
 - ##### Generate the binary executable
-  - ###### *on Linux*:
-    `make linux`
-  - ###### *on MacOS*:
-    `make mac`
+  **on `Linux`**: `make linux` \
+  **on `MacOS`**: `make mac`
 - ##### Execute 
   `./ash`
 
