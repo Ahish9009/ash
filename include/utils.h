@@ -66,7 +66,7 @@ Process_node *bg_procs;
 void init();
 void repl();
 void exit_shell();
-char * strip(char *x);
+void strip(char *x);
 bool is_empty(char *x);
 
 # endif

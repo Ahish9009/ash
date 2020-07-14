@@ -23,7 +23,6 @@ bool handle_up_arrow(char *inp) {
 	for (int i = 0; inp[i]; i++) {
 		if ((int)(inp[i]) == 27) n_up++;
 	}
-
 	if (n_up) {
 		inp[0] = 0;
 		strcpy(inp,hist.hist_arr[(hist.n - n_up) % MAX_HIST_SIZE]);
@@ -35,15 +34,12 @@ bool handle_up_arrow(char *inp) {
 	return 0;
 }
 
-char * strip(char *x) {
-
+void strip(char *x) {
 	while (*x == ' ') x++;
 
 	int len = strlen(x)-1;
 	while (len > 0 && x[len]==' ') len--;
 	x[len+1]=0;
-
-	return x;
 }
 
 bool is_empty(char *x) {

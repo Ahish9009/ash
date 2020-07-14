@@ -17,7 +17,7 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 	char *token = strtok(temp, delim);
 	int flag_out=0, flag_in=0;
 	while (token) {
-		token = strip(token);
+		strip(token);
 
 		if (flag_out == 1 || flag_out == 2) {
 			new_cmd->f_out = token;
@@ -89,7 +89,7 @@ Piped_s * get_piped_commands(Piped_s *piped_commands, char *inp) {
 			else { 
 				new_cmd->full_cmd[i]=0; new_cmd->full_cmd+=s;
 			}
-			new_cmd->full_cmd = strip(new_cmd->full_cmd);
+			strip(new_cmd->full_cmd);
 
 			tokenize(new_cmd, " ");
 			if (!is_empty(new_cmd->full_cmd)) {
@@ -127,7 +127,7 @@ Commands_s * get_commands(Commands_s *commands, char *inp) {
 			else {
 			piped_commands->full_cmd[i]=0; piped_commands->full_cmd+=s;
 			}
-			piped_commands->full_cmd = strip(piped_commands->full_cmd);
+			strip(piped_commands->full_cmd);
 
 			piped_commands = get_piped_commands(piped_commands, piped_commands->full_cmd);
 
