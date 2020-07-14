@@ -24,11 +24,19 @@ make mac
 `
 ./ash
 `
+# Features
+- `Supports semi-colon separated commands`
+- `Supports multiple piping`
+- `Supports input & output redirection`
+- `Allows job control/process management`
+  - Jobs can be run in the foreground or background
+- `Stores command history`
+- `Handles/traps signals`
 
 # Built-in Commands
 
 ###### 1
-## ls
+### ls
 ###### Usage: 
 `
 ls -[al] [path/to/dir]
@@ -38,7 +46,7 @@ ls -[al] [path/to/dir]
 #
 
 ###### 2
-## cd
+### cd
 ###### Usage: 
 `
 cd [path/to/dir]
@@ -52,7 +60,7 @@ cd [path/to/dir]
 #
 
 ###### 3
-## pwd
+### pwd
 ###### Usage:
 `
 pwd
@@ -62,7 +70,7 @@ pwd
 #
 
 ###### 4
-## echo
+### echo
 ###### Usage:
 `
 echo -[n] [string ...]
@@ -74,7 +82,7 @@ echo -[n] [string ...]
 #
 
 ###### 5
-## jobs
+### jobs
 ###### Usage:
 `
 jobs
@@ -84,7 +92,7 @@ jobs
 #
 
 ###### 6
-## kjob
+### kjob
 ###### Usage:
 `
 kjob <signal number> [pid ...]
@@ -95,7 +103,7 @@ kjob <signal number> [pid ...]
 #
 
 ###### 7
-## history
+### history
 ###### Usage:
 `
 history [n]
@@ -106,7 +114,7 @@ history [n]
 #
 
 ###### 8
-## fg
+### fg
 ###### Usage:
 `
 fg [job id]
@@ -117,7 +125,7 @@ fg [job id]
 #
 
 ###### 9
-## bg
+### bg
 ###### Usage:
 `
 bg [job id]
@@ -128,7 +136,7 @@ bg [job id]
 #
 
 ###### 10
-## overkill
+### overkill
 ###### Usage:
 `
 overkill
@@ -138,7 +146,7 @@ overkill
 #
 
 ###### 11
-## pinfo
+### pinfo
 ###### Usage:
 `
 pinfo [pid]
@@ -149,7 +157,7 @@ pinfo [pid]
 #
 
 ###### 12 
-## set_env
+### set_env
 ###### Usage:
 `
 set_env [name] [value]
@@ -159,7 +167,7 @@ set_env [name] [value]
 #
 
 ###### 13 
-## unset_env
+### unset_env
 ###### Usage:
 `
 unset_env [name] 
@@ -169,7 +177,7 @@ unset_env [name]
 #
 
 ###### 14
-## cronjob
+### cronjob
 ###### Usage:
 `
 cronjob -c [command] -t [time] -p [period] 
