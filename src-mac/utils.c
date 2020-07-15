@@ -121,25 +121,18 @@ void init() {
 	signal(SIGTSTP, ctrl_z);
 
 	char *init_msg = "\
-                                                                                  \n\
-"B_CYAN"                 AAA                                       HHHHHHHHH     HHHHHHHHH     \n\
-"B_CYAN"                A:::A           "B_RED"        SSSSSSSSSSSSSSS   "B_CYAN" H:::::::H     H:::::::H     \n\
-"B_CYAN"               A:::::A          "B_RED"      SS:::::::::::::::S  "B_CYAN" H:::::::H     H:::::::H     \n\
-"B_CYAN"              A:::::::A         "B_RED"     S:::::SSSSSS::::::S  "B_CYAN" HH::::::H     H::::::HH     \n\
-"B_CYAN"             A:::::::::A        "B_RED"     S:::::S     SSSSSSS  "B_CYAN"   H:::::H     H:::::H       \n\
-"B_CYAN"            A:::::A:::::A       "B_RED"     S:::::S              "B_CYAN"   H:::::H     H:::::H       \n\
-"B_CYAN"           A:::::A A:::::A      "B_RED"      S::::SSSS           "B_CYAN"   H::::::HHHHH::::::H       \n\
-"B_CYAN"          A:::::A   A:::::A     "CLR_RST"   ======================= " B_CYAN "  H:::::::::::::::::H       \n\
-"B_CYAN"         A:::::A     A:::::A    "CLR_RST"   ======================= " B_CYAN "  H:::::::::::::::::H       \n\
-"B_CYAN"        A:::::AAAAAAAAA:::::A   "B_RED"            SSSSSS::::S   "B_CYAN"   H::::::HHHHH::::::H       \n\
-"B_CYAN"       A:::::::::::::::::::::A  "B_RED"                 S:::::S  "B_CYAN"   H:::::H     H:::::H       \n\
-"B_CYAN"      A:::::AAAAAAAAAAAAA:::::A "B_RED"     SSSSSSS     S:::::S  "B_CYAN"   H:::::H     H:::::H       \n\
-"B_CYAN"     A:::::A             A:::::A "B_RED"    s::::::ssssss:::::s  "B_CYAN" HH::::::H     H::::::HH     \n\
-"B_CYAN"    A:::::A               A:::::A "B_RED"   S:::::::::::::::SS  "B_CYAN"  h:::::::h     h:::::::h     \n\
-"B_CYAN"   A:::::A                 A:::::A "B_RED"   SSSSSSSSSSSSSSS   "B_CYAN"   H:::::::H     H:::::::H     \n\
-"B_CYAN"  AAAAAAA                   AAAAAAA                        HHHHHHHHH     HHHHHHHHH     \n\
+"B_YELLOW"\n\
+\t   ▄████████    ▄████████     ▄█    █▄\n\
+\t  ███    ███   ███    ███    ███    ███\n\
+\t  ███    ███   ███    █▀     ███    ███\n\
+\t  ███    ███   ███          ▄███▄▄▄▄███▄▄\n\
+\t▀███████████ "B_RED"▀███████████▀"B_YELLOW" ▀▀███▀▀▀▀███▀\n\
+\t  ███    ███          ███    ███    ███\n\
+\t  ███    ███    ▄█    ███    ███    ███\n\
+\t  ███    █▀   ▄████████▀     ███    █▀\n\
+\n\
 			  ";
-	fprintf(stdout, "\e[1;1H\e[2J" B_RED "%s" B_YELLOW "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n" CLR_RST, init_msg); 
+	fprintf(stdout, "\e[1;1H\e[2J%s" CLR_RST "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n" MAGENTA, init_msg); 
 }
 
 void repl() {
