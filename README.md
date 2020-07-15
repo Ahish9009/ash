@@ -1,6 +1,8 @@
 # as̶h
 Custom shell in low level C for linux & Mac.
 
+![shell ss](img/ss1.png)
+
 # Contents
 
 |S. No| Topic|
