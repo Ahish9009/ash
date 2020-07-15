@@ -20,10 +20,6 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 	int s_i = 0, e_i = 0;
 	while (token) {
 		strip(token);
-		/*if (token - temp_start + 1 <= e_i) {*/
-			/*token = strtok(NULL, delim);*/
-			/*continue;	*/
-		/*}*/
 		if (check_quotes(token)) {
 			int ind = token - temp_start;
 			if (!flag_q) {
@@ -32,17 +28,14 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 			}
 			else {
 				e_i = ind+strlen(token);
-				fprintf(stderr, "%d %d", s_i, e_i);
+
 				char *q_token = (char *) malloc((e_i-s_i+2)*sizeof(char));
 				new_cmd->argv[n++] = strncpy(q_token, inp+s_i, e_i-s_i + 1);
-				fprintf(stderr, "TOK: %s\n", q_token);
+
 				flag_q = 0;
 				token = strtok(NULL, delim);
 				continue;
-
 			}
-			fprintf(stderr, "IND: %d\n", ind);
-
 		}
 		if (flag_q) {
 			token = strtok(NULL, delim);
