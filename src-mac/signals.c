@@ -37,9 +37,11 @@ void ctrl_c() {
 	fprintf(stdout, "\n");
 	show_prompt();
 	fflush(stdout);
+	fflush(stdin);
 }
 void ctrl_z() {
 	fprintf(stdout, "\n");
 	show_prompt();
 	fflush(stdout);
+	fflush(stdin);
 }
