@@ -55,7 +55,7 @@ Custom shell in low level C for linux & Mac.
 
 The following commands are built into the shell:
 
-### ls
+### ls <sub><sup>[[MacOS]](src-mac/ls.c)</sup></sub><sub><sup> [[Linux]](src-linux/ls.c)</sup></sub>
 ###### Usage: 
 `
 ls -[al] [path/to/dir]
@@ -68,7 +68,7 @@ ls -[al] [path/to/dir]
 - `-a` : display hidden files *(those starting with '.')*
 #
 
-### cd
+### cd <sub><sup>[[MacOS]](src-mac/cd.c)</sup></sub><sub><sup> [[Linux]](src-linux/cd.c)</sup></sub>
 ###### Usage: 
 `
 cd [path/to/dir]
@@ -81,7 +81,7 @@ cd [path/to/dir]
 - `cd` : switches to the *root* directory
 #
 
-### pwd
+### pwd <sub><sup>[[MacOS]](src-mac/pwd.c)</sup></sub><sub><sup> [[Linux]](src-linux/pwd.c)</sup></sub>
 ###### Usage:
 `
 pwd
@@ -90,7 +90,7 @@ pwd
 - returns the name of the current working directory 
 #
 
-### echo
+### echo <sub><sup>[[MacOS]](src-mac/echo.c)</sup></sub><sub><sup> [[Linux]](src-linux/echo.c)</sup></sub>
 ###### Usage:
 `
 echo -[n] [string ...]
@@ -101,7 +101,7 @@ echo -[n] [string ...]
 - `-n` : does not print the trailing newline character
 #
 
-### jobs
+### jobs <sub><sup>[[MacOS]](src-mac/jobs.c)</sup></sub><sub><sup> [[Linux]](src-linux/jobs.c)</sup></sub>
 ###### Usage:
 `
 jobs
@@ -110,7 +110,7 @@ jobs
 - display status of jobs in the current session
 #
 
-### kjob
+### kjob <sub><sup>[[MacOS]](src-mac/kjob.c.c)</sup></sub><sub><sup> [[Linux]](src-linux/kjob.c.c)</sup></sub>
 ###### Usage:
 `
 kjob <signal number> [pid ...]
@@ -120,7 +120,7 @@ kjob <signal number> [pid ...]
 - Multiple pids can be passed
 #
 
-### history
+### history <sub><sup>[[MacOS]](src-mac/history.c)</sup></sub><sub><sup> [[Linux]](src-linux/history.c)</sup></sub>
 ###### Usage:
 `
 history [n]
@@ -130,7 +130,7 @@ history [n]
 - passing a number *n* as argument displays the last *n* entries
 #
 
-### fg
+### fg <sub><sup>[[MacOS]](src-mac/fg.c)</sup></sub><sub><sup> [[Linux]](src-linux/fg.c)</sup></sub>
 ###### Usage:
 `
 fg [job id]
@@ -140,7 +140,7 @@ fg [job id]
 - <*job id*> can be found using `jobs`
 #
 
-### bg
+### bg <sub><sup>[[MacOS]](src-mac/bg.c)</sup></sub><sub><sup> [[Linux]](src-linux/bg.c)</sup></sub>
 ###### Usage:
 `
 bg [job id]
@@ -150,7 +150,7 @@ bg [job id]
 - <*job id*> can be found using `jobs`
 #
 
-### overkill
+### overkill <sub><sup>[[MacOS]](src-mac/overkill.c)</sup></sub><sub><sup> [[Linux]](src-linux/overkill.c)</sup></sub>
 ###### Usage:
 `
 overkill
@@ -159,7 +159,7 @@ overkill
 - kill all background processes
 #
 
-### pinfo
+### pinfo <sub><sup>[[MacOS]](src-mac/pinfo.c)</sup></sub><sub><sup> [[Linux]](src-linux/pinfo.c)</sup></sub>
 ###### Usage:
 `
 pinfo [pid]
@@ -169,7 +169,7 @@ pinfo [pid]
 - shows shell process information if no argument is passed
 #
 
-### set_env
+### set_env <sub><sup>[[MacOS]](src-mac/env.c)</sup></sub><sub><sup> [[Linux]](src-linux/env.c)</sup></sub>
 ###### Usage:
 `
 set_env [name] [value]
@@ -178,7 +178,7 @@ set_env [name] [value]
 - sets the environment variable ***name*** to have the specified ***value***
 #
  
-### unset_env
+### unset_env <sub><sup>[[MacOS]](src-mac/env.c)</sup></sub><sub><sup> [[Linux]](src-linux/env.c)</sup></sub>
 ###### Usage:
 `
 unset_env [name] 
@@ -187,7 +187,7 @@ unset_env [name]
 - unsets the environment variable ***name*** 
 #
 
-### cronjob
+### cronjob <sub><sup>[[MacOS]](src-mac/cronjob.c)</sup></sub><sub><sup> [[Linux]](src-linux/cronjob.c)</sup></sub>
 ###### Usage:
 `
 cronjob -c [command] -t [time] -p [period] 
