@@ -18,6 +18,22 @@ pid_t shell_pid;
 char *user;
 char *hostname;
 char *home_path;
+
+bool check_quotes(char *str) {
+	bool s_q = 0, d_q = 0, esc = 0;
+	for (int i = 0; str[i]; i++) {
+		if (str[i] == '\'' && !(esc & d_q))
+			s_q = !s_q;
+		if (str[i] == '\"' && !(esc & s_q)) 
+			d_q = !d_q;
+		if (str[i] == '\\') esc = 1;
+		else esc = 0;
+	}
+
+	if (s_q || d_q) return 1;
+	return 0;
+}
+
 bool handle_up_arrow(char *inp) {
 	int n_up = 0;
 	for (int i = 0; inp[i]; i++) {
