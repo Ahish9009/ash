@@ -8,9 +8,15 @@
 #define DEBUG 0
 
 #define RED     "\x1b[31m"
-#define GREEN   "\x1b[32m"
-#define YELLOW  "\x1b[33m"
-#define BLUE    "\x1b[34m"
+#define B_RED "\e[1;31m"
+#define GREEN   "\e[1;32m"
+#define YELLOW  "\e[1;33m"
+#define B_YELLOW "\e[1;33m"
+#define BLUE    "\e[1;34m"
+#define B_BLUE  "\033[1;34m"
+#define CYAN  "\033[0;36m"
+#define B_CYAN  "\033[1;36m"
+#define MAGENTA  "\033[1;35m"
 #define CLR_RST "\x1b[0m"
 
 #define MAX_INPUT_SIZE  100
