@@ -9,7 +9,7 @@ Custom shell in low level C for linux & Mac.
 |2    | [Features](#features) |
 |3    | [Built-In Commands](#built-in-commands) |
 |4    | [File Structure](#file-structure) |
-|5    | [Naming of the Shell](#naming-of-the-shellx) |
+|5    | [Naming of the Shell](#naming-of-the-shell) |
 |6    | [To-Do](#to-do) |
 |7    | [Author(s)](#authors) |
 
@@ -56,7 +56,7 @@ Custom shell in low level C for linux & Mac.
 The following commands are built into the shell:
 
 ### ls <sub><sup>[[MacOS]](src-mac/ls.c)</sup></sub><sub><sup> [[Linux]](src-linux/ls.c)</sup></sub>
-###### Usage: 
+###### Usage 
 `
 ls -[al] [path/to/dir]
 `
@@ -69,7 +69,7 @@ ls -[al] [path/to/dir]
 #
 
 ### cd <sub><sup>[[MacOS]](src-mac/cd.c)</sup></sub><sub><sup> [[Linux]](src-linux/cd.c)</sup></sub>
-###### Usage: 
+###### Usage 
 `
 cd [path/to/dir]
 `
@@ -82,7 +82,7 @@ cd [path/to/dir]
 #
 
 ### pwd <sub><sup>[[MacOS]](src-mac/pwd.c)</sup></sub><sub><sup> [[Linux]](src-linux/pwd.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 pwd
 `
@@ -91,7 +91,7 @@ pwd
 #
 
 ### echo <sub><sup>[[MacOS]](src-mac/echo.c)</sup></sub><sub><sup> [[Linux]](src-linux/echo.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 echo -[n] [string ...]
 `
@@ -102,7 +102,7 @@ echo -[n] [string ...]
 #
 
 ### jobs <sub><sup>[[MacOS]](src-mac/jobs.c)</sup></sub><sub><sup> [[Linux]](src-linux/jobs.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 jobs
 `
@@ -111,7 +111,7 @@ jobs
 #
 
 ### kjob <sub><sup>[[MacOS]](src-mac/kjob.c.c)</sup></sub><sub><sup> [[Linux]](src-linux/kjob.c.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 kjob <signal number> [pid ...]
 `
@@ -121,7 +121,7 @@ kjob <signal number> [pid ...]
 #
 
 ### history <sub><sup>[[MacOS]](src-mac/history.c)</sup></sub><sub><sup> [[Linux]](src-linux/history.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 history [n]
 `
@@ -131,7 +131,7 @@ history [n]
 #
 
 ### fg <sub><sup>[[MacOS]](src-mac/fg.c)</sup></sub><sub><sup> [[Linux]](src-linux/fg.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 fg [job id]
 `
@@ -141,7 +141,7 @@ fg [job id]
 #
 
 ### bg <sub><sup>[[MacOS]](src-mac/bg.c)</sup></sub><sub><sup> [[Linux]](src-linux/bg.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 bg [job id]
 `
@@ -151,7 +151,7 @@ bg [job id]
 #
 
 ### overkill <sub><sup>[[MacOS]](src-mac/overkill.c)</sup></sub><sub><sup> [[Linux]](src-linux/overkill.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 overkill
 `
@@ -160,7 +160,7 @@ overkill
 #
 
 ### pinfo <sub><sup>[[MacOS]](src-mac/pinfo.c)</sup></sub><sub><sup> [[Linux]](src-linux/pinfo.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 pinfo [pid]
 `
@@ -170,7 +170,7 @@ pinfo [pid]
 #
 
 ### set_env <sub><sup>[[MacOS]](src-mac/env.c)</sup></sub><sub><sup> [[Linux]](src-linux/env.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 set_env [name] [value]
 `
@@ -179,7 +179,7 @@ set_env [name] [value]
 #
  
 ### unset_env <sub><sup>[[MacOS]](src-mac/env.c)</sup></sub><sub><sup> [[Linux]](src-linux/env.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 unset_env [name] 
 `
@@ -188,7 +188,7 @@ unset_env [name]
 #
 
 ### cronjob <sub><sup>[[MacOS]](src-mac/cronjob.c)</sup></sub><sub><sup> [[Linux]](src-linux/cronjob.c)</sup></sub>
-###### Usage:
+###### Usage
 `
 cronjob -c [command] -t [time] -p [period] 
 `
@@ -253,7 +253,7 @@ cronjob -c [command] -t [time] -p [period]
 # Naming of the Shell
 
 The shell is named using the "**\<initial\>SH**" convention \
-The **~~s~~** in a~~s~~h is to emphasize the absence of an ***'s'*** before the first ***'h'*** in **Ahish** :P
+The **~~s~~** in a~~s~~h is to emphasize the absence of an ***'s'*** before the first ***'h'*** in **Ahish** :stuck_out_tongue:
 
 
 # To-Do
