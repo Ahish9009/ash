@@ -28,7 +28,6 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 			}
 			else {
 				e_i = ind+strlen(token);
-
 				char *q_token = (char *) malloc((e_i-s_i+2)*sizeof(char));
 				new_cmd->argv[n++] = strncpy(q_token, inp+s_i, e_i-s_i + 1);
 
@@ -68,6 +67,7 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 		if (!flag_out && !flag_in) new_cmd->argv[n++] = token;
 		if (flag_in == -1) flag_in = 0;
 		if (flag_out == -1) flag_out = 0;
+
 		token = strtok(NULL, delim);
 	}
 	new_cmd->argv[n]=0;
