@@ -168,6 +168,7 @@ void repl() {
 		exec_piped(commands);
 		if (strlen(inp)) insert_hist(inp);
 
+		free(commands);
 		free(inp);
 	}
 }
