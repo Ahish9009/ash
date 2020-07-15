@@ -10,7 +10,7 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 
 	char *inp = new_cmd->full_cmd;
 	int n = 0;
-	char **argv = new_cmd->argv;
+	/*char **argv = new_cmd->argv;*/
 	
 	char *temp = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
 	strcpy(temp, inp);
@@ -42,12 +42,12 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 			token[strlen(token)-1] = 0;
 		}
 		
-		if (!flag_out && !flag_in) argv[n++] = token;
+		if (!flag_out && !flag_in) new_cmd->argv[n++] = token;
 		if (flag_in == -1) flag_in = 0;
 		if (flag_out == -1) flag_out = 0;
 		token = strtok(NULL, delim);
 	}
-	argv[n]=0;
+	new_cmd->argv[n]=0;
 	new_cmd->argc = n;
 
 	free(token);

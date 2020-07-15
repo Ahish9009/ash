@@ -122,24 +122,24 @@ void init() {
 
 	char *init_msg = "\
                                                                                   \n\
-"YELLOW"               AAA                                       HHHHHHHHH     HHHHHHHHH     \n\
-"YELLOW"              A:::A           "RED"        SSSSSSSSSSSSSSS   "YELLOW" H:::::::H     H:::::::H     \n\
-"YELLOW"             A:::::A          "RED"      SS:::::::::::::::S  "YELLOW" H:::::::H     H:::::::H     \n\
-"YELLOW"            A:::::::A         "RED"     S:::::SSSSSS::::::S  "YELLOW" HH::::::H     H::::::HH     \n\
-"YELLOW"           A:::::::::A        "RED"     S:::::S     SSSSSSS  "YELLOW"   H:::::H     H:::::H       \n\
-"YELLOW"          A:::::A:::::A       "RED"     S:::::S              "YELLOW"   H:::::H     H:::::H       \n\
-"YELLOW"         A:::::A A:::::A      "RED"      S::::SSSS           "YELLOW"   H::::::HHHHH::::::H       \n\
-"YELLOW"        A:::::A   A:::::A     "RED"   ======================= " YELLOW "  H:::::::::::::::::H       \n\
-"YELLOW"       A:::::A     A:::::A    "RED"   ======================= " YELLOW "  H:::::::::::::::::H       \n\
-"YELLOW"      A:::::AAAAAAAAA:::::A   "RED"            SSSSSS::::S   "YELLOW"   H::::::HHHHH::::::H       \n\
-"YELLOW"     A:::::::::::::::::::::A  "RED"                 S:::::S  "YELLOW"   H:::::H     H:::::H       \n\
-"YELLOW"    A:::::AAAAAAAAAAAAA:::::A "RED"     SSSSSSS     S:::::S  "YELLOW"   H:::::H     H:::::H       \n\
-"YELLOW"   A:::::A             A:::::A "RED"    s::::::ssssss:::::s  "YELLOW" HH::::::H     H::::::HH     \n\
-"YELLOW"  A:::::A               A:::::A "RED"   S:::::::::::::::SS  "YELLOW"  h:::::::h     h:::::::h     \n\
-"YELLOW" A:::::A                 A:::::A "RED"   SSSSSSSSSSSSSSS   "YELLOW"   H:::::::H     H:::::::H     \n\
-"YELLOW"AAAAAAA                   AAAAAAA                        HHHHHHHHH     HHHHHHHHH     \n\
+"B_CYAN"                 AAA                                       HHHHHHHHH     HHHHHHHHH     \n\
+"B_CYAN"                A:::A           "B_RED"        SSSSSSSSSSSSSSS   "B_CYAN" H:::::::H     H:::::::H     \n\
+"B_CYAN"               A:::::A          "B_RED"      SS:::::::::::::::S  "B_CYAN" H:::::::H     H:::::::H     \n\
+"B_CYAN"              A:::::::A         "B_RED"     S:::::SSSSSS::::::S  "B_CYAN" HH::::::H     H::::::HH     \n\
+"B_CYAN"             A:::::::::A        "B_RED"     S:::::S     SSSSSSS  "B_CYAN"   H:::::H     H:::::H       \n\
+"B_CYAN"            A:::::A:::::A       "B_RED"     S:::::S              "B_CYAN"   H:::::H     H:::::H       \n\
+"B_CYAN"           A:::::A A:::::A      "B_RED"      S::::SSSS           "B_CYAN"   H::::::HHHHH::::::H       \n\
+"B_CYAN"          A:::::A   A:::::A     "CLR_RST"   ======================= " B_CYAN "  H:::::::::::::::::H       \n\
+"B_CYAN"         A:::::A     A:::::A    "CLR_RST"   ======================= " B_CYAN "  H:::::::::::::::::H       \n\
+"B_CYAN"        A:::::AAAAAAAAA:::::A   "B_RED"            SSSSSS::::S   "B_CYAN"   H::::::HHHHH::::::H       \n\
+"B_CYAN"       A:::::::::::::::::::::A  "B_RED"                 S:::::S  "B_CYAN"   H:::::H     H:::::H       \n\
+"B_CYAN"      A:::::AAAAAAAAAAAAA:::::A "B_RED"     SSSSSSS     S:::::S  "B_CYAN"   H:::::H     H:::::H       \n\
+"B_CYAN"     A:::::A             A:::::A "B_RED"    s::::::ssssss:::::s  "B_CYAN" HH::::::H     H::::::HH     \n\
+"B_CYAN"    A:::::A               A:::::A "B_RED"   S:::::::::::::::SS  "B_CYAN"  h:::::::h     h:::::::h     \n\
+"B_CYAN"   A:::::A                 A:::::A "B_RED"   SSSSSSSSSSSSSSS   "B_CYAN"   H:::::::H     H:::::::H     \n\
+"B_CYAN"  AAAAAAA                   AAAAAAA                        HHHHHHHHH     HHHHHHHHH     \n\
 			  ";
-	fprintf(stdout, "\e[1;1H\e[2J" RED "%s" CLR_RST "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n", init_msg); 
+	fprintf(stdout, "\e[1;1H\e[2J" B_RED "%s" B_YELLOW "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n" CLR_RST, init_msg); 
 }
 
 void repl() {
@@ -152,7 +152,7 @@ void repl() {
 		get_input(inp);
 
 		inp[strlen(inp)-1] = 0;
-		if (!strcmp(inp, "exit")) return;
+		if (!strcmp(inp, "quit") || !strcmp(inp, "exit")) return;
 
 		if (handle_up_arrow(inp)) {
 			char *temp = (char *) malloc((MAX_INPUT_SIZE - strlen(inp)+1)*sizeof(char));
@@ -175,7 +175,6 @@ void repl() {
 		exec_piped(commands);
 		if (strlen(inp)) insert_hist(inp);
 
-		free(commands); //leaking memory, fix
 		free(inp);
 	}
 }
@@ -190,6 +189,4 @@ void exit_shell() {
 		fclose(hist_file);
 	}
 	else fprintf(stderr, "\nash: Failed to save history\n");
-
-
 }
