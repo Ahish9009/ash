@@ -1,7 +1,7 @@
 # as̶h
 Custom shell in low level C for linux & Mac.
 
-![shell ss](img/ss2.png)
+![shell ss](img/ss3.png)
 
 # Contents
 
