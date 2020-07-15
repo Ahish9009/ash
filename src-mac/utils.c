@@ -19,6 +19,29 @@ char *user;
 char *hostname;
 char *home_path;
 
+void replace_quotes(char *str) {
+	bool s_q = 0, d_q = 0, esc = 0;
+	int len = strlen(str);
+	for (int i = 0; str[i]; i++) {
+		if (str[i] == '\'' && !(esc | d_q)) {
+			for (int j = i+1; j<= len; j++) {
+				str[j-1] = str[j];
+			}
+			len--;
+			s_q = 1;
+		}
+		if (str[i] == '\"' && !(esc | s_q)) { 
+			for (int j = i+1; j<= len; j++) {
+				str[j-1] = str[j];
+			}
+			len--;
+			d_q = !d_q;
+		}
+		if (str[i] == '\\' && !esc) esc = 1;
+		else esc = 0;
+	}
+}
+
 bool check_quotes(char *str) {
 	bool s_q = 0, d_q = 0, esc = 0;
 	for (int i = 0; str[i]; i++) {

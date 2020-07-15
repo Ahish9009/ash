@@ -75,5 +75,6 @@ void exit_shell();
 void strip(char *x);
 bool is_empty(char *x);
 bool check_quotes(char *x);
+void replace_quotes(char *x);
 
 # endif

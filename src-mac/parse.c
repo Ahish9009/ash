@@ -30,6 +30,7 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 				e_i = ind+strlen(token);
 				char *q_token = (char *) malloc((e_i-s_i+2)*sizeof(char));
 				new_cmd->argv[n++] = strncpy(q_token, inp+s_i, e_i-s_i + 1);
+				replace_quotes(new_cmd->argv[n-1]);
 
 				flag_q = 0;
 				token = strtok(NULL, delim);
