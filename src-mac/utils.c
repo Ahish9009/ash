@@ -46,17 +46,29 @@ void replace_quotes(char *str) {
 
 int check_quotes(char *str) {
 	bool s_q = 0, d_q = 0, esc = 0;
+	/*for (int i = 0; str[i]; i++) {*/
+		/*if (str[i] == '\'' && !(esc | d_q))*/
+			/*s_q = !s_q;*/
+		/*if (str[i] == '\"' && !(esc | s_q)) */
+			/*d_q = !d_q;*/
+		/*if (str[i] == '\\' && !esc) esc = 1;*/
+		/*else esc = 0;*/
+	/*}*/
+	int flag = 0;
 	for (int i = 0; str[i]; i++) {
-		if (str[i] == '\'' && !(esc | d_q))
-			s_q = !s_q;
-		if (str[i] == '\"' && !(esc | s_q)) 
-			d_q = !d_q;
-		if (str[i] == '\\' && !esc) esc = 1;
-		else esc = 0;
+		if (str[i] == '\'') {
+			if (!flag) flag = 1;
+			else if (flag == 1) flag = 0;
+		}
+		if (str[i] == '\"') {
+			if (!flag) flag = 2;
+			else if (flag == 2) flag = 0;
+		}
 	}
-	if (s_q) return 1;
-	if (d_q) return 2;
-	return 0;
+	/*if (s_q) return 1;*/
+	/*if (d_q) return 2;*/
+	/*return 0;*/
+	return flag;
 }
 
 bool handle_up_arrow(char *inp) {
@@ -119,6 +131,7 @@ void get_input(char *ptr) {
 	for (int i = 0; i < strlen(ptr); i++) {
 		if (ptr[i] == '\t') ptr[i] = ' ';
 	}
+	
 	// fpurge only works on MacOS
 	/*fpurge(stdin);*/
 	fflush(stdin);
