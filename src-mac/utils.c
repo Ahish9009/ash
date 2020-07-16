@@ -22,27 +22,29 @@ char *home_path;
 void replace_quotes(char *str) {
 	bool s_q = 0, d_q = 0, esc = 0;
 	int len = strlen(str);
-	for (int i = 0; str[i]; i++) {
+	int i = 0;
+	while (str[i]) {
 		if (str[i] == '\'' && !(esc | d_q)) {
 			for (int j = i+1; j<= len; j++) {
 				str[j-1] = str[j];
 			}
-			len--;
-			s_q = 1;
+			i--;
+			s_q = !s_q;
 		}
 		if (str[i] == '\"' && !(esc | s_q)) { 
-			for (int j = i+1; j<= len; j++) {
+			for (int j = i+1; j <= len; j++) {
 				str[j-1] = str[j];
 			}
-			len--;
+			i--;
 			d_q = !d_q;
 		}
 		if (str[i] == '\\' && !esc) esc = 1;
 		else esc = 0;
+		i++;
 	}
 }
 
-bool check_quotes(char *str) {
+int check_quotes(char *str) {
 	bool s_q = 0, d_q = 0, esc = 0;
 	for (int i = 0; str[i]; i++) {
 		if (str[i] == '\'' && !(esc | d_q))
@@ -52,7 +54,8 @@ bool check_quotes(char *str) {
 		if (str[i] == '\\' && !esc) esc = 1;
 		else esc = 0;
 	}
-	if (s_q || d_q) return 1;
+	if (s_q) return 1;
+	if (d_q) return 2;
 	return 0;
 }
 
@@ -95,7 +98,7 @@ bool open_quotes(char *inp) {
 
 	bool esc=0, in_sq=0, in_dq=0;
 	for (int i=0; inp[i] != 0; i++) {
-		if (!esc && inp[i] == '\'') in_sq=!in_sq;
+		if (!(esc | in_dq) && inp[i] == '\'') in_sq=!in_sq;
 		if (!(esc | in_sq) && inp[i] == '\"') in_dq=!in_dq;
 		if (esc || inp[i] == '\\') esc=!esc;
 	}
@@ -112,6 +115,9 @@ void get_input(char *ptr) {
 		ptr[strlen(ptr)-1] = 0;
 		strcat(ptr, temp);
 		free(temp);
+	}
+	for (int i = 0; i < strlen(ptr); i++) {
+		if (ptr[i] == '\t') ptr[i] = ' ';
 	}
 	// fpurge only works on MacOS
 	/*fpurge(stdin);*/
