@@ -55,7 +55,7 @@ Custom shell in low level C for linux & Mac.
 
 # Built In Commands
 
-The following commands are built into the shell:
+The following self-written commands are built into the shell:
 
 ### ls <sub><sup>[[MacOS]](src-mac/ls.c)</sup></sub><sub><sup> [[Linux]](src-linux/ls.c)</sup></sub>
 ###### Usage 
@@ -254,9 +254,8 @@ cronjob -c [command] -t [time] -p [period]
 
 # Naming of the Shell
 
-The shell is named using the "**\<initial\>SH**" convention \
-The **~~s~~** in a~~s~~h is to emphasize the absence of an ***'s'*** before the first ***'h'*** in **Ahish** :stuck_out_tongue:
-
+The **~~s~~** in a~~s~~h is to emphasize the absence of an ***'s'*** before the first ***'h'*** in **Ahish** :stuck_out_tongue: \
+The shell is named using the "**\<initial\>SH**" convention
 
 # To-Do
 
