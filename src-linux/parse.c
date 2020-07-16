@@ -13,11 +13,42 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 	char **argv = new_cmd->argv;
 	
 	char *temp = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+	char *temp_start = temp;
 	strcpy(temp, inp);
 	char *token = strtok(temp, delim);
-	int flag_out=0, flag_in=0;
+	int flag_out=0, flag_in=0, flag_q = 0;
+	int s_i = 0, e_i = -1;
 	while (token) {
 		strip(token);
+
+		if (check_quotes(token)) {
+			int ind = token - temp_start;
+			if (flag_q && (check_quotes(token) != flag_q)) {
+				token = strtok(NULL, delim);
+				continue;
+			}
+			if (!flag_q) {
+				s_i = ind;
+				flag_q = check_quotes(token);
+			}
+			else {
+				e_i = ind+strlen(token);
+				char *q_token = (char *) malloc((e_i-s_i+2)*sizeof(char));
+				new_cmd->argv[n++] = strncpy(q_token, inp+s_i, e_i-s_i + 1);
+				replace_quotes(new_cmd->argv[n-1]);
+
+				flag_q = 0;
+				token = strtok(NULL, delim);
+				e_i = -1;
+				continue;
+			}
+		}
+		if (flag_q) {
+			token = strtok(NULL, delim);
+			continue;
+		};
+
+		replace_quotes(token);
 
 		if (flag_out == 1 || flag_out == 2) {
 			new_cmd->f_out = token;
@@ -49,15 +80,6 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 	}
 	argv[n]=0;
 	new_cmd->argc = n;
-
-	/*if (DEBUG) {*/
-		/*fprintf(stderr, "___________\n");*/
-		/*fprintf(stderr, "argc:\n%d\nargv:\n", *n);*/
-		/*for (int i = 0; i < *n; i++) {*/
-			/*fprintf(stderr, "%s\n", argv[i]);*/
-		/*}*/
-		/*fprintf(stderr, "___________\n");*/
-	/*}*/
 
 }
 

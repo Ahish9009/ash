@@ -18,11 +18,53 @@ pid_t shell_pid;
 char *user;
 char *hostname;
 char *home_path;
+
+void replace_quotes(char *str) {
+	bool s_q = 0, d_q = 0, esc = 0;
+	int len = strlen(str);
+	int i = 0;
+	while (str[i]) {
+		if (str[i] == '\'' && !(esc | d_q)) {
+			for (int j = i+1; j<= len; j++) {
+				str[j-1] = str[j];
+			}
+			i--;
+			s_q = !s_q;
+		}
+		if (str[i] == '\"' && !(esc | s_q)) { 
+			for (int j = i+1; j <= len; j++) {
+				str[j-1] = str[j];
+			}
+			i--;
+			d_q = !d_q;
+		}
+		if (str[i] == '\\' && !esc) esc = 1;
+		else esc = 0;
+		i++;
+	}
+}
+
+int check_quotes(char *str) {
+	bool s_q = 0, d_q = 0, esc = 0;
+	for (int i = 0; str[i]; i++) {
+		if (str[i] == '\'' && !(esc | d_q))
+			s_q = !s_q;
+		if (str[i] == '\"' && !(esc | s_q)) 
+			d_q = !d_q;
+		if (str[i] == '\\' && !esc) esc = 1;
+		else esc = 0;
+	}
+	if (s_q) return 1;
+	if (d_q) return 2;
+	return 0;
+}
+
 bool handle_up_arrow(char *inp) {
 	int n_up = 0;
 	for (int i = 0; inp[i]; i++) {
 		if ((int)(inp[i]) == 27) n_up++;
 	}
+
 	if (n_up) {
 		inp[0] = 0;
 		strcpy(inp,hist.hist_arr[(hist.n - n_up) % MAX_HIST_SIZE]);
@@ -35,6 +77,7 @@ bool handle_up_arrow(char *inp) {
 }
 
 void strip(char *x) {
+
 	while (*x == ' ') x++;
 
 	int len = strlen(x)-1;
@@ -55,7 +98,7 @@ bool open_quotes(char *inp) {
 
 	bool esc=0, in_sq=0, in_dq=0;
 	for (int i=0; inp[i] != 0; i++) {
-		if (!esc && inp[i] == '\'') in_sq=!in_sq;
+		if (!(esc | in_dq) && inp[i] == '\'') in_sq=!in_sq;
 		if (!(esc | in_sq) && inp[i] == '\"') in_dq=!in_dq;
 		if (esc || inp[i] == '\\') esc=!esc;
 	}
@@ -72,6 +115,9 @@ void get_input(char *ptr) {
 		ptr[strlen(ptr)-1] = 0;
 		strcat(ptr, temp);
 		free(temp);
+	}
+	for (int i = 0; i < strlen(ptr); i++) {
+		if (ptr[i] == '\t') ptr[i] = ' ';
 	}
 	// fpurge only works on MacOS
 	/*fpurge(stdin);*/
@@ -119,26 +165,18 @@ void init() {
 	signal(SIGTSTP, ctrl_z);
 
 	char *init_msg = "\
-                                                                                  \n\
-"YELLOW"               AAA                                       HHHHHHHHH     HHHHHHHHH     \n\
-"YELLOW"              A:::A           "RED"        SSSSSSSSSSSSSSS   "YELLOW" H:::::::H     H:::::::H     \n\
-"YELLOW"             A:::::A          "RED"      SS:::::::::::::::S  "YELLOW" H:::::::H     H:::::::H     \n\
-"YELLOW"            A:::::::A         "RED"     S:::::SSSSSS::::::S  "YELLOW" HH::::::H     H::::::HH     \n\
-"YELLOW"           A:::::::::A        "RED"     S:::::S     SSSSSSS  "YELLOW"   H:::::H     H:::::H       \n\
-"YELLOW"          A:::::A:::::A       "RED"     S:::::S              "YELLOW"   H:::::H     H:::::H       \n\
-"YELLOW"         A:::::A A:::::A      "RED"      S::::SSSS           "YELLOW"   H::::::HHHHH::::::H       \n\
-"YELLOW"        A:::::A   A:::::A     "RED"   ======================= " YELLOW "  H:::::::::::::::::H       \n\
-"YELLOW"       A:::::A     A:::::A    "RED"   ======================= " YELLOW "  H:::::::::::::::::H       \n\
-"YELLOW"      A:::::AAAAAAAAA:::::A   "RED"            SSSSSS::::S   "YELLOW"   H::::::HHHHH::::::H       \n\
-"YELLOW"     A:::::::::::::::::::::A  "RED"                 S:::::S  "YELLOW"   H:::::H     H:::::H       \n\
-"YELLOW"    A:::::AAAAAAAAAAAAA:::::A "RED"     SSSSSSS     S:::::S  "YELLOW"   H:::::H     H:::::H       \n\
-"YELLOW"   A:::::A             A:::::A "RED"    s::::::ssssss:::::s  "YELLOW" HH::::::H     H::::::HH     \n\
-"YELLOW"  A:::::A               A:::::A "RED"   S:::::::::::::::SS  "YELLOW"  h:::::::h     h:::::::h     \n\
-"YELLOW" A:::::A                 A:::::A "RED"   SSSSSSSSSSSSSSS   "YELLOW"   H:::::::H     H:::::::H     \n\
-"YELLOW"AAAAAAA                   AAAAAAA                        HHHHHHHHH     HHHHHHHHH     \n\
+"B_YELLOW"\n\
+\t   ▄████████    ▄████████     ▄█    █▄\n\
+\t  ███    ███   ███    ███    ███    ███\n\
+\t  ███    ███   ███    █▀     ███    ███\n\
+\t  ███    ███   ███          ▄███▄▄▄▄███▄▄\n\
+\t▀███████████ "B_RED"▀███████████▀"B_YELLOW" ▀▀███▀▀▀▀███▀\n\
+\t  ███    ███          ███    ███    ███\n\
+\t  ███    ███    ▄█    ███    ███    ███\n\
+\t  ███    █▀   ▄████████▀     ███    █▀\n\
+\n\
 			  ";
-	fprintf(stdout, "\e[1;1H\e[2J" RED "%s" CLR_RST "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n", init_msg); 
-
+	fprintf(stdout, "\e[1;1H\e[2J%s" CLR_RST "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n" MAGENTA, init_msg); 
 }
 
 void repl() {
@@ -151,7 +189,7 @@ void repl() {
 		get_input(inp);
 
 		inp[strlen(inp)-1] = 0;
-		if (!strcmp(inp, "exit")) return;
+		if (!strcmp(inp, "quit") || !strcmp(inp, "exit")) return;
 
 		if (handle_up_arrow(inp)) {
 			char *temp = (char *) malloc((MAX_INPUT_SIZE - strlen(inp)+1)*sizeof(char));
@@ -174,7 +212,7 @@ void repl() {
 		exec_piped(commands);
 		if (strlen(inp)) insert_hist(inp);
 
-		free(commands); //leaking memory, fix
+		free(commands);
 		free(inp);
 	}
 }
@@ -189,6 +227,4 @@ void exit_shell() {
 		fclose(hist_file);
 	}
 	else fprintf(stderr, "\nash: Failed to save history\n");
-
-
 }
