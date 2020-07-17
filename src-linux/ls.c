@@ -115,6 +115,30 @@ long long get_block_size(struct dirent *curr_file, char *dir_path) {
 	return f_dets.st_blocks;
 }
 
+void print_norm(struct dirent *curr_file, char *dir_path) {
+	char *temp = (char *) malloc(sizeof(char) * MAX_INPUT_SIZE);
+	temp[0] = 0;
+	strcpy(temp, dir_path);
+	struct stat f_dets;
+	if (lstat(strcat(temp, curr_file->d_name), &f_dets) == -1) {
+		perror("ash: ls");
+		return;
+	}
+
+	char name_ext = ' ';
+	char *name_color = CLR_RST;
+	if (f_dets.st_mode & S_IXUSR) {
+		name_color = RED;
+		name_ext = '*';
+	}
+	if ((f_dets.st_mode & S_IFMT) == S_IFDIR) {
+		name_color = BLUE;
+		name_ext = '/';
+	}
+	fprintf(stdout, "%s%s%c\n" CLR_RST, name_color, curr_file->d_name, name_ext);
+
+}
+
 void ls(Cmd_s *cmd) {
 
 	bool flag_l, flag_a;
@@ -141,7 +165,7 @@ void ls(Cmd_s *cmd) {
 
 	for (int i = 0; i < n; i++) {
 		if (flag_l) print_l(curr_file[i], dir_path);
-		else fprintf(stdout, "%s\n", curr_file[i]->d_name);
+		else print_norm(curr_file[i], dir_path);
 		free(curr_file[i]);
 	}
 	free(curr_file);
