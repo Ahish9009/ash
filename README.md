@@ -261,6 +261,7 @@ The shell is named using the "**\<initial\>SH**" convention
 
 - [ ] Wildcard substitution
 - [ ] Memory leaks 😛
+- [ ] Test linux more
   
 # Author(s)
   
