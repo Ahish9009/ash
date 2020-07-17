@@ -189,7 +189,8 @@ void init() {
 \t  ███    █▀   ▄████████▀     ███    █▀\n\
 \n\
 			  ";
-	fprintf(stdout, "\e[1;1H\e[2J%s" CLR_RST "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n\n" MAGENTA, init_msg); 
+	fprintf(stdout, "\e[1;1H\e[2J%s" CLR_RST "\nWelcome to Ahish's shell: as̶h!\nUse 'help' for more information\n" MAGENTA, init_msg); 
+	fprintf(stdout, "Use 'exit' or 'quit' to exit the shell\n\n");
 }
 
 void repl() {
@@ -213,15 +214,6 @@ void repl() {
 
 		Commands_s * commands = parse(inp);
 
-		if (DEBUG) {
-			for (int i = 0; i < *commands->cnt; i++) {
-				fprintf(stderr, "full cmd: %s\n", commands->cmd_lst[i]->full_cmd);
-				for (int j = 0; j < *(commands->cmd_lst[i]->cnt); j++) {
-					fprintf(stderr, "Px: %s\n",commands->cmd_lst[i]->cmd_lst[j]->full_cmd);
-				}
-			}
-		}
-
 		exec_piped(commands);
 		if (strlen(inp)) insert_hist(inp);
 
@@ -230,7 +222,7 @@ void repl() {
 	}
 }
 
-void exit_shell() {
+void shutdown() {
 
 	FILE * hist_file = fopen(".ash_history", "wb");
 	if (hist_file) {

@@ -1,4 +1,5 @@
 #include<stdlib.h>
+
 #include"utils.h"
 
 int main(int argc, char **argv) {
@@ -10,7 +11,7 @@ int main(int argc, char **argv) {
 	repl();
 
 	//exit commands
-	exit_shell();
+	shutdown();
 
 	return EXIT_SUCCESS;
 }
