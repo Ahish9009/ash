@@ -1,3 +1,5 @@
+#include <fcntl.h>
+#include<string.h>
 #include<stdio.h>
 #include<unistd.h>
 #include<ctype.h>
@@ -38,14 +40,13 @@ void pinfo(Cmd_s *cmd) {
 	char status;
 	long int vmem;
 
+	char *proc_mempath = (char *) malloc (MAX_INPUT_SIZE*sizeof(char));
+	sprintf(proc_mempath, "/proc/%d/statm", pid);
+
 	fscanf(fd, "%d %s %c %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %ld", 
 			&pid, ign, &status, 
 			i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, 
 			&vmem);
-
-	fclose(fd);
-	free(i);
-	free(ign);
 
 	char *status_desc;
 	if (status == 'R') status_desc = "running";
@@ -61,5 +62,8 @@ void pinfo(Cmd_s *cmd) {
 	fprintf(stdout, "memory: %ld\n", vmem);
 	fprintf(stdout, "executable: %s\n", exe);
 
+	fclose(fd);
+	free(i);
+	free(ign);
 
 }

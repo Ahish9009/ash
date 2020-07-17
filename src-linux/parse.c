@@ -21,15 +21,15 @@ void tokenize(Cmd_s *new_cmd, char *delim) {
 	while (token) {
 		strip(token);
 
-		if (check_quotes(token)) {
+		if (check_quotes(token, flag_q)) {
 			int ind = token - temp_start;
-			if (flag_q && (check_quotes(token) != flag_q)) {
+			if (flag_q && (check_quotes(token, flag_q) != flag_q)) {
 				token = strtok(NULL, delim);
 				continue;
 			}
 			if (!flag_q) {
 				s_i = ind;
-				flag_q = check_quotes(token);
+				flag_q = check_quotes(token, flag_q);
 			}
 			else {
 				e_i = ind+strlen(token);
