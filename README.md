@@ -1,5 +1,5 @@
 # as̶h
-Custom shell in low level C for linux & Mac.
+Custom shell in low level C for Linux & Mac.
 
 ![shell ss](img/ss3.png)
 
@@ -23,7 +23,7 @@ Custom shell in low level C for linux & Mac.
   `cd ash`
 - ##### Generate the binary executable
   **on `Linux`**: `make linux` \
-  **on `MacOS`**: `make mac`
+  **on `MacOS`**: `make mac` or `make`
 - ##### Execute 
   `./ash`
 - ##### Clean 
@@ -161,10 +161,10 @@ overkill
 - kill all background processes
 #
 
-### pinfo <sub><sup>[[MacOS]](src-mac/pinfo.c)</sup></sub><sub><sup> [[Linux]](src-linux/pinfo.c)</sup></sub>
+### ps <sub><sup>[[MacOS]](src-mac/ps.c)</sup></sub><sub><sup> [[Linux]](src-linux/ps.c)</sup></sub>
 ###### Usage
 `
-pinfo [pid]
+ps [pid]
 `
 ###### Description
 - shows information on the process specified by the pid
@@ -218,7 +218,7 @@ cronjob -c [command] -t [time] -p [period]
 │   ├── overkill.h
 │   ├── parse.h
 │   ├── pcwd.h
-│   ├── pinfo.h
+│   ├── ps.h
 │   ├── processes.h
 │   ├── prompt.h
 │   ├── redirect.h
@@ -242,7 +242,7 @@ cronjob -c [command] -t [time] -p [period]
     ├── overkill.c
     ├── parse.c
     ├── pcwd.c
-    ├── pinfo.c
+    ├── ps.c
     ├── processes.c
     ├── prompt.c
     ├── redirect.c
@@ -259,15 +259,8 @@ The shell is named using the "**\<initial\>SH**" convention
 
 # To-Do
 
-- [x] ';' separated commands
-- [x] Piping (multiple)
-- [x] Redirection
-- [x] fg/bg
-- [x] Built-in commands
-  - [x] echo
-  - [x] ls
-  - [x] cd
-  - [x] pwd
+- [ ] Wildcard substitution
+- [ ] Memory leaks 😛
   
 # Author(s)
   
