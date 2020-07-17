@@ -21,7 +21,7 @@ void help(Cmd_s *cmd) {
 			\n 8. kjob <sig no> [pid ...]\
 			\n 9. overkill \
 			\n10. cd [dir] \
-			\n11. pinfo [<pid>]\
+			\n11. ps [<pid>]\
 			\n12. cronjob -c [cmd] -t [time] -p [period]\
 			\n13. set_env <name> <value>\
 			\n14. unset_env <name>\
