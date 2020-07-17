@@ -14,11 +14,6 @@
 #include"processes.h"
 #include"history.h"
 
-pid_t shell_pid;
-char *user;
-char *hostname;
-char *home_path;
-
 void replace_quotes(char *str) {
 	bool s_q = 0, d_q = 0, esc = 0;
 	int len = strlen(str);
@@ -44,37 +39,42 @@ void replace_quotes(char *str) {
 	}
 }
 
-int check_quotes(char *str) {
-	bool s_q = 0, d_q = 0, esc = 0;
-	/*for (int i = 0; str[i]; i++) {*/
-		/*if (str[i] == '\'' && !(esc | d_q))*/
-			/*s_q = !s_q;*/
-		/*if (str[i] == '\"' && !(esc | s_q)) */
-			/*d_q = !d_q;*/
-		/*if (str[i] == '\\' && !esc) esc = 1;*/
-		/*else esc = 0;*/
-	/*}*/
+int check_quotes(char *str, int flag_q) {
+	bool esc = 0;
 	int flag = 0;
 	for (int i = 0; str[i]; i++) {
-		if (str[i] == '\'') {
-			if (!flag) flag = 1;
-			else if (flag == 1) flag = 0;
+		if (str[i] == '\'' && !esc) {
+			if (!flag && flag_q != 2) {
+				flag = 1;
+				flag_q = 1;
+			}
+			else if (flag == 1) {
+				flag = 0;
+				flag_q = 0;
+			}
 		}
-		if (str[i] == '\"') {
-			if (!flag) flag = 2;
-			else if (flag == 2) flag = 0;
+		if (str[i] == '\"' && !esc) {
+			if (!flag && flag_q != 1) {
+				flag = 2;
+				flag_q = 2;
+			}
+			else if (flag == 2) {
+				flag = 0;
+				flag_q = 0;
+			}
 		}
+		if (str[i] == '\\' && !esc) esc = 1;
 	}
-	/*if (s_q) return 1;*/
-	/*if (d_q) return 2;*/
-	/*return 0;*/
 	return flag;
 }
 
 bool handle_up_arrow(char *inp) {
+
+	if (strlen(inp) < 3) return 0;
+
 	int n_up = 0;
-	for (int i = 0; inp[i]; i++) {
-		if ((int)(inp[i]) == 27) n_up++;
+	for (int i = 0; inp[i+2]; i++) {
+		if ((int)(inp[i]) == 27 && (int)(inp[i+1]) == 91 && (int)(inp[i+2]) == 65) n_up++;
 	}
 
 	if (n_up) {
