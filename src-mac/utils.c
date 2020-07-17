@@ -222,7 +222,7 @@ void repl() {
 	}
 }
 
-void shutdown() {
+void exit_shell() {
 
 	FILE * hist_file = fopen(".ash_history", "wb");
 	if (hist_file) {

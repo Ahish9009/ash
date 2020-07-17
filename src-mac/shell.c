@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
 	repl();
 
 	//exit commands
-	shutdown();
+	exit_shell();
 
 	return EXIT_SUCCESS;
 }

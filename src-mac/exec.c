@@ -24,7 +24,7 @@
 #include"ls.h"
 #include"pcwd.h"
 #include"cd.h"
-#include"pinfo.h"
+#include"ps.h"
 #include"cronjob.h"
 #include"help.h"
 #include"env.h"
@@ -40,7 +40,7 @@ const char BUILT_IN_COMMANDS[N_BUILTIN_COMMANDS][MAX_INPUT_SIZE] = {
 	"ls",
 	"pwd",
 	"cd",
-	"pinfo", 
+	"ps", 
 	"cronjob", 
 	"help", 
 	"set_env", 
@@ -59,7 +59,7 @@ functions BUILT_IN_FUNCTIONS[N_BUILTIN_COMMANDS] = {
 	&ls,
 	&pwd,
 	&cd,
-	&pinfo,
+	&ps,
 	&cronjob,
 	&help,
 	&set_env,

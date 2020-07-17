@@ -5,18 +5,18 @@
 #include"utils.h"
 #include"processes.h"
 
-bool validate_pinfo(Cmd_s *cmd) {
+bool validate_ps(Cmd_s *cmd) {
 
 	if (cmd->argc > 2) {
-		fprintf(stderr, "Usage: pinfo <pid>\n");
+		fprintf(stderr, "Usage: ps <pid>\n");
 		return 1;
 	}
 	return 0;
 }
 
-void pinfo(Cmd_s *cmd) {
+void ps(Cmd_s *cmd) {
 
-	if (validate_pinfo(cmd)) return;
+	if (validate_ps(cmd)) return;
 
 	int pid;
 	if (cmd->argc == 1) pid = shell_pid;
