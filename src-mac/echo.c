@@ -17,7 +17,7 @@ void echo(Cmd_s *cmd) {
 	bool nl = 1;
 	for (int i = 1; i < cmd->argc; i++) {
 		if (!strcmp(cmd->argv[i], "-n")) nl = 0;
-		else if (cmd->argv[i][0] == '-') continue;
+		if (!strcmp(cmd->argv[i], "-e")) continue;
 		else fprintf(stdout, "%s ", cmd->argv[i]);
 	}
 	if (nl) fprintf(stdout, "\n");
